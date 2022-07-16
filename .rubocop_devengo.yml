@@ -85,10 +85,10 @@ Style/NumericPredicate:
   Enabled: false
 
 Style/HashEachMethods:
-  Enabled: True
+  Enabled: true
 
 Style/HashTransformKeys:
-  Enabled: True
+  Enabled: true
 
 Style/HashTransformValues:
   Enabled: true
