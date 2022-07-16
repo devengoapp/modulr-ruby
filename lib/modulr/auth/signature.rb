@@ -18,7 +18,7 @@ module Modulr
         @authorization = [
           "Signature keyId=\"#{apikey}\"",
           'algorithm="hmac-sha1"',
-          'headers="date x-mod-nonce""',
+          'headers="date x-mod-nonce"',
           "signature=\"#{signature}\"",
         ].join(",")
       end
