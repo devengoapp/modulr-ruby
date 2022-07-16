@@ -17,7 +17,7 @@ module Modulr
         class_eval { attr_writer original_attribute.to_sym }
         mapped_attributes = [mapped_attributes].flatten
         mapped_attributes.each do |mapped_attribute|
-          define_method(mapped_attribute) { instance_variable_get("@#{original_attribute}")}
+          define_method(mapped_attribute) { instance_variable_get("@#{original_attribute}") }
         end
       end
     end

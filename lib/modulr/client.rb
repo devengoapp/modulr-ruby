@@ -62,7 +62,7 @@ module Modulr
       end
     end
 
-    def request_options(_method, path, data, _options)
+    def request_options(_method, _path, data, _options)
       default_options.tap do |defaults|
         add_auth_options!(defaults)
         defaults[:body] = JSON.dump(data) if data
