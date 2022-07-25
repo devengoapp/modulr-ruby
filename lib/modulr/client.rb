@@ -4,6 +4,9 @@ require "faraday"
 require "faraday_middleware"
 require "json"
 
+require_relative "api/services"
+require_relative "resources/base"
+
 module Modulr
   class Client
     include Modulr::API::Services
