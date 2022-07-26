@@ -1,19 +1,19 @@
 # frozen_string_literal: true
 
-RSpec.describe Modulr::API::TransfersService, :unit, type: :client do
-  subject(:transfers) { described_class.new(client) }
+RSpec.describe Modulr::API::PaymentsService, :unit, type: :client do
+  subject(:payments) { described_class.new(client) }
 
   let(:client) { instance_double(Modulr::Client) }
   let(:response) { Struct.new(:body, keyword_init: true) }
   let(:modulr_response) { response.new(body: { data: fixture_response }) }
   let(:options) { {} }
   let(:fixture_response) do
-    YAML.safe_load(File.open("spec/fixtures/transfers/201_transfer_create.json"))
+    YAML.safe_load(File.open("spec/fixtures/payments/201_payment_create.json"))
   end
-  let!(:transfer) do
+  let!(:payment) do
     allow(client).to receive(:post).and_return(modulr_response).once
 
-    transfers.create(
+    payments.create(
       account_id: "account_id",
       currency: "currency",
       amount: "amount",
@@ -27,8 +27,8 @@ RSpec.describe Modulr::API::TransfersService, :unit, type: :client do
     )
   end
 
-  it "creates the transfer" do
-    expect(transfer).to be_a Modulr::Resources::Transfers::Transfer
+  it "creates the payment" do
+    expect(payment).to be_a Modulr::Resources::Payments::Payment
   end
 
   it "calls to the endpoint" do

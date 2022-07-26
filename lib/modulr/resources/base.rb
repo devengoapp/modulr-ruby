@@ -26,4 +26,4 @@ end
 
 require_relative "collection"
 require_relative "accounts/account"
-require_relative "transfers/transfer"
+require_relative "payments/payment"

@@ -2,7 +2,7 @@
 
 module Modulr
   module API
-    class TransfersService < Service
+    class PaymentsService < Service
       def create( # rubocop:disable Metrics/ParameterLists
         account_id:,
         currency:,
@@ -25,7 +25,7 @@ module Modulr
         data[:externalReference] = options[:external_reference] if options[:external_reference]
 
         response = client.post("/payments", data, options)
-        Resources::Transfers::Transfer.new(response, response.body[:data])
+        Resources::Payments::Payment.new(response, response.body[:data])
       end
     end
   end

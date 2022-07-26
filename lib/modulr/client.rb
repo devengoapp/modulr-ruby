@@ -11,7 +11,8 @@ module Modulr
   class Client
     include Modulr::API::Services
 
-    BASE_URL = "https://api-sandbox.modulrfinance.com/api-sandbox"
+    SANDBOX_URL = "https://api-sandbox.modulrfinance.com/api-sandbox"
+    BASE_URL = SANDBOX_URL
 
     attr_reader :base_url, :origin, :proxy, :username, :logger_enabled
 
@@ -73,6 +74,16 @@ module Modulr
     end
 
     def add_auth_options!(options)
+      return sandbox_auth_options(options) if @base_url.eql?(SANDBOX_URL)
+
+      auth_options(options)
+    end
+
+    def sandbox_auth_options(options)
+      options[:headers][:authorization] = @apikey
+    end
+
+    def auth_options(options)
       signature = Auth::Signature.calculate(apikey: @apikey, apisecret: @apisecret)
       options[:headers][:authorization] = signature.authorization
       options[:headers][:date] = signature.timestamp

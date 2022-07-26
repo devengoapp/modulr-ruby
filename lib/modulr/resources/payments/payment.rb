@@ -2,8 +2,8 @@
 
 module Modulr
   module Resources
-    module Transfers
-      class Transfer < Base
+    module Payments
+      class Payment < Base
         map :id, [:id, :payment_reference_id]
         map :status, :status
         map :externalReference, :external_reference
