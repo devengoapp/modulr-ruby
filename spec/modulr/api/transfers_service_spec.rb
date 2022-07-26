@@ -17,9 +17,11 @@ RSpec.describe Modulr::API::TransfersService, :unit, type: :client do
       account_id: "account_id",
       currency: "currency",
       amount: "amount",
-      destination_type: "destination_type",
-      destination_iban: "destination_iban",
-      destination_name: "destination_name",
+      destination: {
+        type: "destination_type",
+        iban: "destination_iban",
+        name: "destination_name",
+      },
       reference: "reference",
       options: options
     )

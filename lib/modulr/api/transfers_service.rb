@@ -7,9 +7,7 @@ module Modulr
         account_id:,
         currency:,
         amount:,
-        destination_type:,
-        destination_iban:,
-        destination_name:,
+        destination:,
         reference:,
         options: {}
       )
@@ -19,9 +17,9 @@ module Modulr
           amount: amount,
           reference: reference,
           destination: {
-            type: destination_type,
-            iban: destination_iban,
-            name: destination_name,
+            type: destination[:type],
+            iban: destination[:iban],
+            name: destination[:name],
           },
         }
         data[:externalReference] = options[:external_reference] if options[:external_reference]
