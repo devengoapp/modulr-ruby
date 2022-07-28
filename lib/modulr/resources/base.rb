@@ -23,3 +23,7 @@ module Modulr
     end
   end
 end
+
+require_relative "collection"
+require_relative "accounts/account"
+require_relative "payments/payment"
