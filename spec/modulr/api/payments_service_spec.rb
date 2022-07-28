@@ -5,7 +5,7 @@ RSpec.describe Modulr::API::PaymentsService, :unit, type: :client do
 
   let(:client) { instance_double(Modulr::Client) }
   let(:response) { Struct.new(:body, keyword_init: true) }
-  let(:modulr_response) { response.new(body: { data: fixture_response }) }
+  let(:modulr_response) { response.new(body: fixture_response) }
   let(:options) { {} }
   let(:fixture_response) do
     YAML.safe_load(File.open("spec/fixtures/payments/201_payment_create.json"))

@@ -25,7 +25,7 @@ module Modulr
         data[:externalReference] = options[:external_reference] if options[:external_reference]
 
         response = client.post("/payments", data, options)
-        Resources::Payments::Payment.new(response, response.body[:data])
+        Resources::Payments::Payment.new(response, response.body)
       end
     end
   end
