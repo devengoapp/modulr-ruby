@@ -11,7 +11,7 @@ module Modulr
   class Client
     include Modulr::API::Services
 
-    SANDBOX_URL = "https://api-sandbox.modulrfinance.com/api-sandbox"
+    SANDBOX_URL = "https://api-sandbox.modulrfinance.com/api-sandbox-token"
     BASE_URL = SANDBOX_URL
 
     attr_reader :base_url, :origin, :proxy, :username, :logger_enabled
