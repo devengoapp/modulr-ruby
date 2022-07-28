@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    modulr-api (0.0.3)
+    modulr (0.0.4)
       faraday (~> 1.0)
       faraday_middleware (~> 1.0)
 
@@ -86,7 +86,7 @@ PLATFORMS
   x86_64-linux
 
 DEPENDENCIES
-  modulr-api!
+  modulr!
   rake (~> 12.0)
   rspec (~> 3.0)
   rubocop (~> 1.0)
