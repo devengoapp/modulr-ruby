@@ -3,7 +3,7 @@
 require_relative "lib/modulr/version"
 
 Gem::Specification.new do |spec|
-  spec.name = "modulr"
+  spec.name = "modulr-api"
   spec.version = Modulr::VERSION
   spec.authors = ["Aitor García Rey"]
   spec.email = ["aitor@devengo.com"]
