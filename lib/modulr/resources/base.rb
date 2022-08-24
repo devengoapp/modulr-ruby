@@ -27,3 +27,5 @@ end
 require_relative "collection"
 require_relative "accounts/account"
 require_relative "payments/payment"
+require_relative "transactions/transactions"
+require_relative "transactions/transaction"

@@ -3,6 +3,7 @@
 require_relative "service"
 require_relative "accounts_service"
 require_relative "payments_service"
+require_relative "transactions_service"
 
 module Modulr
   module API
@@ -13,6 +14,10 @@ module Modulr
 
       def payments
         @services[:payments] ||= API::PaymentsService.new(self)
+      end
+
+      def transactions
+        @services[:transactions] ||= API::TransactionsService.new(self)
       end
     end
   end
