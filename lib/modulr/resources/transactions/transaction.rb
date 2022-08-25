@@ -19,7 +19,8 @@ module Modulr
         map :available_balance, :available_balance
 
         def initialize(response, attrs)
-          super
+          super(response)
+
           @balance = attrs[:account][:balance]
           @available_balance = attrs[:account][:availableBalance]
         end
