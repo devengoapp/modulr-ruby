@@ -14,14 +14,21 @@ RSpec.describe Modulr::API::AccountsService, :unit, type: :client do
       )
     end
 
-    let!(:created_account) { accounts.create(customer_id: customer_id, options: options) }
+    let!(:created_account) do
+      accounts.create(
+        customer_id: customer_id,
+        currency: "EUR",
+        product_code: "productCode",
+        options: options
+      )
+    end
 
     it_behaves_like "builds correct request", {
       method: :post,
       path: %r{/customers/C0000001/accounts},
       body: {
         currency: "EUR",
-        productCode: "O1200001",
+        productCode: "productCode",
         externalReference: "aReference_00001",
       },
     }
