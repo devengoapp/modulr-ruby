@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    modulr-api (0.0.5)
+    modulr-api (0.0.6)
       faraday (~> 1.0)
       faraday_middleware (~> 1.0)
 
@@ -15,7 +15,7 @@ GEM
     crack (0.4.5)
       rexml
     diff-lcs (1.5.0)
-    faraday (1.10.0)
+    faraday (1.10.2)
       faraday-em_http (~> 1.0)
       faraday-em_synchrony (~> 1.0)
       faraday-excon (~> 1.1)
@@ -144,4 +144,4 @@ DEPENDENCIES
   webmock (~> 2.1)
 
 BUNDLED WITH
-   2.3.3
+   2.3.15
