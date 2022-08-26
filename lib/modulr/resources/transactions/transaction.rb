@@ -4,6 +4,8 @@ module Modulr
   module Resources
     module Transactions
       class Transaction < Base
+        attr_reader :balance, :available_balance
+
         map :id, :id
         map :amount, :amount
         map :currency, :currency
@@ -15,14 +17,12 @@ module Modulr
         map :sourceId, :source_id
         map :sourceExternalReference, :external_reference
         map :additionalInfo, :additional_info
-        map :balance, :balance
-        map :available_balance, :available_balance
 
-        def initialize(response, attrs)
-          super(response)
+        def initialize(response, attributes = {})
+          super(response, attributes)
 
-          @balance = attrs[:account][:balance]
-          @available_balance = attrs[:account][:availableBalance]
+          @balance = attributes[:account][:balance]
+          @available_balance = attributes[:account][:availableBalance]
         end
       end
     end

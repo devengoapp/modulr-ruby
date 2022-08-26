@@ -1,0 +1,38 @@
+HTTP/2.0 201 OK
+Date: Wed, 25 Aug 2022 13:12:39 GMT
+Content-Type: application/json
+Cache-Control: no-cache, no-store, must-revalidate
+Content-Security-Policy: default-src https: data: 'unsafe-inline' 'unsafe-eval'
+Expires: 0
+Pragma: no-cache
+Server: Apache
+Strict-Transport-Security: max-age=31536000
+Vary: Origin
+X-Content-type-options: nosniff
+X-Frame-Options: SAMEORIGIN
+X-Ratelimit-Limit: 200000
+X-Ratelimit-Remaining: 199993
+X-Ratelimit-Reset: 1661868222
+X-Xss-Protection: 1; mode=block
+
+{
+  "id": "A0000001",
+  "name": "string",
+  "balance": "0.00",
+  "currency": "EUR",
+  "status": "ACTIVE",
+  "identifiers": [
+    {
+      "type": "IBAN",
+      "iban": "GB20MODR04001401100000",
+      "bic": "MODRGB21",
+      "providerExtraInfo": {}
+    }
+  ],
+  "customerId": "C0000001",
+  "customerName": "string",
+  "externalReference": "aReference_00001",
+  "accessGroups": [],
+  "createdDate": "2022-08-25T13:12:39.597Z",
+  "directDebit": true
+}
