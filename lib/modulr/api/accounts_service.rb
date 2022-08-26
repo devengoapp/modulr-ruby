@@ -13,6 +13,10 @@ module Modulr
         Resources::Accounts::Account.new(response, response.body)
       end
 
+      def close(account_id:)
+        client.post("/accounts/#{account_id}/close")
+      end
+
       def info(account_id:)
         response = client.get("/accounts/#{account_id}")
         Resources::Accounts::Account.new(response, response.body)
