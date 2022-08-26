@@ -2,6 +2,7 @@
 POST {{base_url}}/customers/{{customer_id}}/accounts
 Content-Type: application/json
 Authorization: {{api_key}}
+
 {
   "externalReference": "my_reference -1-",
   "currency": "EUR",
@@ -12,6 +13,7 @@ Authorization: {{api_key}}
 POST {{base_url}}/customers/{{customer_id}}/accounts
 Content-Type: application/json
 Authorization: {{api_key}}
+
 {
   "externalReference": "my_reference -1-",
   "currency": "EUR",

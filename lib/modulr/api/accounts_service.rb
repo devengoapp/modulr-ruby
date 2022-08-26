@@ -15,6 +15,8 @@ module Modulr
 
       def close(account_id:)
         client.post("/accounts/#{account_id}/close")
+
+        nil
       end
 
       def info(account_id:)
