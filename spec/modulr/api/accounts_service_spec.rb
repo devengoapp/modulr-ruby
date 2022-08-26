@@ -51,7 +51,7 @@ RSpec.describe Modulr::API::AccountsService, :unit, type: :client do
 
     it_behaves_like "builds correct request", {
       method: :post,
-      path: "https://api-sandbox.modulrfinance.com/api-sandbox-token/accounts/A121AHGZ/close",
+      path: %r{/accounts/A121AHGZ/close},
     }
 
     it "returns nil" do
