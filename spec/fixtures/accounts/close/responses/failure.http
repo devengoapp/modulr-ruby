@@ -1,16 +1,26 @@
-HTTP/1.1 200 OK
-Connection: keep-alive
+HTTP/1.1 400  - Bad Request
 Cache-Control: no-cache, no-store, must-revalidate
+Connection: close
 Content-Security-Policy: default-src https: data: 'unsafe-inline' 'unsafe-eval'
-Date: Fri, 26 Aug 2022 11:51:44 GMT
+Content-Type: application/json
+Date: Wed, 25 Aug 2022 13:12:39 GMT
 Expires: 0
 Pragma: no-cache
 Server: Apache
 Strict-Transport-Security: max-age=31536000
+Transfer-Encoding: chunked
 Vary: Origin
 X-Content-Type-Options: nosniff
 X-Frame-Options: SAMEORIGIN
 X-Ratelimit-Limit: 200000
-X-Ratelimit-Remaining: 199974
+X-Ratelimit-Remaining: 199971
 X-Ratelimit-Reset: 1661868222
 X-Xss-Protection: 1; mode=block
+
+[
+  {
+    "field":"closeAccount.id",
+    "code":"BId",
+    "message":"Id is invalid. Must be of the form ^[A-Za-z]{1}[0-9]{2}([A-Za-z0-9]){5}|[A-Za-z]{1}[0-9]{2}([A-Za-z0-9]){7}$"
+  }
+]
