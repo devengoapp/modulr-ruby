@@ -8,6 +8,10 @@ module Modulr
       def initialize(client)
         @client = client
       end
+
+      def format_datetime(datetime)
+        datetime.strftime("%Y-%m-%dT%l:%M:%S%z")
+      end
     end
   end
 end
