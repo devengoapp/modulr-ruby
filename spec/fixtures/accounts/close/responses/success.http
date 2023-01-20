@@ -1,0 +1,16 @@
+HTTP/1.1 200 OK
+Date: Fri, 26 Aug 2022 11:51:44 GMT
+Connection: keep-alive
+Cache-Control: no-cache, no-store, must-revalidate
+Content-Security-Policy: default-src https: data: 'unsafe-inline' 'unsafe-eval'
+Expires: 0
+Pragma: no-cache
+Server: Apache
+Strict-Transport-Security: max-age=31536000
+Vary: Origin
+X-Content-Type-Options: nosniff
+X-Frame-Options: SAMEORIGIN
+X-Ratelimit-Limit: 200000
+X-Ratelimit-Remaining: 199974
+X-Ratelimit-Reset: 1661868222
+X-Xss-Protection: 1; mode=block

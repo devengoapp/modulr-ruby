@@ -1,0 +1,4 @@
+### Accounts close
+POST {{base_url}}/accounts/{{account_id}}/close
+Content-Type: application/json
+Authorization: {{api_key}}

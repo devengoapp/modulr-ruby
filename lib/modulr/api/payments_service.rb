@@ -4,7 +4,8 @@ module Modulr
   module API
     class PaymentsService < Service
       def find(id:)
-        _response = client.get("/payments", { id: id} )
+        response = client.get("/payments", { id: id })
+        Resources::Payments::Payment.new(response, response.body)
       end
 
       def list(**opts)
@@ -21,7 +22,6 @@ module Modulr
         _response = client.get("/payments", params)
       end
 
-
       def create(account_id:, destination:, reference:, currency:, amount:, **opts)
         payload = {
           sourceAccountId: account_id,
@@ -31,7 +31,8 @@ module Modulr
           amount: amount,
         }
 
-        _response = client.post("/payments", payload)
+        response = client.post("/payments", payload)
+        Resources::Payments::Payment.new(response, response.body)
       end
     end
   end

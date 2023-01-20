@@ -2,10 +2,12 @@
 /.yardoc
 /_yardoc/
 /coverage/
-/doc/
 /pkg/
 /spec/reports/
 /tmp/
 
 # rspec failure tracking
 .rspec_status
+
+# Ignore private http client environment variables
+/doc/modulr_requests/http-client.private.env.json

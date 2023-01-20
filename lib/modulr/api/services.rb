@@ -1,5 +1,10 @@
 # frozen_string_literal: true
 
+require_relative "service"
+require_relative "accounts_service"
+require_relative "payments_service"
+require_relative "transactions_service"
+
 module Modulr
   module API
     module Services
@@ -17,6 +22,10 @@ module Modulr
 
       def notifications
         @services[:notifications] ||= API::NotificationsService.new(self)
+      end
+
+      def transactions
+        @services[:transactions] ||= API::TransactionsService.new(self)
       end
     end
   end

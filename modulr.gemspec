@@ -33,6 +33,8 @@ Gem::Specification.new do |spec|
 
   spec.add_dependency "faraday", "~> 1.0"
   spec.add_dependency "faraday_middleware", "~> 1.0"
+  spec.add_development_dependency "guard", "~> 2.0"
+  spec.add_development_dependency "guard-rspec", "~> 4.0"
   spec.add_development_dependency "rake", "~> 12.0"
   spec.add_development_dependency "rspec", "~> 3.0"
   spec.add_development_dependency "rubocop", "~> 1.0"
@@ -40,4 +42,5 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "rubocop-rake", "~> 0.1"
   spec.add_development_dependency "rubocop-rspec", "~> 2.0"
   spec.add_development_dependency "test-prof", "~> 1.0"
+  spec.add_development_dependency "webmock", "~> 2.1"
 end
