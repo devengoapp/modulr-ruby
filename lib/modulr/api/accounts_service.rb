@@ -3,9 +3,19 @@
 module Modulr
   module API
     class AccountsService < Service
-      def info(account_id:)
-        response = client.get("/accounts/#{account_id}")
-        puts response.body
+      def find(id:)
+        response = client.get("/accounts/#{id}")
+        Resources::Accounts::Account.new(response, response.body)
+      end
+
+      def create(customer_id:, currency:, product_code:, **opts)
+        payload = {
+          currency: currency,
+          productCode: product_code,
+        }
+        payload[:externalReference] = opts[:external_reference] if opts[:external_reference]
+
+        response = client.post("/customers/#{customer_id}/accounts", payload)
         Resources::Accounts::Account.new(response, response.body)
       end
     end
