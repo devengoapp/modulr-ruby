@@ -56,7 +56,9 @@ module Modulr
       uri = "#{base_url}#{path}"
 
       begin
-        connection.run_request(method, uri, request_options[:body], request_options[:headers])
+        connection.run_request(method, uri, request_options[:body], request_options[:headers]) do |request|
+          request.params.update(options) if options
+        end
       rescue StandardError => e
         handle_request_error(e)
       end
