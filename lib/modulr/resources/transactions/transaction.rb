@@ -6,14 +6,14 @@ module Modulr
       class Transaction < Base
         attr_reader :balance, :available_balance
 
-        map :id, :id
-        map :amount, :amount
-        map :currency, :currency
-        map :description, :description
+        map :id
+        map :amount
+        map :currency
+        map :description
+        map :credit
+        map :type
         map :transactionDate, :created_at
-        map :postedDate, :date
-        map :credit, :credit
-        map :type, :type
+        map :postedDate, :posted_date
         map :sourceId, :source_id
         map :sourceExternalReference, :external_reference
         map :additionalInfo, :additional_info

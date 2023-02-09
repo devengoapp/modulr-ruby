@@ -4,12 +4,12 @@ module Modulr
   module Resources
     module Accounts
       class Identifier < Base
-        map :type, :type
+        map :type
+        map :iban
+        map :bic
+        map :currency
         map :accountNumber, :account_number
         map :sortCode, :sort_code
-        map :iban, :iban
-        map :bic, :bic
-        map :currency, :currency
         map :countrySpecificDetails, :country_details
         map :providerExtraInfo, :provider_extra_info
       end

@@ -12,11 +12,11 @@ module Modulr
           closed: "CLOSED",
           client_blocked: "CLIENT_BLOCKED",
         }.freeze
-        map :id, :id
-        map :balance, :balance
+        map :id
+        map :balance
+        map :currency
+        map :status
         map :availableBalance, :available_balance
-        map :currency, :currency
-        map :status, :status
         map :customerId, :customer_id
         map :customerName, :customer_name
         map :externalReference, :external_reference

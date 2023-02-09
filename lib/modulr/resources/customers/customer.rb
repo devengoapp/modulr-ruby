@@ -4,10 +4,10 @@ module Modulr
   module Resources
     module Customers
       class Customer < Base
-        map :id, :id
-        map :name, :name
-        map :type, :type
-        map :status, :status
+        map :id
+        map :name
+        map :type
+        map :status
         map :verificationStatus, :verification_status
         map :companyRegNumber, :taxid
         map :expectedMonthlySpend, :expected_monthly_spend
@@ -15,7 +15,7 @@ module Modulr
         map :industryCode, :industry_code
         map :tcsVersion, :tcs_version
         map :externalReference, :external_reference
-        map :createdDate, :created_date
+        map :createdDate, :created_at
         map :holdPaymentsForFunds, :hold_payments_for_funds
         map :cardConstraintsBid, :card_constraints_bid
         map :needAddressVerification, :need_address_verification

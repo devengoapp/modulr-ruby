@@ -5,8 +5,10 @@ module Modulr
     module Payments
       class Payment < Base
         map :id, [:id, :payment_reference_id]
-        map :status, :status
-        map :externalReference, :external_reference
+        map :status
+        map :reference
+        map :createdDate, :created_at
+        map :approvalStatus, :approval_status
       end
     end
   end
