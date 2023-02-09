@@ -5,7 +5,10 @@ module Modulr
     class PaymentsService < Service
       def find(id:)
         response = client.get("/payments", { id: id })
-        Resources::Payments::Payment.new(response, response.body)
+        payment_attributes = response.body[:content]&.first
+        raise NotFoundError, "Payment #{id} not found" unless payment_attributes
+
+        Resources::Payments::Payment.new(response, payment_attributes)
       end
 
       def list(**opts)
