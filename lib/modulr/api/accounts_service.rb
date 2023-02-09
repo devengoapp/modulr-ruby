@@ -18,6 +18,12 @@ module Modulr
         response = client.post("/customers/#{customer_id}/accounts", payload)
         Resources::Accounts::Account.new(response, response.body)
       end
+
+      def close(account_id:)
+        client.post("/accounts/#{account_id}/close")
+
+        nil
+      end
     end
   end
 end
