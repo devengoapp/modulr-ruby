@@ -3,8 +3,8 @@
 module Modulr
   module API
     class TransactionsService < Service
-      def history(account_id:)
-        response = client.get("/accounts/#{account_id}/transactions")
+      def list(account_id:, **opts)
+        response = client.get("/accounts/#{account_id}/transactions", opts)
         Resources::Transactions::Transactions.new(response, response.body[:content])
       end
     end
