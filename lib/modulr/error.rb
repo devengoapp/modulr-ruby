@@ -20,14 +20,19 @@ module Modulr
     end
 
     private def message_from(response)
+      return response if response.is_a?(String)
+
       if errors
         errors.map { |error| "#{error[:field]} #{error[:code]} #{error[:message]}" }.join(", ")
       else
+
         "#{response[:status]} #{response[:body]}"
       end
     end
 
     private def json?
+      return unless response.is_a?(Hash)
+
       content_type = response[:headers]["content-type"]
       content_type&.start_with?("application/json")
     end
