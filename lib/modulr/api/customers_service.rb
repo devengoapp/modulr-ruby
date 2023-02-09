@@ -5,7 +5,7 @@ module Modulr
     class CustomersService < Service
       def find(id:)
         response = client.get("/customers/#{id}")
-        Resources::Customers::Customer.new(response)
+        Resources::Customers::Customer.new(response, response.body)
       end
     end
   end
