@@ -5,14 +5,14 @@ RSpec.describe Modulr::API::TransactionsService, :unit, type: :client do
 
   let(:client) { initialize_client }
 
-  describe "transactions history" do
+  describe "transactions list" do
     before do
       stub_request(:get, %r{/accounts/A0000001/transactions}).to_return(
-        read_http_response_fixture("transactions/history", "success")
+        read_http_response_fixture("transactions/list", "success")
       )
     end
 
-    let!(:history) { transactions.history(account_id: "A0000001") }
+    let!(:list) { transactions.list(account_id: "A0000001") }
 
     it "builds correct request" do
       expect(WebMock).to have_requested(:get, %r{/accounts/A0000001/transactions}).with(
@@ -23,8 +23,28 @@ RSpec.describe Modulr::API::TransactionsService, :unit, type: :client do
       )
     end
 
-    it "returns transactions history" do
-      expect(history).to be_a Modulr::Resources::Transactions::Transactions
+    it "returns transactions list" do
+      expect(list).to be_a Modulr::Resources::Transactions::Transactions
+    end
+
+    context "with query parameters" do
+      before do
+        stub_request(:get, %r{/accounts/A0000001/transactions?credit=true}).to_return(
+          read_http_response_fixture("transactions/list", "success")
+        )
+      end
+
+      let!(:list) { transactions.list(account_id: "A0000001", credit: true) }
+
+      it_behaves_like "builds correct request", {
+        method: :get,
+        path: %r{/accounts/A0000001/transactions},
+        query: { "credit": "true" }
+      }
+
+      it "returns transactions list" do
+        expect(list).to be_a Modulr::Resources::Transactions::Transactions
+      end
     end
   end
 end
