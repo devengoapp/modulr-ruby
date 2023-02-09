@@ -57,7 +57,9 @@ module Modulr
 
     def request(method, path, data = nil, options = {})
       request_options = request_options(method, path, data, options)
+      query_params = URI.encode_www_form(options)
       uri = "#{base_url}#{path}"
+      uri = "#{uri}?#{query_params}" unless query_params.empty?
 
       begin
         connection.run_request(method, uri, request_options[:body], request_options[:headers])
