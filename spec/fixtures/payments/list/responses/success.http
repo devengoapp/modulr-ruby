@@ -1,0 +1,19 @@
+HTTP/1.1 200 OK
+content-type: application/json
+transfer-encoding: chunked
+connection: keep-alive
+cache-control: no-cache, no-store, must-revalidate
+content-security-policy: default-src https: data: 'unsafe-inline' 'unsafe-eval'
+expires: 0
+pragma: no-cache
+server: Apache
+strict-transport-security: max-age=31536000
+vary: Origin
+x-content-type-options: nosniff
+x-frame-options: SAMEORIGIN
+x-ratelimit-limit: 4000000
+x-ratelimit-remaining: 3999893
+x-ratelimit-reset: 1674464655
+x-xss-protection: 1; mode=block
+
+{"content":[{"id":"P210G1CMA0","status":"PROCESSED","createdDate":"2023-02-08T16:53:52.052+0000","details":{"sourceAccountId":"A21BZ2GE","destinationType":"IBAN","destination":{"type":"IBAN","iban":"ES7267130002530013453635","name":"Devengo  S.L."},"currency":"EUR","amount":0.08,"reference":"Test incoming"},"reference":"P210G1CMA0","approvalStatus":"NOTNEEDED","message":"","schemeInfo":{"name":"SEPA_INSTANT"}},{"id":"P210G0K5GG","status":"PROCESSED","createdDate":"2023-02-07T18:35:45.045+0000","details":{"sourceAccountId":"A21BZ2GE","destinationType":"IBAN","destination":{"type":"IBAN","iban":"ES6015632626303264517956","name":"Aitor García Rey"},"currency":"EUR","amount":0.01,"reference":"The ref"},"reference":"P210G0K5GG","approvalStatus":"NOTNEEDED","message":"","schemeInfo":{"name":"SEPA_INSTANT"}},{"id":"P210G0JXT4","status":"PROCESSED","createdDate":"2023-02-07T18:27:46.046+0000","details":{"sourceAccountId":"A21BZ2GE","destinationId":"A21C64X6","destinationType":"ACCOUNT","destination":{"type":"ACCOUNT","id":"A21C64X6"},"currency":"EUR","amount":0.01,"reference":"Internal transfer"},"reference":"P210G0JXT4","approvalStatus":"NOTNEEDED","message":"","schemeInfo":{}},{"id":"P210G0JQ1F","status":"PROCESSED","createdDate":"2023-02-07T18:19:32.032+0000","details":{"sourceAccountId":"A21BZ2GX","destinationType":"SCAN","destination":{"type":"SCAN","accountNumber":"79433111","sortCode":"231470","name":"Aitor Garcia Rey"},"currency":"GBP","amount":0.01,"reference":"The ref Wise AGR"},"reference":"P210G0JQ1F","approvalStatus":"NOTNEEDED","message":"","schemeInfo":{"id":"MODULO00P210G0JQ1F1020230207826040392","responseCode":"0000"}}],"size":4,"totalSize":4,"page":0,"totalPages":1}
