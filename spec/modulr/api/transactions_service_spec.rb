@@ -1,9 +1,7 @@
 # frozen_string_literal: true
 
 RSpec.describe Modulr::API::TransactionsService, :unit, type: :client do
-  subject(:transactions) { described_class.new(client) }
-
-  let(:client) { initialize_client }
+  subject(:transactions) { described_class.new(initialize_client) }
 
   describe "transactions list" do
     before do
