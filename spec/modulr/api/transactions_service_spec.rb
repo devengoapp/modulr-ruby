@@ -39,7 +39,7 @@ RSpec.describe Modulr::API::TransactionsService, :unit, type: :client do
       it_behaves_like "builds correct request", {
         method: :get,
         path: %r{/accounts/A0000001/transactions},
-        query: { "credit": "true" }
+        query: { credit: "true" },
       }
 
       it "returns transactions list" do
