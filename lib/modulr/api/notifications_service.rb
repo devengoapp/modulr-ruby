@@ -4,11 +4,13 @@ module Modulr
   module API
     class NotificationsService < Service
       def find(id:, **opts)
-        _response = client.get("#{base_notification_url(opts)}/notifications/#{id}")
+        response = client.get("#{base_notification_url(opts)}/notifications/#{id}")
+        Resources::Notifications::Notification.new(response, response.body)
       end
 
       def list(**opts)
-        _response = client.get("#{base_notification_url(opts)}/notifications")
+        response = client.get("#{base_notification_url(opts)}/notifications")
+        Resources::Notifications::Collection.new(response, response.body)
       end
 
       def create(type:, channel:, destinations:, config:, **opts)
@@ -18,7 +20,8 @@ module Modulr
           destinations: destinations,
           config: config,
         }
-        _response = client.post("#{base_notification_url(opts)}/notifications", payload)
+        response = client.post("#{base_notification_url(opts)}/notifications", payload)
+        Resources::Notifications::Notification.new(response, response.body)
       end
 
       protected def base_notification_url(opts)

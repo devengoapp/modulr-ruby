@@ -1,19 +1,19 @@
 HTTP/1.1 200 OK
-content-type: "application/json"
-transfer-encoding: "chunked"
-connection: "keep-alive"
-cache-control: "no-cache, no-store, must-revalidate"
-content-security-policy: "default-src https: data: 'unsafe-inline' 'unsafe-eval'"
-expires: "0"
-pragma: "no-cache"
-server: "Apache"
-strict-transport-security: "max-age=31536000"
-vary: "Origin"
-x-content-type-options: "nosniff"
-x-frame-options: "SAMEORIGIN"
-x-ratelimit-limit: "4000000"
-x-ratelimit-remaining: "3999924"
-x-ratelimit-reset: "1674464655"
-x-xss-protection: "1; mode=block"
+content-type: application/json
+transfer-encoding: chunked
+connection: keep-alive
+cache-control: no-cache, no-store, must-revalidate
+content-security-policy: default-src https: data: 'unsafe-inline' 'unsafe-eval'
+expires: 0
+pragma: no-cache
+server: Apache
+strict-transport-security: max-age=31536000
+vary: Origin
+x-content-type-options: nosniff
+x-frame-options: SAMEORIGIN
+x-ratelimit-limit: 4000000
+x-ratelimit-remaining: 3999924
+x-ratelimit-reset: 1674464655
+x-xss-protection: 1; mode=block
 
 [{"id":"W21082VJGX","type":"PAYOUT","channel":"WEBHOOK","status":"ACTIVE","destinations":["https://eowmy3fgz2o3b8v.m.pipedream.net"],"config":{"retry":true,"secret":"00000000000000000000000000000000","hmacAlgorithm":"hmac-sha512"}}]
