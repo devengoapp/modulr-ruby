@@ -11,8 +11,8 @@ jobs:
     steps:
       - name: Checkout Code
         uses: actions/checkout@v3
-      - name: Fix git safe.directory in container
-        run: mkdir -p /home/runner/work/_temp/_github_home && printf "[safe]\n\tdirectory = /github/workspace" > /home/runner/work/_temp/_github_home/.gitconfig
+      - name: Fix git safe.directory in container cf. https://github.com/actions/runner/issues/2033 # yamllint disable-line
+        run: mkdir -p /home/runner/work/_temp/_github_home && printf "[safe]\n\tdirectory = /github/workspace" > /home/runner/work/_temp/_github_home/.gitconfig # yamllint disable-line
       - name: Release Gem
         uses: cadwallion/publish-rubygems-action@master
         env:

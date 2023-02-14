@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    modulr-api (0.0.11)
+    modulr-api (0.0.12)
       faraday (~> 1.0)
       faraday_middleware (~> 1.0)
 
