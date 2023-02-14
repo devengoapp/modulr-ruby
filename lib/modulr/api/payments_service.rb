@@ -15,7 +15,7 @@ module Modulr
         return find(id: opts[:id]) if opts[:id]
 
         response = client.get("/payments", build_query_params(opts))
-        Resources::Payments::Payments.new(response, response.body[:content])
+        Resources::Payments::Collection.new(response, response.body[:content])
       end
 
       # rubocop:disable Metrics/ParameterLists

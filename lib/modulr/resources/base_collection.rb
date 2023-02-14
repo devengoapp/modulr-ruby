@@ -2,7 +2,7 @@
 
 module Modulr
   module Resources
-    class Collection
+    class BaseCollection
       include Enumerable
       attr_reader :response
 

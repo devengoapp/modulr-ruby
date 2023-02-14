@@ -3,7 +3,7 @@
 module Modulr
   module Resources
     module Accounts
-      class Identifiers < Collection
+      class Identifiers < BaseCollection
         def initialize(response, attributes_collection)
           super(response, Identifier, attributes_collection)
         end

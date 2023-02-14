@@ -25,12 +25,12 @@ module Modulr
   end
 end
 
-require_relative "collection"
+require_relative "base_collection"
 require_relative "accounts/account"
 require_relative "accounts/identifier"
 require_relative "accounts/identifiers"
 require_relative "customers/customer"
 require_relative "payments/payment"
-require_relative "payments/payments"
+require_relative "payments/collection"
 require_relative "transactions/transaction"
-require_relative "transactions/transactions"
+require_relative "transactions/collection"

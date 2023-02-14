@@ -3,7 +3,7 @@
 module Modulr
   module Resources
     module Payments
-      class Payments < Collection
+      class Collection < BaseCollection
         def initialize(response, attributes_collection)
           super(response, Payment, attributes_collection)
         end
