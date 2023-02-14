@@ -95,7 +95,7 @@ RSpec.describe Modulr::API::PaymentsService, :unit, type: :client do
       end
 
       it "returns a collection of payments" do
-        expect(payment_list).to be_a Modulr::Resources::Payments::Payments
+        expect(payment_list).to be_a Modulr::Resources::Payments::Collection
         expect(payment_list.count).to be(4)
       end
     end
