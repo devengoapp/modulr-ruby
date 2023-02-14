@@ -78,6 +78,15 @@ RSpec.describe Modulr::API::PaymentsService, :unit, type: :client do
         expect(found_payment.created_at).to eql("2023-01-20T09:30:33.033+0000")
         expect(found_payment.reference).to eql("P210FFT5AW")
         expect(found_payment.approval_status).to eql("NOTNEEDED")
+        expect(found_payment.details).to be_a Modulr::Resources::Payments::Details
+        expect(found_payment.details.source_account_id).to eql("A21BZ2GE")
+        expect(found_payment.details.currency).to eql("EUR")
+        expect(found_payment.details.amount).to be 0.04
+        expect(found_payment.details.reference).to eql("The original ref")
+        expect(found_payment.details.destination).to be_a Modulr::Resources::Payments::Destination
+        expect(found_payment.details.destination.type).to eql("IBAN")
+        expect(found_payment.details.destination.iban).to eql("IE20MODR99035502290413")
+        expect(found_payment.details.destination.name).to eql("Aitor García Rey")
       end
     end
   end
