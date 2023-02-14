@@ -25,7 +25,6 @@ module Modulr
       if errors
         errors.map { |error| "#{error[:field]} #{error[:code]} #{error[:message]}" }.join(", ")
       else
-
         "#{response[:status]} #{response[:body]}"
       end
     end
