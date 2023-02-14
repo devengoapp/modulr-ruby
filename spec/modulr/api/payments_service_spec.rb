@@ -120,7 +120,6 @@ RSpec.describe Modulr::API::PaymentsService, :unit, type: :client do
         expect { payments.list(from: Date.today - 300) }.to(raise_error do |exception|
           expect(exception).to be_a(Modulr::RequestError)
           expect(exception.errors).not_to be_empty
-          expect(exception.errors).not_to be_empty
           expect(exception.errors.select { |error| error[:field] == "fromCreatedDate" }).not_to be_empty
         end)
       end
