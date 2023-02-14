@@ -60,7 +60,9 @@ module Modulr
       uri = "#{base_url}#{path}"
 
       begin
-        connection.run_request(method, uri, request_options[:body], request_options[:headers])
+        connection.run_request(method, uri, request_options[:body], request_options[:headers]) do |request|
+          request.params.update(options) if options
+        end
       rescue StandardError => e
         handle_request_error(e)
       end
@@ -91,26 +93,20 @@ module Modulr
     end
 
     def handle_request_error(error)
+      response = error.response
       case error
       when Faraday::ClientError
-        if error.response
-          handle_error_response(error)
+        case response[:status]
+        when 403
+          raise ForbiddenError, response
+        when 404
+          raise NotFoundError, response
         else
-          handle_network_error(error)
+          raise RequestError, response
         end
       else
-        raise error
+        raise Error, response
       end
-    end
-
-    def handle_error_response(error)
-      puts "Client Error: #{error.response}"
-      raise error
-    end
-
-    def handle_network_error(error)
-      puts "Network error: #{error.response}"
-      raise error
     end
 
     def default_origin

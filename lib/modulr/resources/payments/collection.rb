@@ -2,10 +2,10 @@
 
 module Modulr
   module Resources
-    module Accounts
-      class Identifiers < BaseCollection
+    module Payments
+      class Collection < BaseCollection
         def initialize(response, attributes_collection)
-          super(response, Identifier, attributes_collection)
+          super(response, Payment, attributes_collection)
         end
       end
     end
