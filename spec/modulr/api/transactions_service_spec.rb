@@ -25,9 +25,9 @@ RSpec.describe Modulr::API::TransactionsService, :unit, type: :client do
       expect(list).to be_a Modulr::Resources::Transactions::Transactions
     end
 
-    context "with query parameters" do
+    context "with valid query parameters" do
       before do
-        stub_request(:get, %r{/accounts/A0000001/transactions?credit=true}).to_return(
+        stub_request(:get, %r{/accounts/A0000001/transactions}).to_return(
           read_http_response_fixture("transactions/list", "success")
         )
       end
@@ -42,6 +42,22 @@ RSpec.describe Modulr::API::TransactionsService, :unit, type: :client do
 
       it "returns transactions list" do
         expect(list).to be_a Modulr::Resources::Transactions::Transactions
+      end
+    end
+
+    context "with invalid query parameters" do
+      before do
+        stub_request(:get, %r{/accounts/A0000001/transactions}).to_return(
+          read_http_response_fixture("transactions/list", "min_amount")
+        )
+      end
+
+      it "raise the correct error" do
+        expect { transactions.list(account_id: "A0000001", to_min: -100) }.to(raise_error do |exception|
+          expect(exception).to be_a(Modulr::RequestError)
+          expect(exception.errors).not_to be_empty
+          expect(exception.errors.select { |error| error[:field] == "minAmount" }).not_to be_empty
+        end)
       end
     end
   end
