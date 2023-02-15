@@ -1,0 +1,4 @@
+### Transactions List
+GET {{base_url}}/accounts/{{account_id}}/transactions
+Content-Type: application/json
+Authorization: {{api_key}}
