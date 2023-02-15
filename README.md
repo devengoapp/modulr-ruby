@@ -2,8 +2,6 @@
 
 Ruby client for Modulr (cf. <https://modulr.readme.io/docs>)
 
-Run `bin/console` for an interactive prompt to experiment with the code.
-
 ## Installation
 
 Add this line to your application's Gemfile:
@@ -24,6 +22,69 @@ Or install it yourself as:
 gem install modulr-api
 ```
 
+## Usage
+
+Run `bin/console` for an interactive prompt to experiment with the code.
+
+### Customers
+
+```rb
+# Find a customer
+client.customers.find(id: "C2188C26")
+```
+
+### Accounts
+
+```rb
+# Find an account
+client.accounts.find(id: "A2188C26")
+
+# Create an account
+client.accounts.create(customer_id: "C2188C26", currency: "EUR", product_code: "YOUR_PRODUCT_CODE", external_reference: "My new account")
+```
+
+### Payments
+
+```rb
+# Find a payment
+client.payments.find(id: "P210FFT5AW")
+
+# List payments
+client.payments.list(from: DateTime.now - 1, to: DateTime.now)
+
+# Create a payment
+client.payments.create(account_id: "A2188C26", currency: "EUR", amount: 0.01, destination: { type: "IBAN", iban: "ES8601280011390100072676", name: "Aitor García Rey" }, reference: "The reference")
+```
+
+### Notifications
+
+### Supported event types per channel
+
+Not all notifications can be sent to any channel. Check the following list for a quick view and the [original](https://modulr.readme.io/docs/notifications-1) reference for an up-to-date list
+
+Supported via webhook:
+
+- ACCOUNT_SWITCH_UPDATE
+- DDMANDATE
+- DD_FAILED_CLAIM
+- DD_FUNDS_RETURNED
+- DD_INCOMING_DEBIT
+- DD_COLLECTION_STATUS
+- PAYIN
+- PAYOUT
+- UPCOMING_CREDIT
+- UPCOMING_COLLECTION_CREDIT
+- UPCOMING_COLLECTION_DEBIT
+- PAYMENT_COMPLIANCE_STATUS
+- PAYMENT_FILE_UPLOAD
+
+Supported via email:
+
+- ACCOUNT_STATEMENT
+- PENDING_PAYMENTS
+- BALANCE
+- CUSTVSTAT
+
 ## Release
 
 After checking out the repo, run `bin/setup` to install dependencies. Then, run `bundle exec rspec` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
@@ -37,7 +98,7 @@ git push origin vx.x.x
 
 The tagging will trigger the GitHub action defined in `release.yml`, pushing the gem to [rubygems.org](https://rubygems.org).
 
-## Tooling
+## Tooling for manual API testing
 
 We have a tooling system based on HTTP request files which allow developers to run pre-format Modulr API requests easily. These HTTP request files are stored inside `doc/modulr_requests` directory. Find the service you want to run and run the specific HTTP file to execute the request locally.
 
@@ -51,13 +112,13 @@ Configure all variables by environment and you are ready to use your HTTP files.
 Any change should be tested. Builds with failures would not be allowed to merge.
 To run your test suite locally using Rspec:
 
-```ruby
+```rb
 bundle exec rspec
 ```
 
 To prepare your environment to listen for your local code changes use Guard instead:
 
-```ruby
+```rb
 bundle exec guard
 ```
 

@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    modulr-api (0.0.6)
+    modulr-api (0.0.12)
       faraday (~> 1.0)
       faraday_middleware (~> 1.0)
 
@@ -15,7 +15,7 @@ GEM
     crack (0.4.5)
       rexml
     diff-lcs (1.5.0)
-    faraday (1.10.2)
+    faraday (1.10.3)
       faraday-em_http (~> 1.0)
       faraday-em_synchrony (~> 1.0)
       faraday-excon (~> 1.1)
@@ -63,7 +63,7 @@ GEM
       rb-inotify (~> 0.9, >= 0.9.10)
     lumberjack (1.2.8)
     method_source (1.0.0)
-    multipart-post (2.2.3)
+    multipart-post (2.3.0)
     nenv (0.3.0)
     notiffany (0.1.3)
       nenv (~> 0.1)
