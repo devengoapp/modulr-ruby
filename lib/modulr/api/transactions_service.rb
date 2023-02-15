@@ -8,9 +8,9 @@ module Modulr
         Resources::Transactions::Transactions.new(response, response.body[:content])
       end
 
-      private def build_query_params(opts)
+      private def build_query_params(opts) # rubocop:disable Metrics/AbcSize
         same_name_params = [:id, :amount, :currency, :description, :credit, :type]
-        transactions_date_params = { to: :toTransactionDate, from: :fromTransactionDate}
+        transactions_date_params = { to: :toTransactionDate, from: :fromTransactionDate }
         # posted_date_params = { to: :toPostedDate, from: :fromPostedDate}
         # amount_params = {to: :minAmount, from: :maxAmount}
         mapped_params = {
@@ -22,7 +22,9 @@ module Modulr
         }
         {}.tap do |params|
           same_name_params.each { |param| params[param] = opts[param] if opts[param] }
-          transactions_date_params.each { |original, mapped| params[mapped] = format_datetime(opts[original]) if opts[original] }
+          transactions_date_params.each do |original, mapped|
+            params[mapped] = format_datetime(opts[original]) if opts[original]
+          end
           mapped_params.each { |original, mapped| params[mapped] = opts[original] if opts[original] }
         end
       end
