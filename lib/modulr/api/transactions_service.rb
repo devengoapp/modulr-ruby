@@ -11,8 +11,8 @@ module Modulr
       private def build_query_params(opts) # rubocop:disable Metrics/AbcSize
         same_name_params = [:id, :amount, :currency, :description, :credit, :type]
         transactions_date_params = { to: :toTransactionDate, from: :fromTransactionDate }
-        # posted_date_params = { to: :toPostedDate, from: :fromPostedDate}
-        # amount_params = {to: :minAmount, from: :maxAmount}
+        posted_date_params = { to_posted: :toPostedDate, from_posted: :fromPostedDate}
+        amount_params = {to_min: :minAmount, from_max: :maxAmount}
         mapped_params = {
           created_at: :transactionDate,
           date: :postedDate,
@@ -25,6 +25,10 @@ module Modulr
           transactions_date_params.each do |original, mapped|
             params[mapped] = format_datetime(opts[original]) if opts[original]
           end
+          posted_date_params.each do |original, mapped|
+            params[mapped] = format_datetime(opts[original]) if opts[original]
+          end
+          amount_params.each { |original, mapped| params[mapped] = opts[original] if opts[original] }
           mapped_params.each { |original, mapped| params[mapped] = opts[original] if opts[original] }
         end
       end
