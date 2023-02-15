@@ -11,7 +11,7 @@ module Modulr
         map :currency
         map :description
         map :transactionDate, :created_at
-        map :postedDate, :date
+        map :postedDate, :final_at
         map :credit
         map :type
         map :sourceId, :source_id
