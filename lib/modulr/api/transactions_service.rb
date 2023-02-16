@@ -15,8 +15,8 @@ module Modulr
         mapped_params = {
           source_id: :sourceId,
           description: :q,
-          to_min: :minAmount,
-          from_max: :maxAmount,
+          min_amount: :minAmount,
+          max_amount: :maxAmount,
         }
         {}.tap do |params|
           same_name_params.each { |param| params[param] = opts[param] if opts[param] }

@@ -53,7 +53,7 @@ RSpec.describe Modulr::API::TransactionsService, :unit, type: :client do
       end
 
       it "raise the correct error" do
-        expect { transactions.list(account_id: "A0000001", to_min: -100) }.to(raise_error do |exception|
+        expect { transactions.list(account_id: "A0000001", min_amount: -100) }.to(raise_error do |exception|
           expect(exception).to be_a(Modulr::RequestError)
           expect(exception.errors).not_to be_empty
           expect(exception.errors.select { |error| error[:field] == "minAmount" }).not_to be_empty
