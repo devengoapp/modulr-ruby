@@ -1,0 +1,19 @@
+HTTP/1.1 400 Bad Request
+content-type: application/json
+transfer-encoding: chunked
+connection: close
+cache-control: no-cache, no-store, must-revalidate
+content-security-policy: default-src https: data: 'unsafe-inline' 'unsafe-eval'
+expires: 0
+pragma: no-cache
+server: Apache
+strict-transport-security: max-age=31536000
+vary: Origin
+x-content-type-options: nosniff
+x-frame-options: SAMEORIGIN
+x-ratelimit-limit: 200000
+x-ratelimit-remaining: 199969
+x-ratelimit-reset: 1676546745
+x-xss-protection: 1; mode=block
+
+[{"field":"minAmount","code":"INVALID","message":"Only positive amounts rounded to two digits are supported"}]

@@ -10,10 +10,10 @@ module Modulr
         map :amount
         map :currency
         map :description
+        map :transactionDate, :created_at
+        map :postedDate, :final_at
         map :credit
         map :type
-        map :transactionDate, :created_at
-        map :postedDate, :posted_date
         map :sourceId, :source_id
         map :sourceExternalReference, :external_reference
         map :additionalInfo, :additional_info
