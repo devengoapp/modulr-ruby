@@ -27,6 +27,7 @@ end
 
 require_relative "base_collection"
 require_relative "accounts/account"
+require_relative "accounts/collection"
 require_relative "accounts/identifier"
 require_relative "accounts/identifiers"
 require_relative "customers/customer"

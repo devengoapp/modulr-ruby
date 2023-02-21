@@ -133,6 +133,25 @@ RSpec.describe Modulr::API::AccountsService, :unit, type: :client do
     end
   end
 
+  describe "list accounts" do
+    context "when params are valid" do
+      before do
+        stub_request(:get, %r{/customers/C2188C26/accounts}).to_return(
+          read_http_response_fixture("accounts/list", "success")
+        )
+      end
+
+      let!(:accounts_list) do
+        accounts.list(customer_id: "C2188C26")
+      end
+
+      it "returns a collection of payments" do
+        expect(accounts_list).to be_a Modulr::Resources::Accounts::Collection
+        expect(accounts_list.count).to be(8)
+      end
+    end
+  end
+
   describe "close account" do
     before do
       stub_request(:post, %r{/accounts/A121AHGZ/close}).to_return(
