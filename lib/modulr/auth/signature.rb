@@ -30,7 +30,7 @@ module Modulr
           apisecret.dup.force_encoding("UTF-8"),
           signature_string.dup.force_encoding("UTF-8")
         )
-        b64 = Base64.encode64(digest)
+        b64 = Base64.strict_encode64(digest)
         url_safe_code = ERB::Util.url_encode(b64.strip)
 
         new(apikey: apikey, nonce: nonce, signature: url_safe_code, timestamp: timestamp)
