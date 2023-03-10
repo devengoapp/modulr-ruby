@@ -56,6 +56,13 @@ client.payments.list(from: DateTime.now - 1, to: DateTime.now)
 client.payments.create(account_id: "A2188C26", currency: "EUR", amount: 0.01, destination: { type: "IBAN", iban: "ES8601280011390100072676", name: "Aitor García Rey" }, reference: "The reference")
 ```
 
+### Transactions
+
+```rb
+# List transactions
+client.transactions.list(account_id: "A2188C26", credit: true)
+```
+
 ### Notifications
 
 ### Supported event types per channel
@@ -89,9 +96,15 @@ Supported via email:
 
 After checking out the repo, run `bin/setup` to install dependencies. Then, run `bundle exec rspec` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
 
-To install this gem onto your local machine, run `bundle exec rake install`. To release a new version, update the version number in `version.rb`, and then tag and push the new version:
+To install this gem onto your local machine, run `bundle exec rake install`.
+
+To release a new version, on main branch update the version number in `version.rb`, then:
 
 ```git
+bundle exec rake install
+git add .
+git commit -m 'Update version file and gemfile'
+git push
 git tag vx.x.x main
 git push origin vx.x.x
 ```
