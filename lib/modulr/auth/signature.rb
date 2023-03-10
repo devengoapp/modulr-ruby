@@ -17,7 +17,7 @@ module Modulr
         @timestamp = timestamp
         @authorization = [
           "Signature keyId=\"#{apikey}\"",
-          'algorithm="hmac-sha1"',
+          'algorithm="hmac-sha512"',
           'headers="date x-mod-nonce"',
           "signature=\"#{signature}\"",
         ].join(",")
@@ -26,7 +26,7 @@ module Modulr
       def self.calculate(apikey:, apisecret:, nonce: SecureRandom.base64(30), timestamp: DateTime.now.httpdate)
         signature_string = "date: #{timestamp}\nx-mod-nonce: #{nonce}"
         digest = OpenSSL::HMAC.digest(
-          "SHA1",
+          "SHA512",
           apisecret.dup.force_encoding("UTF-8"),
           signature_string.dup.force_encoding("UTF-8")
         )
