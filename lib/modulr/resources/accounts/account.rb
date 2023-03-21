@@ -23,9 +23,9 @@ module Modulr
         map :createdDate, :created_at
         map :directDebit, :direct_debit
 
-        def initialize(response, attributes = {})
-          super(response, attributes)
-          @identifiers = Accounts::Identifiers.new(response, attributes[:identifiers])
+        def initialize(attributes = {})
+          super(attributes)
+          @identifiers = Accounts::Identifiers.new(attributes[:identifiers])
         end
       end
     end

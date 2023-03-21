@@ -12,9 +12,9 @@ module Modulr
         map :status
         map :destinations
 
-        def initialize(response, attributes = {})
-          super(response, attributes)
-          @config = Config.new(response, attributes[:config])
+        def initialize(attributes = {})
+          super(attributes)
+          @config = Config.new(attributes[:config])
         end
       end
     end

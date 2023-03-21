@@ -13,9 +13,18 @@ module Modulr
         map :createdDate, :created_at
         map :approvalStatus, :approval_status
 
-        def initialize(response, attributes = {})
-          super(response, attributes)
-          @details = Details.new(response, attributes[:details])
+        def initialize(attributes = {})
+          super(attributes)
+          @details = parse_details(attributes[:details])
+        end
+
+        private def parse_details(details)
+          case details[:type]
+          when "PI_SEPA_INST", "PI_FAST"
+            Details::Incoming::General.new(details)
+          else
+            Details::Outgoing::General.new(details)
+          end
         end
       end
     end

@@ -4,8 +4,8 @@ module Modulr
   module Resources
     module Accounts
       class Identifiers < BaseCollection
-        def initialize(response, attributes_collection)
-          super(response, Identifier, attributes_collection)
+        def initialize(attributes_collection)
+          super(Identifier, attributes_collection)
         end
       end
     end
