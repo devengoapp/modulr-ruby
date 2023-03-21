@@ -1,0 +1,115 @@
+HTTP/1.1 200 OK
+content-type: application/json
+transfer-encoding: chunked
+connection: keep-alive
+cache-control: no-cache, no-store, must-revalidate
+content-security-policy: default-src https: data: 'unsafe-inline' 'unsafe-eval'
+expires: 0
+pragma: no-cache
+server: Apache
+strict-transport-security: max-age=31536000
+vary: Origin
+x-content-type-options: nosniff
+x-frame-options: SAMEORIGIN
+x-ratelimit-limit: 4000000
+x-ratelimit-remaining: 3999893
+x-ratelimit-reset: 1674464655
+x-xss-protection: 1; mode=block
+
+{
+  "content": [
+    {
+      "id": "P210H4GX3H",
+      "status": "PROCESSED",
+      "createdDate": "2023-03-17T08:18:10.010+0000",
+      "details": {
+        "created": "2023-03-17T08:18:10.569+00:00",
+        "retryCount": 0,
+        "sourceService": "payportProviderService",
+        "requestReference": "920020230317000000TW000000053221750",
+        "reprocess": false,
+        "priority": 0,
+        "ledgerCorrelationId": "d13b40c2-248e-42d6-bf51-91fce34dc09c",
+        "accountNumber": "A21CM4HA",
+        "posted": "2023-03-17T08:18:10.569+00:00",
+        "type": "PI_FAST",
+        "amount": 0.01,
+        "currency": "GBP",
+        "description": "Payment from Aitor Garcia Rey: Aitor from Wise",
+        "originalReference": "Aitor from Wise",
+        "providerCode": "PAYPORT",
+        "ledgerBankCode": "BOEFPSIE",
+        "payerName": "Aitor Garcia Rey",
+        "payer": {
+          "name": "Aitor Garcia Rey",
+          "identifier": {
+            "type": "SCAN",
+            "accountNumber": "P12642236",
+            "sortCode": "TRWIBEBB",
+            "country": "GB"
+          },
+          "address": {
+            "addressLine1": "Arrandi 33 5C",
+            "addressLine2": "Barakaldo, 48901, ES",
+            "postTown": "48901",
+            "postCode": "ES",
+            "country": "GB"
+          }
+        },
+        "payee": {
+          "name": "Devengo SL",
+          "identifier": {
+            "type": "SCAN",
+            "accountNumber": "00631973",
+            "sortCode": "040392"
+          },
+          "address": {}
+        },
+        "schemeId": "TW00000005322175031020230317826231470",
+        "clearingRequired": true,
+        "originatingPayment": { "institution": { "id": "231470" } },
+        "originatedOverseas": true,
+        "details": {
+          "fpsTransaction": {
+            "debtor": {
+              "name": "Aitor Garcia Rey",
+              "address": ["Arrandi 33 5C", "Barakaldo", "48901", "ES"],
+              "country": "GB",
+              "bankCode": "TRWIBEBB",
+              "orgIdPrtryId": "10",
+              "accountNumber": "P12642236",
+              "accountIdentifierType": "SCAN"
+            },
+            "creditor": {
+              "name": "Devengo SL",
+              "bankCode": "040392",
+              "accountNumber": "00631973",
+              "prvtIdOtherIdId": "Aitor from Wise",
+              "prvtIdOtherIdIdTp": "X",
+              "accountIdentifierType": "SCAN"
+            },
+            "paymentInfo": {
+              "fpId": "TW00000005322175031020230317826231470",
+              "amount": 0.01,
+              "chrgBr": "SHAR",
+              "currency": "GBP",
+              "messageId": "920020230317000000TW000000053221750",
+              "endToEndId": "Aitor from Wise",
+              "institutionId": "231470",
+              "transactionId": "TW0000000532217503",
+              "acceptanceDate": 1679011200000,
+              "remittanceDetail": { "paymentDescription": "Aitor from Wise" },
+              "originatedOverseas": true
+            }
+          }
+        },
+        "manualRecall": false
+      },
+      "reference": "P210H4GX3H"
+    }
+  ],
+  "size": 1,
+  "totalSize": 1,
+  "page": 0,
+  "totalPages": 1
+}
