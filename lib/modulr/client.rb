@@ -51,6 +51,10 @@ module Modulr
       execute :post, path, data, options
     end
 
+    def put(path, data = nil, options = {})
+      execute :put, path, data, options
+    end
+
     def execute(method, path, data = nil, options = {})
       request(method, path, data, options)
     end

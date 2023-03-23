@@ -1,0 +1,51 @@
+HTTP/1.1 200 OK
+content-type: application/json
+transfer-encoding: chunked
+connection: keep-alive
+cache-control: no-cache, no-store, must-revalidate
+content-security-policy: default-src https: data: 'unsafe-inline' 'unsafe-eval'
+expires: 0
+pragma: no-cache
+server: Apache
+strict-transport-security: max-age=31536000
+vary: Origin
+x-content-type-options: nosniff
+x-frame-options: SAMEORIGIN
+x-ratelimit-limit: 4000000
+x-ratelimit-remaining: 3999893
+x-ratelimit-reset: 1674464655
+x-xss-protection: 1; mode=block
+
+{
+  "content": [
+    {
+      "id": "P210H4JZZ7",
+      "status": "PROCESSED",
+      "createdDate": "2023-03-17T09:20:44.044+0000",
+      "details": {
+        "sourceAccountId": "A21CM4HA",
+        "destinationType": "SCAN",
+        "destination": {
+          "type": "SCAN",
+          "accountNumber": "79433111",
+          "sortCode": "231470",
+          "name": "Aitor Garcia Rey"
+        },
+        "currency": "GBP",
+        "amount": 0.01,
+        "reference": "To wise"
+      },
+      "reference": "P210H4JZZ7",
+      "approvalStatus": "NOTNEEDED",
+      "message": "",
+      "schemeInfo": {
+        "id": "MODULO00P210H4JZZ71020230317826040392",
+        "responseCode": "0000"
+      }
+    }
+  ],
+  "size": 1,
+  "totalSize": 1,
+  "page": 0,
+  "totalPages": 1
+}

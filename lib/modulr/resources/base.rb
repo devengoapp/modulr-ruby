@@ -3,10 +3,11 @@
 module Modulr
   module Resources
     class Base
-      attr_reader :response
+      attr_reader :raw_response
 
-      def initialize(response, attributes = {})
-        @response = response
+      def initialize(raw_response, attributes = {})
+        @raw_response = raw_response
+
         attributes.each do |key, value|
           m = "#{key}=".to_sym
           send(m, value) if respond_to?(m)
@@ -34,7 +35,9 @@ require_relative "notifications/notification"
 require_relative "notifications/config"
 require_relative "notifications/collection"
 require_relative "payments/payment"
-require_relative "payments/details"
+require_relative "payments/counterparty"
+require_relative "payments/details/incoming/general"
+require_relative "payments/details/outgoing/general"
 require_relative "payments/destination"
 require_relative "payments/collection"
 require_relative "transactions/transaction"

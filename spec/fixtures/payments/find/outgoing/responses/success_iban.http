@@ -1,0 +1,50 @@
+HTTP/1.1 200 OK
+content-type: application/json
+transfer-encoding: chunked
+connection: keep-alive
+cache-control: no-cache, no-store, must-revalidate
+content-security-policy: default-src https: data: 'unsafe-inline' 'unsafe-eval'
+expires: 0
+pragma: no-cache
+server: Apache
+strict-transport-security: max-age=31536000
+vary: Origin
+x-content-type-options: nosniff
+x-frame-options: SAMEORIGIN
+x-ratelimit-limit: 4000000
+x-ratelimit-remaining: 3999893
+x-ratelimit-reset: 1674464655
+x-xss-protection: 1; mode=block
+
+{
+  "content": [
+    {
+      "id": "P210G2CY0N",
+      "status": "PROCESSED",
+      "createdDate": "2023-02-09T18:19:47.047+0000",
+      "externalReference": "The external reference",
+      "details": {
+        "sourceAccountId": "A21BZ2GE",
+        "destinationType": "IBAN",
+        "destination": {
+          "type": "IBAN",
+          "iban": "ES6015632626303264517956",
+          "name": "Aitor García Rey"
+        },
+        "currency": "EUR",
+        "amount": 0.01,
+        "reference": "The reference",
+        "externalReference": "The external reference",
+        "endToEndReference": "e2e reference"
+      },
+      "reference": "P210G2CY0N",
+      "approvalStatus": "NOTNEEDED",
+      "message": "",
+      "schemeInfo": { "name": "SEPA_INSTANT" }
+    }
+  ],
+  "size": 1,
+  "totalSize": 1,
+  "page": 0,
+  "totalPages": 1
+}
