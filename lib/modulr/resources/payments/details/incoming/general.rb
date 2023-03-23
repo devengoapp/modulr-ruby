@@ -27,10 +27,10 @@ module Modulr
             map :schemeType, :scheme_type
             map :details, :raw_details
 
-            def initialize(attributes = {})
-              super(attributes)
-              @payer = Counterparty.new(attributes[:payer])
-              @payee = Counterparty.new(attributes[:payee])
+            def initialize(raw_response, attributes = {})
+              super(raw_response, attributes)
+              @payer = Counterparty.new(nil, attributes[:payer])
+              @payee = Counterparty.new(nil, attributes[:payee])
             end
           end
         end

@@ -9,9 +9,9 @@ module Modulr
         map :name
         map :address
 
-        def initialize(attributes = {})
-          super(attributes)
-          @identifier = Accounts::Identifier.new(attributes[:identifier])
+        def initialize(raw_response, attributes = {})
+          super(raw_response, attributes)
+          @identifier = Accounts::Identifier.new(nil, attributes[:identifier])
         end
       end
     end

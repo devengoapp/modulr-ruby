@@ -4,8 +4,8 @@ module Modulr
   module Resources
     module Payments
       class Collection < BaseCollection
-        def initialize(attributes_collection)
-          super(Payment, attributes_collection)
+        def initialize(raw_response, attributes_collection)
+          super(raw_response, Payment, attributes_collection)
         end
       end
     end
