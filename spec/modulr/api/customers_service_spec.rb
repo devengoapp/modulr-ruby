@@ -73,74 +73,74 @@ RSpec.describe Modulr::API::CustomersService, :unit, type: :client do
           name: "string",
           company_reg_number: "2018123987165432",
           registered_address: {
-              addressLine1: "string",
-              addressLine2: "string",
-              postTown: "string",
-              postCode: "string",
-              country: "GB",
-              countrySubDivision: "string"
+            addressLine1: "string",
+            addressLine2: "string",
+            postTown: "string",
+            postCode: "string",
+            country: "GB",
+            countrySubDivision: "string",
           },
           trading_address: {
-              addressLine1: "string",
-              addressLine2: "string",
-              postTown: "string",
-              postCode: "string",
-              country: "GB",
-              countrySubDivision: "string"
+            addressLine1: "string",
+            addressLine2: "string",
+            postTown: "string",
+            postCode: "string",
+            country: "GB",
+            countrySubDivision: "string",
           },
           industry_code: "string",
           tcs_version: 0,
           expected_monthly_spend: 0,
           associates: [
-              {
-                  type: "DIRECTOR",
-                  firstName: "string",
-                  middleName: "string",
-                  lastName: "string",
-                  dateOfBirth: "string",
-                  ownership: 0,
-                  homeAddress: {
-                      addressLine1: "string",
-                      addressLine2: "string",
-                      postTown: "string",
-                      postCode: "string",
-                      country: "GB",
-                      countrySubDivision: "string"
-                  },
-                  applicant: true,
-                  email: "string",
-                  phone: "string",
-                  documentInfo: [
-                      {
-                          path: "string",
-                          fileName: "string",
-                          uploadedDate: "2017-01-28T01:01:01+0000"
-                      }
-                  ],
-                  additionalIdentifiers: [
-                      {
-                          type: "BSN",
-                          value: "string"
-                      }
-                  ],
-                  complianceData: {
-                      relationship: "string"
-                  }
-              }
-          ],
-          document_info: [
-              {
+            {
+              type: "DIRECTOR",
+              firstName: "string",
+              middleName: "string",
+              lastName: "string",
+              dateOfBirth: "string",
+              ownership: 0,
+              homeAddress: {
+                addressLine1: "string",
+                addressLine2: "string",
+                postTown: "string",
+                postCode: "string",
+                country: "GB",
+                countrySubDivision: "string",
+              },
+              applicant: true,
+              email: "string",
+              phone: "string",
+              documentInfo: [
+                {
                   path: "string",
                   fileName: "string",
-                  uploadedDate: "2017-01-28T01:01:01+0000"
-              }
+                  uploadedDate: "2017-01-28T01:01:01+0000",
+                },
+              ],
+              additionalIdentifiers: [
+                {
+                  type: "BSN",
+                  value: "string",
+                },
+              ],
+              complianceData: {
+                relationship: "string",
+              },
+            },
+          ],
+          document_info: [
+            {
+              path: "string",
+              fileName: "string",
+              uploadedDate: "2017-01-28T01:01:01+0000",
+            },
           ],
           provisional_customer_id: "string",
           customer_trust: {
-              trustNature: "BARE_TRUSTS"
+            trustNature: "BARE_TRUSTS",
           },
           tax_profile: {
-              tax_identifier: "string"
+            tax_identifier: "string",
           }
         )
       end
@@ -155,75 +155,75 @@ RSpec.describe Modulr::API::CustomersService, :unit, type: :client do
           name: "string",
           companyRegNumber: "2018123987165432",
           registeredAddress: {
-              addressLine1: "string",
-              addressLine2: "string",
-              postTown: "string",
-              postCode: "string",
-              country: "GB",
-              countrySubDivision: "string"
+            addressLine1: "string",
+            addressLine2: "string",
+            postTown: "string",
+            postCode: "string",
+            country: "GB",
+            countrySubDivision: "string",
           },
           tradingAddress: {
-              addressLine1: "string",
-              addressLine2: "string",
-              postTown: "string",
-              postCode: "string",
-              country: "GB",
-              countrySubDivision: "string"
+            addressLine1: "string",
+            addressLine2: "string",
+            postTown: "string",
+            postCode: "string",
+            country: "GB",
+            countrySubDivision: "string",
           },
           industryCode: "string",
           tcsVersion: 0,
           expectedMonthlySpend: 0,
           associates: [
-              {
-                  type: "DIRECTOR",
-                  firstName: "string",
-                  middleName: "string",
-                  lastName: "string",
-                  dateOfBirth: "string",
-                  ownership: 0,
-                  homeAddress: {
-                      addressLine1: "string",
-                      addressLine2: "string",
-                      postTown: "string",
-                      postCode: "string",
-                      country: "GB",
-                      countrySubDivision: "string"
-                  },
-                  applicant: true,
-                  email: "string",
-                  phone: "string",
-                  documentInfo: [
-                      {
-                          path: "string",
-                          fileName: "string",
-                          uploadedDate: "2017-01-28T01:01:01+0000"
-                      }
-                  ],
-                  additionalIdentifiers: [
-                      {
-                          type: "BSN",
-                          value: "string"
-                      }
-                  ],
-                  complianceData: {
-                      relationship: "string"
-                  }
-              }
-          ],
-          documentInfo: [
-              {
+            {
+              type: "DIRECTOR",
+              firstName: "string",
+              middleName: "string",
+              lastName: "string",
+              dateOfBirth: "string",
+              ownership: 0,
+              homeAddress: {
+                addressLine1: "string",
+                addressLine2: "string",
+                postTown: "string",
+                postCode: "string",
+                country: "GB",
+                countrySubDivision: "string",
+              },
+              applicant: true,
+              email: "string",
+              phone: "string",
+              documentInfo: [
+                {
                   path: "string",
                   fileName: "string",
-                  uploadedDate: "2017-01-28T01:01:01+0000"
-              }
+                  uploadedDate: "2017-01-28T01:01:01+0000",
+                },
+              ],
+              additionalIdentifiers: [
+                {
+                  type: "BSN",
+                  value: "string",
+                },
+              ],
+              complianceData: {
+                relationship: "string",
+              },
+            },
+          ],
+          documentInfo: [
+            {
+              path: "string",
+              fileName: "string",
+              uploadedDate: "2017-01-28T01:01:01+0000",
+            },
           ],
           provisionalCustomerId: "string",
           customerTrust: {
-              trustNature: "BARE_TRUSTS"
+            trustNature: "BARE_TRUSTS",
           },
           taxProfile: {
-              tax_identifier: "string"
-          }
+            tax_identifier: "string",
+          },
         },
       }
 
@@ -243,7 +243,7 @@ RSpec.describe Modulr::API::CustomersService, :unit, type: :client do
       let!(:params) do
         {
           type: "UNKNOWN",
-          legal_entity: "GB"
+          legal_entity: "GB",
         }
       end
 
@@ -262,7 +262,7 @@ RSpec.describe Modulr::API::CustomersService, :unit, type: :client do
       let!(:params) do
         {
           type: "LLC",
-          legal_entity: "UNKNOWN"
+          legal_entity: "UNKNOWN",
         }
       end
 
