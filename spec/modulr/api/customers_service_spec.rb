@@ -140,7 +140,7 @@ RSpec.describe Modulr::API::CustomersService, :unit, type: :client do
             trustNature: "BARE_TRUSTS",
           },
           tax_profile: {
-            tax_identifier: "string",
+            taxIdentifier: "string",
           }
         )
       end
@@ -222,7 +222,7 @@ RSpec.describe Modulr::API::CustomersService, :unit, type: :client do
             trustNature: "BARE_TRUSTS",
           },
           taxProfile: {
-            tax_identifier: "string",
+            taxIdentifier: "string",
           },
         },
       }

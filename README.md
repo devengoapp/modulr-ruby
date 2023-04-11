@@ -107,7 +107,7 @@ client.customers.create(
         trustNature: "BARE_TRUSTS"
     },
     tax_profile: {
-        tax_identifier: "string"
+        taxIdentifier: "string"
     }
 )
 ```
