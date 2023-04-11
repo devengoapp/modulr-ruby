@@ -6,7 +6,7 @@ module Modulr
       module Details
         module Incoming
           class General < Base
-            attr_reader :payer, :payee
+            attr_reader :payer, :payee, :destination
 
             map :created, :created_at
             map :posted, :posted_at
@@ -31,6 +31,7 @@ module Modulr
               super(raw_response, attributes)
               @payer = Counterparty.new(nil, attributes[:payer])
               @payee = Counterparty.new(nil, attributes[:payee])
+              @destination = Destination.new(nil, attributes[:payee][:identifier])
             end
           end
         end
