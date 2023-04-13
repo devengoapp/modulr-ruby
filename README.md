@@ -31,6 +31,85 @@ Run `bin/console` for an interactive prompt to experiment with the code.
 ```rb
 # Find a customer
 client.customers.find(id: "C2188C26")
+
+# Create a customer
+client.customers.create(
+    type: "LLC",
+    legal_entity: "GB",
+    external_reference: "My new customer",
+    name: "string",
+    company_reg_number: "2018123987165432",
+    registered_address: {
+        addressLine1: "string",
+        addressLine2: "string",
+        postTown: "string",
+        postCode: "string",
+        country: "GB",
+        countrySubDivision: "string"
+    },
+    trading_address: {
+        addressLine1: "string",
+        addressLine2: "string",
+        postTown: "string",
+        postCode: "string",
+        country: "GB",
+        countrySubDivision: "string"
+    },
+    industry_code: "string",
+    tcs_version: 0,
+    expected_monthly_spend: 0,
+    associates: [
+        {
+            type: "DIRECTOR",
+            firstName: "string",
+            middleName: "string",
+            lastName: "string",
+            dateOfBirth: "string",
+            ownership: 0,
+            homeAddress: {
+                addressLine1: "string",
+                addressLine2: "string",
+                postTown: "string",
+                postCode: "string",
+                country: "GB",
+                countrySubDivision: "string"
+            },
+            applicant: true,
+            email: "string",
+            phone: "string",
+            documentInfo: [
+                {
+                    path: "string",
+                    fileName: "string",
+                    uploadedDate: "2017-01-28T01:01:01+0000"
+                }
+            ],
+            additionalIdentifiers: [
+                {
+                    type: "BSN",
+                    value: "string"
+                }
+            ],
+            complianceData: {
+                relationship: "string"
+            }
+        }
+    ],
+    document_info: [
+        {
+            path: "string",
+            fileName: "string",
+            uploadedDate: "2017-01-28T01:01:01+0000"
+        }
+    ],
+    provisional_customer_id: "string",
+    customer_trust: {
+        trustNature: "BARE_TRUSTS"
+    },
+    tax_profile: {
+        taxIdentifier: "string"
+    }
+)
 ```
 
 ### Accounts

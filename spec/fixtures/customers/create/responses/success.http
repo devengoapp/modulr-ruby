@@ -1,0 +1,19 @@
+HTTP/1.1 200 OK
+content-type: application/json
+transfer-encoding: chunked
+connection: keep-alive
+cache-control: no-cache, no-store, must-revalidate
+content-security-policy: default-src https: data: 'unsafe-inline' 'unsafe-eval'
+expires: 0
+pragma: no-cache
+server: Apache
+strict-transport-security: max-age=31536000
+vary: Origin
+x-content-type-options: nosniff
+x-frame-options: SAMEORIGIN
+x-ratelimit-limit: 4000000
+x-ratelimit-remaining: 3999982
+x-ratelimit-reset: 1674464655
+x-xss-protection: 1; mode=block
+
+{"id":"C00000001","name":"string","brandNames":[{"id":"string","name":"string"}],"type":"LLC","status":"ACTIVE","verificationStatus":"UNVERIFIED","companyRegNumber":"string","expectedMonthlySpend":0,"registeredAddress":{"addressLine1":"string","addressLine2":"string","postTown":"string","postCode":"string","country":"string","countrySubDivision":"string"},"tradingAddress":{"addressLine1":"string","addressLine2":"string","postTown":"string","postCode":"string","country":"string","countrySubDivision":"string"},"partnerId":"string","associates":[{"id":"string","firstName":"string","middleName":"string","lastName":"string","email":"string","phone":"string","applicant":true,"ownership":0,"type":"DIRECTOR","dateOfBirth":"string","verificationStatus":"UNVERIFIED","homeAddress":{"addressLine1":"string","addressLine2":"string","postTown":"string","postCode":"string","country":"string","countrySubDivision":"string"},"documentInfo":[{"path":"string","fileName":"string","uploadedDate":"2017-01-28T01:01:01+0000"}],"additionalPersonalIdentifiers":[{"type":"BSN","value":"string"}],"complianceData":{"relationship":"string"}}],"industryCode":"string","tcsVersion":0,"documentInfo":[{"path":"string","fileName":"string","uploadedDate":"2017-01-28T01:01:01+0000"}],"externalReference":"My new customer","createdDate":"2023-04-10T11:39:31.328Z","delegate":{"id":"D0000001","name":"string","address":{"addressLine1":"string","addressLine2":"string","postTown":"string","postCode":"string","country":"string","countrySubDivision":"string"},"roleId":"R02002M5","externalReference":"string","partner":"R0000001","status":"string","created":"2023-04-10T11:39:31.328Z","updated":"2023-04-10T11:39:31.328Z"},"legalEntity":"GB","customerTrust":{"trustNature":"BARE_TRUSTS"},"taxProfile":{"taxIdentifier":"string"}}
