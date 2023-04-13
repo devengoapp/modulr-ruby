@@ -34,81 +34,56 @@ client.customers.find(id: "C2188C26")
 
 # Create a customer
 client.customers.create(
-    type: "LLC",
-    legal_entity: "GB",
-    external_reference: "My new customer",
-    name: "string",
-    company_reg_number: "2018123987165432",
-    registered_address: {
-        addressLine1: "string",
-        addressLine2: "string",
-        postTown: "string",
-        postCode: "string",
-        country: "GB",
-        countrySubDivision: "string"
+  type: "LLC",
+  legalEntity: "IE",
+  name: "Your company SL.",
+  expectedMonthlySpend: 99999,
+  companyRegNumber: "TAXID",
+  industryCode: "64929",
+  tcsVersion: 1,
+  tradingAddress: {
+    addressLine1: "Fake Street 34",
+    postTown: "Madrid",
+    postCode: "28003",
+    country: "ES",
+  },
+  registeredAddress: {
+    addressLine1: "Fake Street 34",
+    postTown: "Madrid",
+    postCode: "28003",
+    country: "ES",
+  },
+  associates: [
+    {
+      applicant: true,
+      dateOfBirth: "1977-05-31",
+      firstName: "Director Name",
+      lastName: "Director Last Name",
+      email: "director@yourcompany.com",
+      phone: "+34677777777",
+      type: "DIRECTOR",
+      homeAddress: {
+        addressLine1: "Fake Street 34",
+        postTown: "Madrid",
+        postCode: "28003",
+        country: "ES",
+      },
     },
-    trading_address: {
-        addressLine1: "string",
-        addressLine2: "string",
-        postTown: "string",
-        postCode: "string",
-        country: "GB",
-        countrySubDivision: "string"
+    {
+      applicant: false,
+      dateOfBirth: "1976-08-14",
+      firstName: "Owner Name",
+      lastName: "Owner Last Name",
+      type: "BENE_OWNER",
+      ownership: 60,
+      homeAddress: {
+        addressLine1: "Fake Street 34",
+        postTown: "Madrid",
+        postCode: "28003",
+        country: "ES",
+      },
     },
-    industry_code: "string",
-    tcs_version: 0,
-    expected_monthly_spend: 0,
-    associates: [
-        {
-            type: "DIRECTOR",
-            firstName: "string",
-            middleName: "string",
-            lastName: "string",
-            dateOfBirth: "string",
-            ownership: 0,
-            homeAddress: {
-                addressLine1: "string",
-                addressLine2: "string",
-                postTown: "string",
-                postCode: "string",
-                country: "GB",
-                countrySubDivision: "string"
-            },
-            applicant: true,
-            email: "string",
-            phone: "string",
-            documentInfo: [
-                {
-                    path: "string",
-                    fileName: "string",
-                    uploadedDate: "2017-01-28T01:01:01+0000"
-                }
-            ],
-            additionalIdentifiers: [
-                {
-                    type: "BSN",
-                    value: "string"
-                }
-            ],
-            complianceData: {
-                relationship: "string"
-            }
-        }
-    ],
-    document_info: [
-        {
-            path: "string",
-            fileName: "string",
-            uploadedDate: "2017-01-28T01:01:01+0000"
-        }
-    ],
-    provisional_customer_id: "string",
-    customer_trust: {
-        trustNature: "BARE_TRUSTS"
-    },
-    tax_profile: {
-        taxIdentifier: "string"
-    }
+  ]
 )
 ```
 
