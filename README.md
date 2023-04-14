@@ -146,6 +146,25 @@ Supported via email:
 - BALANCE
 - CUSTVSTAT
 
+```rb
+# List setup notifications for a customer
+client.notifications.list(customer_id: "C2188C26")
+
+# Create a notification
+client.notifications.create(
+  customer_id: "C2188C26",
+  type: "PAYOUT",
+  channel: "WEBHOOK",
+  destinations: [
+    "https://yourwebsite.com/webhooks/endpoint"
+  ],
+  config: {
+    retry: true,
+    secret: "00000000000000000000000000000000",
+    hmacAlgorithm: "hmac-sha512"
+  })
+```
+
 ## Release
 
 After checking out the repo, run `bin/setup` to install dependencies. Then, run `bundle exec rspec` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
