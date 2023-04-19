@@ -279,8 +279,8 @@ RSpec.describe Modulr::API::PaymentsService, :unit, type: :client do
           expect(found_payment.details.amount).to be 0.01
           expect(found_payment.details.reference).to eql("The reference")
           expect(found_payment.details.destination).to be_a Modulr::Resources::Payments::Destination
-          expect(found_payment.details.destination.type).to eql("IBAN")
-          expect(found_payment.details.destination.iban).to eql("ES6015632626303264517956")
+          expect(found_payment.details.destination.identifier.type).to eql("IBAN")
+          expect(found_payment.details.destination.identifier.iban).to eql("ES6015632626303264517956")
           expect(found_payment.details.destination.name).to eql("Aitor García Rey")
         end
       end

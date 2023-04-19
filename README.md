@@ -31,6 +31,60 @@ Run `bin/console` for an interactive prompt to experiment with the code.
 ```rb
 # Find a customer
 client.customers.find(id: "C2188C26")
+
+# Create a customer
+client.customers.create(
+  type: "LLC",
+  legalEntity: "IE",
+  name: "Your company SL.",
+  expectedMonthlySpend: 99999,
+  companyRegNumber: "TAXID",
+  industryCode: "64929",
+  tcsVersion: 1,
+  tradingAddress: {
+    addressLine1: "Fake Street 34",
+    postTown: "Madrid",
+    postCode: "28003",
+    country: "ES",
+  },
+  registeredAddress: {
+    addressLine1: "Fake Street 34",
+    postTown: "Madrid",
+    postCode: "28003",
+    country: "ES",
+  },
+  associates: [
+    {
+      applicant: true,
+      dateOfBirth: "1977-05-31",
+      firstName: "Director Name",
+      lastName: "Director Last Name",
+      email: "director@yourcompany.com",
+      phone: "+34677777777",
+      type: "DIRECTOR",
+      homeAddress: {
+        addressLine1: "Fake Street 34",
+        postTown: "Madrid",
+        postCode: "28003",
+        country: "ES",
+      },
+    },
+    {
+      applicant: false,
+      dateOfBirth: "1976-08-14",
+      firstName: "Owner Name",
+      lastName: "Owner Last Name",
+      type: "BENE_OWNER",
+      ownership: 60,
+      homeAddress: {
+        addressLine1: "Fake Street 34",
+        postTown: "Madrid",
+        postCode: "28003",
+        country: "ES",
+      },
+    },
+  ]
+)
 ```
 
 ### Accounts
@@ -91,6 +145,25 @@ Supported via email:
 - PENDING_PAYMENTS
 - BALANCE
 - CUSTVSTAT
+
+```rb
+# List setup notifications for a customer
+client.notifications.list(customer_id: "C2188C26")
+
+# Create a notification
+client.notifications.create(
+  customer_id: "C2188C26",
+  type: "PAYOUT",
+  channel: "WEBHOOK",
+  destinations: [
+    "https://yourwebsite.com/webhooks/endpoint"
+  ],
+  config: {
+    retry: true,
+    secret: "00000000000000000000000000000000",
+    hmacAlgorithm: "hmac-sha512"
+  })
+```
 
 ## Release
 
