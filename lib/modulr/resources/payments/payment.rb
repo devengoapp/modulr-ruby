@@ -22,10 +22,8 @@ module Modulr
           case details[:type]
           when "PI_SECT", "PI_SEPA_INST", "PI_FAST", "PI_REV"
             Details::Incoming::General.new(nil, details)
-          when "PO_SECT", "PO_SEPA_INST", "PO_FAST", "PO_REV"
+          else
             Details::Outgoing::General.new(nil, details)
-          when nil
-            Details::Internal.new(nil, details)
           end
         end
       end

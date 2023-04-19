@@ -161,9 +161,93 @@ RSpec.describe Modulr::API::PaymentsService, :unit, type: :client do
           expect(sct_inst_payment.details.payee.identifier.iban).to eql("IE21MODR99035502154595")
         end
       end
+
+      context "when it is SCT-REGULAR payment" do
+        before do
+          stub_request(:get, %r{/payments})
+            .with(query: hash_including({ "id" => "P1200AJ55X" }))
+            .to_return(
+              read_http_response_fixture("payments/find/incoming", "success_sepa_regular")
+            )
+        end
+
+        let!(:sct_regular_payment) do
+          payments.find(id: "P1200AJ55X")
+        end
+
+        it_behaves_like "builds correct request", {
+          method: :get,
+          path: %r{/payments},
+        }
+
+        it "returns the payment" do
+          expect(sct_regular_payment).to be_a Modulr::Resources::Payments::Payment
+          expect(sct_regular_payment.id).to eql("P1200AJ55X")
+          expect(sct_regular_payment.status).to eql("PROCESSED")
+          expect(sct_regular_payment.created_at).to eql("2023-04-11T16:16:20.020+0000")
+          expect(sct_regular_payment.reference).to eql("P1200AJ55X")
+          expect(sct_regular_payment.details).to be_a Modulr::Resources::Payments::Details::Incoming::General
+          expect(sct_regular_payment.details.created_at).to eql("2023-04-11T16:16:20.733+00:00")
+          expect(sct_regular_payment.details.posted_at).to eql("2023-04-11T16:16:20.733+00:00")
+          expect(sct_regular_payment.details.type).to eql("PI_SECT")
+          expect(sct_regular_payment.details.description).to eql("Incoming payment")
+          expect(sct_regular_payment.details.original_reference).to be_nil
+          expect(sct_regular_payment.details.currency).to eql("EUR")
+          expect(sct_regular_payment.details.amount).to be 0.01
+          expect(sct_regular_payment.details.account_number).to eql("A1216A1Z")
+          expect(sct_regular_payment.details.scheme_id).to be_nil
+          expect(sct_regular_payment.details.raw_details.keys).to be_empty
+          expect(sct_regular_payment.details.payer).to be_a Modulr::Resources::Payments::Counterparty
+          expect(sct_regular_payment.details.payer.name).to eql("Jonh")
+          expect(sct_regular_payment.details.payer.identifier.type).to eql("IBAN")
+          expect(sct_regular_payment.details.payer.identifier.iban).to eql("GB88MOCK00000001412498")
+          expect(sct_regular_payment.details.payee).to be_a Modulr::Resources::Payments::Counterparty
+          expect(sct_regular_payment.details.payee.name).to eql("Jane")
+          expect(sct_regular_payment.details.payee.identifier.type).to eql("IBAN")
+          expect(sct_regular_payment.details.payee.identifier.iban).to eql("ES2914653111661392648933")
+        end
+      end
     end
 
     context "with outgoing payments" do
+      context "when it is a UK faster payment" do
+        before do
+          stub_request(:get, %r{/payments})
+            .with(query: hash_including({ "id" => "P1200AJBNT" }))
+            .to_return(
+              read_http_response_fixture("payments/find/outgoing", "success_faster_payments")
+            )
+        end
+
+        let!(:fps_payment) do
+          payments.find(id: "P1200AJBNT")
+        end
+
+        it_behaves_like "builds correct request", {
+          method: :get,
+          path: %r{/payments},
+        }
+
+        it "returns the payment" do
+          expect(fps_payment).to be_a Modulr::Resources::Payments::Payment
+          expect(fps_payment.id).to eql("P1200AJBNT")
+          expect(fps_payment.status).to eql("PROCESSED")
+          expect(fps_payment.created_at).to eql("2023-04-12T15:02:27.027+0000")
+          expect(fps_payment.reference).to eql("P1200AJBNT")
+          expect(fps_payment.approval_status).to eql("NOTNEEDED")
+          expect(fps_payment.details).to be_a Modulr::Resources::Payments::Details::Outgoing::General
+          expect(fps_payment.details.source_account_id).to eql("A120N63Q")
+          expect(fps_payment.details.currency).to eql("GBP")
+          expect(fps_payment.details.amount).to be 0.01
+          expect(fps_payment.details.reference).to eql("From UK Modulr account")
+          expect(fps_payment.details.destination).to be_a Modulr::Resources::Payments::Destination
+          expect(fps_payment.details.destination.type).to eql("SCAN")
+          expect(fps_payment.details.destination.account_number).to eql("02730900")
+          expect(fps_payment.details.destination.sort_code).to eql("000000")
+          expect(fps_payment.details.destination.name).to eql("John")
+        end
+      end
+
       context "when the id is valid" do
         before do
           stub_request(:get, %r{/payments})
