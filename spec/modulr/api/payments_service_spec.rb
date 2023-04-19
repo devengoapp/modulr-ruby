@@ -266,7 +266,7 @@ RSpec.describe Modulr::API::PaymentsService, :unit, type: :client do
           path: %r{/payments},
         }
 
-        it "returns the account" do
+        it "returns the payment" do
           expect(found_payment).to be_a Modulr::Resources::Payments::Payment
           expect(found_payment.id).to eql("P1200AJQPQ")
           expect(found_payment.status).to eql("PROCESSED")
@@ -303,7 +303,7 @@ RSpec.describe Modulr::API::PaymentsService, :unit, type: :client do
           path: %r{/payments},
         }
 
-        it "returns the account" do
+        it "returns the payment" do
           expect(found_payment).to be_a Modulr::Resources::Payments::Payment
           expect(found_payment.id).to eql("P1200AKJK1")
           expect(found_payment.status).to eql("PROCESSED")
@@ -341,7 +341,7 @@ RSpec.describe Modulr::API::PaymentsService, :unit, type: :client do
           path: %r{/payments},
         }
 
-        it "returns the account" do
+        it "returns the payment" do
           expect(found_payment).to be_a Modulr::Resources::Payments::Payment
           expect(found_payment.id).to eql("P210G2CY0N")
           expect(found_payment.status).to eql("PROCESSED")

@@ -1,5 +1,4 @@
 # frozen_string_literal: true
-
 module Modulr
   module Resources
     module Payments
@@ -15,11 +14,13 @@ module Modulr
 
         def initialize(raw_response, attributes = {})
           super(raw_response, attributes)
-          @details = parse_details(attributes[:details])
+          @details = parse_details(attributes)
         end
 
-        private def parse_details(details)
-          case details[:type]
+        private def parse_details(attributes)
+          details = attributes[:details]
+
+          case details&.dig(:type)
           when "PI_SECT", "PI_SEPA_INST", "PI_FAST", "PI_REV"
             Details::Incoming::General.new(nil, details)
           else

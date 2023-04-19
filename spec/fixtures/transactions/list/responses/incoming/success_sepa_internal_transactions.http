@@ -1,0 +1,83 @@
+HTTP/2.0 200 OK
+Date: Wed, 24 Aug 2022 07:50:22 GMT
+Content-Type: application/json
+Cache-Control: no-cache, no-store, must-revalidate
+Content-Security-Policy: default-src https: data: 'unsafe-inline' 'unsafe-eval'
+Expires: 0
+Pragma: no-cache
+Server: Apache
+Strict-Transport-Security: max-age=31536000
+Vary: Origin
+X-Content-type-options: nosniff
+X-Frame-Options: SAMEORIGIN
+X-Ratelimit-Limit: 200000
+X-Ratelimit-Remaining: 199993
+X-Ratelimit-Reset: 1661868222
+X-Xss-Protection: 1; mode=block
+
+{
+  "content": [
+    {
+      "id": "T12006EJ1H",
+      "amount": 0.01,
+      "currency": "EUR",
+      "description": "Incoming internal sepa",
+      "transactionDate": "2023-04-12T15:15:07.000+0000",
+      "postedDate": "2023-04-12T15:15:07.369+0000",
+      "credit": true,
+      "type": "INT_INTERC",
+      "sourceId": "P1200AJBRK",
+      "sourceExternalReference": "tra_24WBQb650pCE7w4Mz8nMLZ",
+      "additionalInfo": {
+        "payer": {
+          "name": "Devengo",
+          "email": "dev@devengo.com",
+          "address": {
+            "country": "GB",
+            "postCode": "AB1 2CD",
+            "postTown": "London",
+            "addressLine1": "1 Street name",
+            "addressLine2": ""
+          },
+          "birthDate": [
+            1967,
+            10,
+            2
+          ],
+          "identifier": {
+            "bic": "MOCKGB21",
+            "iban": "GB84MOCK00000002838179",
+            "type": "IBAN"
+          },
+          "phoneNumber": "+(44)123448888"
+        }
+      },
+      "account": {
+        "id": "A1216A40",
+        "name": "Devengo",
+        "balance": "102.47",
+        "currency": "EUR",
+        "status": "ACTIVE",
+        "identifiers": [
+          {
+            "type": "IBAN",
+            "iban": "GB25MOCK00000001412565",
+            "bic": "MOCKGB21",
+            "providerExtraInfo": "{}"
+          }
+        ],
+        "customerId": "C120HZV4",
+        "customerName": "Devengo",
+        "externalReference": "Modulr Account",
+        "accessGroups": [],
+        "createdDate": "2022-07-19T19:53:43.694+0000",
+        "directDebit": true,
+        "securedFundingLimit": "0.00"
+      }
+    }
+  ],
+  "size": 1,
+  "totalSize": 1,
+  "page": 0,
+  "totalPages": 1
+}
