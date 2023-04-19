@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 module Modulr
   module Resources
     module Payments
