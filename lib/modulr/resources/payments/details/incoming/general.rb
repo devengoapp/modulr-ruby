@@ -31,7 +31,13 @@ module Modulr
               super(raw_response, attributes)
               @payer = Counterparty.new(nil, attributes[:payer])
               @payee = Counterparty.new(nil, attributes[:payee])
-              @destination = Destination.new(nil, attributes[:payee][:identifier])
+              @destination = parse_destination(attributes)
+            end
+
+            private def parse_destination(attributes)
+              destination_params = attributes[:payee][:identifier].merge!(name: attributes[:payee][:name])
+
+              Destination.new(nil, destination_params)
             end
           end
         end
