@@ -1,0 +1,68 @@
+HTTP/2.0 200 OK
+Date: Wed, 24 Aug 2022 07:50:22 GMT
+Content-Type: application/json
+Cache-Control: no-cache, no-store, must-revalidate
+Content-Security-Policy: default-src https: data: 'unsafe-inline' 'unsafe-eval'
+Expires: 0
+Pragma: no-cache
+Server: Apache
+Strict-Transport-Security: max-age=31536000
+Vary: Origin
+X-Content-type-options: nosniff
+X-Frame-Options: SAMEORIGIN
+X-Ratelimit-Limit: 200000
+X-Ratelimit-Remaining: 199993
+X-Ratelimit-Reset: 1661868222
+X-Xss-Protection: 1; mode=block
+
+{
+  "content": [
+    {
+      "id": "T12006EG20",
+      "amount": 0.01,
+      "currency": "GBP",
+      "description": "Incoming faster payment",
+      "transactionDate": "2023-04-12T10:10:52.000+0000",
+      "postedDate": "2023-04-12T10:10:52.146+0000",
+      "credit": true,
+      "type": "PI_FAST",
+      "sourceId": "P1200AJ9NP",
+      "additionalInfo": {
+        "payer": {
+          "name": "John ",
+          "identifier": {
+            "type": "SCAN",
+            "sortCode": "000000",
+            "accountNumber": "70500088"
+          }
+        }
+      },
+      "account": {
+        "id": "A1229ZQJ",
+        "name": "Devengo",
+        "balance": "4995.28",
+        "currency": "GBP",
+        "status": "ACTIVE",
+        "identifiers": [
+          {
+            "type": "SCAN",
+            "accountNumber": "02730900",
+            "sortCode": "000000",
+            "providerExtraInfo": "{}"
+          }
+        ],
+        "customerId": "C120HZV4",
+        "customerName": "Devengo",
+        "externalReference": "acc_1IdGssjbEIyMYItDXwcVM9",
+        "accessGroups": [],
+        "createdDate": "2023-01-31T18:26:08.040+0000",
+        "directDebit": true,
+        "securedFundingLimit": "0.00"
+      }
+    }
+  ],
+  "size": 1,
+  "totalSize": 1,
+  "page": 0,
+  "totalPages": 1
+}

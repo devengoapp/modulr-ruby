@@ -1,0 +1,51 @@
+HTTP/1.1 200 OK
+content-type: application/json
+transfer-encoding: chunked
+connection: keep-alive
+cache-control: no-cache, no-store, must-revalidate
+content-security-policy: default-src https: data: 'unsafe-inline' 'unsafe-eval'
+expires: 0
+pragma: no-cache
+server: Apache
+strict-transport-security: max-age=31536000
+vary: Origin
+x-content-type-options: nosniff
+x-frame-options: SAMEORIGIN
+x-ratelimit-limit: 4000000
+x-ratelimit-remaining: 3999893
+x-ratelimit-reset: 1674464655
+x-xss-protection: 1; mode=block
+
+{
+  "content": [
+    {
+      "id": "P1200AKJK1",
+      "status": "PROCESSED",
+      "createdDate": "2023-04-19T09:13:46.046+0000",
+      "externalReference": "tra_16Zo5PPqFndOhIXIQr8w0f",
+      "details": {
+        "sourceAccountId": "A122CZ7E",
+        "destinationType": "IBAN",
+        "destination": {
+          "type": "IBAN",
+          "iban": "ES9400814163357423474839",
+          "name": "John"
+        },
+        "currency": "EUR",
+        "amount": 0.01,
+        "reference": "Outgoing payment regular",
+        "externalReference": "tra_16Zo5PPqFndOhIXIQr8w0f"
+      },
+      "reference": "P1200AKJK1",
+      "approvalStatus": "NOTNEEDED",
+      "message": "",
+      "schemeInfo": {
+        "name": "SEPA_INSTANT"
+      }
+    }
+  ],
+  "size": 1,
+  "totalSize": 1,
+  "page": 0,
+  "totalPages": 1
+}

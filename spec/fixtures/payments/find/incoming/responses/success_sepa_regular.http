@@ -1,0 +1,67 @@
+HTTP/1.1 200 OK
+content-type: application/json
+transfer-encoding: chunked
+connection: keep-alive
+cache-control: no-cache, no-store, must-revalidate
+content-security-policy: default-src https: data: 'unsafe-inline' 'unsafe-eval'
+expires: 0
+pragma: no-cache
+server: Apache
+strict-transport-security: max-age=31536000
+vary: Origin
+x-content-type-options: nosniff
+x-frame-options: SAMEORIGIN
+x-ratelimit-limit: 4000000
+x-ratelimit-remaining: 3999893
+x-ratelimit-reset: 1674464655
+x-xss-protection: 1; mode=block
+
+{
+  "content": [
+    {
+      "id": "P1200AJ55X",
+      "status": "PROCESSED",
+      "createdDate": "2023-04-11T16:16:20.020+0000",
+      "details": {
+        "created": "2023-04-11T16:16:20.733+00:00",
+        "retryCount": 0,
+        "sourceService": "bolProviderService",
+        "requestReference": "SI23032029385314",
+        "reprocess": false,
+        "priority": 0,
+        "accountNumber": "A1216A1Z",
+        "posted": "2023-04-11T16:16:20.733+00:00",
+        "type": "PI_SECT",
+        "amount": 0.01,
+        "currency": "EUR",
+        "description": "Incoming payment",
+        "providerCode": "BOL",
+        "ledgerBankCode": "BOLIEREG",
+        "payerName": "Jonh ",
+        "payer": {
+          "name": "Jonh",
+          "identifier": {
+            "type": "IBAN",
+            "iban": "GB88MOCK00000001412498"
+          }
+        },
+        "payee": {
+          "name": "Jane",
+          "identifier": {
+            "type": "IBAN",
+            "iban": "ES2914653111661392648933"
+          }
+        },
+        "clearingRequired": false,
+        "originatedOverseas": false,
+        "details": {},
+        "manualRecall": false
+      },
+      "reference": "P1200AJ55X"
+    }
+  ],
+  "size": 1,
+  "totalSize": 1,
+  "page": 0,
+  "totalPages": 1
+}

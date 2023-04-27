@@ -1,0 +1,49 @@
+HTTP/1.1 200 OK
+content-type: application/json
+transfer-encoding: chunked
+connection: keep-alive
+cache-control: no-cache, no-store, must-revalidate
+content-security-policy: default-src https: data: 'unsafe-inline' 'unsafe-eval'
+expires: 0
+pragma: no-cache
+server: Apache
+strict-transport-security: max-age=31536000
+vary: Origin
+x-content-type-options: nosniff
+x-frame-options: SAMEORIGIN
+x-ratelimit-limit: 4000000
+x-ratelimit-remaining: 3999893
+x-ratelimit-reset: 1674464655
+x-xss-protection: 1; mode=block
+
+{
+  "content": [
+    {
+      "id": "P1200AJBNT",
+      "status": "PROCESSED",
+      "createdDate": "2023-04-12T15:02:27.027+0000",
+      "externalReference": "tra_2mWHsnsUHdqA4oA0MiP7up",
+      "details": {
+        "sourceAccountId": "A120N63Q",
+        "destinationType": "SCAN",
+        "destination": {
+          "type": "SCAN",
+          "accountNumber": "02730900",
+          "sortCode": "000000",
+          "name": "John"
+        },
+        "currency": "GBP",
+        "amount": 0.01,
+        "reference": "From UK Modulr account",
+        "externalReference": "tra_2mWHsnsUHdqA4oA0MiP7up"
+      },
+      "reference": "P1200AJBNT",
+      "approvalStatus": "NOTNEEDED",
+      "message": ""
+    }
+  ],
+  "size": 1,
+  "totalSize": 1,
+  "page": 0,
+  "totalPages": 1
+}

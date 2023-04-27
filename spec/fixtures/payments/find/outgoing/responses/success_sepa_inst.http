@@ -1,0 +1,51 @@
+HTTP/1.1 200 OK
+content-type: application/json
+transfer-encoding: chunked
+connection: keep-alive
+cache-control: no-cache, no-store, must-revalidate
+content-security-policy: default-src https: data: 'unsafe-inline' 'unsafe-eval'
+expires: 0
+pragma: no-cache
+server: Apache
+strict-transport-security: max-age=31536000
+vary: Origin
+x-content-type-options: nosniff
+x-frame-options: SAMEORIGIN
+x-ratelimit-limit: 4000000
+x-ratelimit-remaining: 3999893
+x-ratelimit-reset: 1674464655
+x-xss-protection: 1; mode=block
+
+{
+  "content": [
+    {
+      "id": "P1200AJQPQ",
+      "status": "PROCESSED",
+      "createdDate": "2023-04-14T11:36:03.003+0000",
+      "externalReference": "tra_AZ6t3dfk9GNn8cVMCtYt9",
+      "details": {
+        "sourceAccountId": "A122CZ7E",
+        "destinationType": "IBAN",
+        "destination": {
+          "type": "IBAN",
+          "iban": "ES2914653111661392648933",
+          "name": "John"
+        },
+        "currency": "EUR",
+        "amount": 0.01,
+        "reference": "From Modulr account",
+        "externalReference": "tra_AZ6t3dfk9GNn8cVMCtYt9"
+      },
+      "reference": "P1200AJQPQ",
+      "approvalStatus": "NOTNEEDED",
+      "message": "",
+      "schemeInfo": {
+        "name": "SEPA_INSTANT"
+      }
+    }
+  ],
+  "size": 1,
+  "totalSize": 1,
+  "page": 0,
+  "totalPages": 1
+}
