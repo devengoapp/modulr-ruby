@@ -330,6 +330,44 @@ RSpec.describe Modulr::API::PaymentsService, :unit, type: :client do
         end
       end
 
+      context "when it is INTERNAL payment" do
+        before do
+          stub_request(:get, %r{/payments})
+            .with(query: hash_including({ "id" => "P1200ANH2V" }))
+            .to_return(
+              read_http_response_fixture("payments/find/outgoing", "success_sepa_internal")
+            )
+        end
+
+        let!(:found_payment) do
+          payments.find(id: "P1200ANH2V")
+        end
+
+        it_behaves_like "builds correct request", {
+          method: :get,
+          path: %r{/payments},
+        }
+
+        it "returns the payment" do
+          expect(found_payment).to be_a Modulr::Resources::Payments::Payment
+          expect(found_payment.id).to eql("P1200ANH2V")
+          expect(found_payment.status).to eql("PROCESSED")
+          expect(found_payment.created_at).to eql("2023-04-20T13:08:28.028+0000")
+          expect(found_payment.reference).to eql("P1200ANH2V")
+          expect(found_payment.approval_status).to eql("NOTNEEDED")
+          expect(found_payment.details).to be_a Modulr::Resources::Payments::Details::Outgoing::General
+          expect(found_payment.details.source_account_id).to eql("A122CZ7E")
+          expect(found_payment.details.currency).to eql("EUR")
+          expect(found_payment.details.amount).to be 0.01
+          expect(found_payment.details.reference).to eql("Internal payment")
+          expect(found_payment.details.destination).to be_a Modulr::Resources::Payments::Destination
+          expect(found_payment.details.destination.identifier.type).to eql("IBAN")
+          expect(found_payment.details.destination.identifier.iban).to eql("GB25MOCK00000001412565")
+          expect(found_payment.details.destination.name).to eql("John")
+          expect(found_payment.external_reference).to eql("tra_1TSQ0d0i3gkGqFjxuhdv73")
+        end
+      end
+
       context "when the id is valid" do
         before do
           stub_request(:get, %r{/payments})
