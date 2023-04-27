@@ -113,6 +113,10 @@ RSpec.describe Modulr::API::PaymentsService, :unit, type: :client do
           expect(fps_payment.details.payee.identifier.type).to eql("SCAN")
           expect(fps_payment.details.payee.identifier.sort_code).to eql("040392")
           expect(fps_payment.details.payee.identifier.account_number).to eql("00631973")
+          expect(fps_payment.details.destination.name).to eql("Devengo SL")
+          expect(fps_payment.details.destination.identifier.type).to eql("SCAN")
+          expect(fps_payment.details.destination.identifier.sort_code).to eql("040392")
+          expect(fps_payment.details.destination.identifier.account_number).to eql("00631973")
         end
       end
 
@@ -159,6 +163,9 @@ RSpec.describe Modulr::API::PaymentsService, :unit, type: :client do
           expect(sct_inst_payment.details.payee.name).to eql("AGR tests in Devengo Modulr")
           expect(sct_inst_payment.details.payee.identifier.type).to eql("IBAN")
           expect(sct_inst_payment.details.payee.identifier.iban).to eql("IE21MODR99035502154595")
+          expect(sct_inst_payment.details.destination.name).to eql("AGR tests in Devengo Modulr")
+          expect(sct_inst_payment.details.destination.identifier.type).to eql("IBAN")
+          expect(sct_inst_payment.details.destination.identifier.iban).to eql("IE21MODR99035502154595")
         end
       end
 
@@ -354,9 +361,9 @@ RSpec.describe Modulr::API::PaymentsService, :unit, type: :client do
           expect(found_payment.details.amount).to be 0.01
           expect(found_payment.details.reference).to eql("The reference")
           expect(found_payment.details.destination).to be_a Modulr::Resources::Payments::Destination
+          expect(found_payment.details.destination.name).to eql("Aitor García Rey")
           expect(found_payment.details.destination.identifier.type).to eql("IBAN")
           expect(found_payment.details.destination.identifier.iban).to eql("ES6015632626303264517956")
-          expect(found_payment.details.destination.name).to eql("Aitor García Rey")
         end
       end
     end
