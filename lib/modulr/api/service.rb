@@ -10,7 +10,7 @@ module Modulr
       end
 
       def format_datetime(datetime)
-        datetime.strftime("%Y-%m-%dT%l:%M:%S%z")
+        datetime.strftime("%Y-%m-%dT%H:%M:%S%z")
       end
     end
   end
