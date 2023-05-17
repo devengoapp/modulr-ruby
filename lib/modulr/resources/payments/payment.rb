@@ -21,9 +21,11 @@ module Modulr
         private def parse_details(attributes)
           details = attributes[:details]
 
-          case details&.dig(:type)
+          case details&.dig(:type) || details&.dig(:destinationType)
           when "PI_SECT", "PI_SEPA_INST", "PI_FAST", "PI_REV"
             Details::Incoming::General.new(nil, details)
+          when "ACCOUNT"
+            Details::Incoming::Internal.new(nil, details)
           else
             Details::Outgoing::General.new(nil, details)
           end

@@ -5,6 +5,7 @@ module Modulr
     module Accounts
       class Identifier < Base
         map :type
+        map :id
         map :iban
         map :bic
         map :currency
