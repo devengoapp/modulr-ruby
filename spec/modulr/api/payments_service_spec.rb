@@ -214,6 +214,38 @@ RSpec.describe Modulr::API::PaymentsService, :unit, type: :client do
           expect(sct_regular_payment.details.payee.identifier.iban).to eql("ES2914653111661392648933")
         end
       end
+
+      context "when it is an ACCOUNT type payment" do
+        before do
+          stub_request(:get, %r{/payments})
+            .with(query: hash_including({ "id" => "P210GY2JDJ" }))
+            .to_return(
+              read_http_response_fixture("payments/find/incoming", "success_internal")
+            )
+        end
+
+        let!(:internal_incoming_payment) do
+          payments.find(id: "P210GY2JDJ")
+        end
+
+        it_behaves_like "builds correct request", {
+          method: :get,
+          path: %r{/payments},
+        }
+
+        it "returns the payment" do
+          expect(internal_incoming_payment).to be_a Modulr::Resources::Payments::Payment
+          expect(internal_incoming_payment.id).to eql("P210GY2JDJ")
+          expect(internal_incoming_payment.status).to eql("PROCESSED")
+          expect(internal_incoming_payment.created_at).to eql("2023-03-10T18:20:12.012+0000")
+          expect(internal_incoming_payment.reference).to eql("P210GY2JDJ")
+          expect(internal_incoming_payment.details).to be_a Modulr::Resources::Payments::Details::Incoming::Internal
+          expect(internal_incoming_payment.details.currency).to eql("GBP")
+          expect(internal_incoming_payment.details.amount).to be 0.01
+          expect(internal_incoming_payment.details.source_account_id).to eql("A21BZ2GX")
+          expect(internal_incoming_payment.details.reference).to eql("Reference")
+        end
+      end
     end
 
     context "with outgoing payments" do
