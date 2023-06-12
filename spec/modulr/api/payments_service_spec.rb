@@ -307,6 +307,7 @@ RSpec.describe Modulr::API::PaymentsService, :unit, type: :client do
 
         it "returns the payment" do
           expect(found_payment).to be_a Modulr::Resources::Payments::Payment
+          expect(found_payment.message).to be_empty
           expect(found_payment.id).to eql("P1200AJQPQ")
           expect(found_payment.status).to eql("PROCESSED")
           expect(found_payment.created_at).to eql("2023-04-14T11:36:03.003+0000")
@@ -344,6 +345,7 @@ RSpec.describe Modulr::API::PaymentsService, :unit, type: :client do
 
         it "returns the payment" do
           expect(found_payment).to be_a Modulr::Resources::Payments::Payment
+          expect(found_payment.message).to be_empty
           expect(found_payment.id).to eql("P1200AKJK1")
           expect(found_payment.status).to eql("PROCESSED")
           expect(found_payment.created_at).to eql("2023-04-19T09:13:46.046+0000")
@@ -382,6 +384,7 @@ RSpec.describe Modulr::API::PaymentsService, :unit, type: :client do
 
         it "returns the payment" do
           expect(found_payment).to be_a Modulr::Resources::Payments::Payment
+          expect(found_payment.message).to be_empty
           expect(found_payment.id).to eql("P1200ANH2V")
           expect(found_payment.status).to eql("PROCESSED")
           expect(found_payment.created_at).to eql("2023-04-20T13:08:28.028+0000")
@@ -420,6 +423,7 @@ RSpec.describe Modulr::API::PaymentsService, :unit, type: :client do
 
         it "returns the payment" do
           expect(found_payment).to be_a Modulr::Resources::Payments::Payment
+          expect(found_payment.message).to be_empty
           expect(found_payment.id).to eql("P210G2CY0N")
           expect(found_payment.status).to eql("PROCESSED")
           expect(found_payment.created_at).to eql("2023-02-09T18:19:47.047+0000")
@@ -434,6 +438,44 @@ RSpec.describe Modulr::API::PaymentsService, :unit, type: :client do
           expect(found_payment.details.destination.name).to eql("Aitor García Rey")
           expect(found_payment.details.destination.identifier.type).to eql("IBAN")
           expect(found_payment.details.destination.identifier.iban).to eql("ES6015632626303264517956")
+        end
+      end
+
+      context "when payment was not validated" do
+        before do
+          stub_request(:get, %r{/payments})
+            .with(query: hash_including({ "id" => "P1200AJQPQ" }))
+            .to_return(
+              read_http_response_fixture("payments/find/outgoing", "failed_sepa_payment")
+            )
+        end
+
+        let!(:found_payment) do
+          payments.find(id: "P1200AJQPQ")
+        end
+
+        it_behaves_like "builds correct request", {
+          method: :get,
+          path: %r{/payments},
+        }
+
+        it "returns the payment" do
+          expect(found_payment).to be_a Modulr::Resources::Payments::Payment
+          expect(found_payment.message).to eql("Beneficiary Account Blocked. Please review beneficiary information.")
+          expect(found_payment.id).to eql("P1200AJQPQ")
+          expect(found_payment.status).to eql("ER_INVALID")
+          expect(found_payment.created_at).to eql("2023-04-14T11:36:03.003+0000")
+          expect(found_payment.reference).to eql("P1200AJQPQ")
+          expect(found_payment.approval_status).to eql("NOTNEEDED")
+          expect(found_payment.details).to be_a Modulr::Resources::Payments::Details::Outgoing::General
+          expect(found_payment.details.source_account_id).to eql("A122CZ7E")
+          expect(found_payment.details.currency).to eql("EUR")
+          expect(found_payment.details.amount).to be 0.01
+          expect(found_payment.details.reference).to eql("From Modulr account")
+          expect(found_payment.details.destination).to be_a Modulr::Resources::Payments::Destination
+          expect(found_payment.details.destination.identifier.type).to eql("IBAN")
+          expect(found_payment.details.destination.identifier.iban).to eql("ES2914653111661392648933")
+          expect(found_payment.details.destination.name).to eql("John")
         end
       end
     end

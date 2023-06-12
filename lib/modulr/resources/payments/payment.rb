@@ -12,6 +12,7 @@ module Modulr
         map :externalReference, :external_reference
         map :createdDate, :created_at
         map :approvalStatus, :approval_status
+        map :message, :message
 
         def initialize(raw_response, attributes = {})
           super(raw_response, attributes)
