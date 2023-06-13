@@ -4,7 +4,7 @@ module Modulr
   module Resources
     module Payments
       class Payment < Base
-        attr_reader :details
+        attr_reader :details, :network
 
         map :id, [:id, :payment_reference_id]
         map :status
@@ -17,6 +17,14 @@ module Modulr
         def initialize(raw_response, attributes = {})
           super(raw_response, attributes)
           @details = parse_details(attributes)
+          @network = network(attributes[:details].dig(:currency))
+        end
+
+        private def network(currency)
+          currency = currency.upcase
+
+          return "SEPA" if currency == "EUR"
+          return "FPS" if currency == "GBP"
         end
 
         private def parse_details(attributes)
