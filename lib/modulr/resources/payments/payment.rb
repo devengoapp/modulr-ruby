@@ -17,10 +17,10 @@ module Modulr
         def initialize(raw_response, attributes = {})
           super(raw_response, attributes)
           @details = parse_details(attributes)
-          @network = network(attributes[:details].dig(:currency))
+          @network = parse_network(attributes[:details][:currency])
         end
 
-        private def network(currency)
+        private def parse_network(currency)
           currency = currency.upcase
 
           return "SEPA" if currency == "EUR"
