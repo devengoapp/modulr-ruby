@@ -24,7 +24,7 @@ module Modulr
           currency = currency.upcase
 
           return "SEPA" if currency == "EUR"
-          return "FPS" if currency == "GBP"
+          return "UK_FPS" if currency == "GBP"
         end
 
         private def parse_details(attributes)
