@@ -50,7 +50,7 @@ x-xss-protection: 1; mode=block
         "destinationType":"IBAN",
         "destination": {
           "type":"IBAN",
-          "iban":"ES6015632626303264517956",
+          "iban":"ES8731902527103498957662",
           "name":"Aitor García Rey"
         },
         "currency":"EUR",
