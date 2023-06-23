@@ -19,7 +19,7 @@ RSpec.describe Modulr::API::PaymentsService, :unit, type: :client do
           destination: {
             type: "IBAN",
             iban: "ES8731902527103498957662",
-            name: "Aitor García Rey",
+            name: "Ana García Rey",
           },
           reference: "The reference"
         )
@@ -35,7 +35,7 @@ RSpec.describe Modulr::API::PaymentsService, :unit, type: :client do
           destination: {
             type: "IBAN",
             iban: "ES8731902527103498957662",
-            name: "Aitor García Rey",
+            name: "Ana García Rey",
           },
           reference: "The reference",
         },
@@ -96,15 +96,15 @@ RSpec.describe Modulr::API::PaymentsService, :unit, type: :client do
           expect(fps_payment.details.created_at).to eql("2023-03-17T08:18:10.569+00:00")
           expect(fps_payment.details.posted_at).to eql("2023-03-17T08:18:10.569+00:00")
           expect(fps_payment.details.type).to eql("PI_FAST")
-          expect(fps_payment.details.description).to eql("Payment from Aitor Garcia Rey: Aitor from Wise")
-          expect(fps_payment.details.original_reference).to eql("Aitor from Wise")
+          expect(fps_payment.details.description).to eql("Payment from Ana Devenguer: Ana from Wise")
+          expect(fps_payment.details.original_reference).to eql("Ana from Wise")
           expect(fps_payment.details.currency).to eql("GBP")
           expect(fps_payment.details.amount).to be 0.01
           expect(fps_payment.details.account_number).to eql("A21CM4HA")
           expect(fps_payment.details.scheme_id).to eql("TW00000005322175031020230317826231470")
           expect(fps_payment.details.raw_details.keys).to include(:fpsTransaction)
           expect(fps_payment.details.payer).to be_a Modulr::Resources::Payments::Counterparty
-          expect(fps_payment.details.payer.name).to eql("Aitor Garcia Rey")
+          expect(fps_payment.details.payer.name).to eql("Ana Devenguer")
           expect(fps_payment.details.payer.identifier.type).to eql("SCAN")
           expect(fps_payment.details.payer.identifier.sort_code).to eql("TRWIBEBB")
           expect(fps_payment.details.payer.identifier.account_number).to eql("P12642236")
@@ -117,7 +117,7 @@ RSpec.describe Modulr::API::PaymentsService, :unit, type: :client do
           expect(fps_payment.details.destination.identifier.type).to eql("SCAN")
           expect(fps_payment.details.destination.identifier.sort_code).to eql("040392")
           expect(fps_payment.details.destination.identifier.account_number).to eql("00631973")
-          expect(fps_payment.end_to_end_id).to eql("Aitor from Wise")
+          expect(fps_payment.end_to_end_id).to eql("Ana from Wise")
         end
       end
 
@@ -149,7 +149,7 @@ RSpec.describe Modulr::API::PaymentsService, :unit, type: :client do
           expect(sct_inst_payment.details.created_at).to eql("2023-03-20T09:16:53.503+00:00")
           expect(sct_inst_payment.details.posted_at).to eql("2023-03-20T09:16:51.000+00:00")
           expect(sct_inst_payment.details.type).to eql("PI_SEPA_INST")
-          expect(sct_inst_payment.details.description).to eql("Payment from Aitor Garcia Rey: Enviada desde N26")
+          expect(sct_inst_payment.details.description).to eql("Payment from Ana Devenguer: Enviada desde N26")
           expect(sct_inst_payment.details.original_reference).to eql("Enviada desde N26")
           expect(sct_inst_payment.details.currency).to eql("EUR")
           expect(sct_inst_payment.details.amount).to be 2.00
@@ -157,7 +157,7 @@ RSpec.describe Modulr::API::PaymentsService, :unit, type: :client do
           expect(sct_inst_payment.details.scheme_id).to eql("SI23032029385314-O-f9ffc22bc62e300788f538eafd75db28")
           expect(sct_inst_payment.details.raw_details.keys).to include(:type, :payload)
           expect(sct_inst_payment.details.payer).to be_a Modulr::Resources::Payments::Counterparty
-          expect(sct_inst_payment.details.payer.name).to eql("Aitor Garcia Rey")
+          expect(sct_inst_payment.details.payer.name).to eql("Ana Devenguer")
           expect(sct_inst_payment.details.payer.identifier.type).to eql("IBAN")
           expect(sct_inst_payment.details.payer.identifier.iban).to eql("ES8731902527103498957662")
           expect(sct_inst_payment.details.payee).to be_a Modulr::Resources::Payments::Counterparty
@@ -199,7 +199,7 @@ RSpec.describe Modulr::API::PaymentsService, :unit, type: :client do
           expect(sct_regular_payment.details.created_at).to eql("2023-03-21T11:14:35.131+00:00")
           expect(sct_regular_payment.details.posted_at).to eql("2023-03-21T11:13:39.000+00:00")
           expect(sct_regular_payment.details.type).to eql("PI_SECT")
-          expect(sct_regular_payment.details.description).to eql("Payment from Aitor Garcia Rey: Enviada desde N26")
+          expect(sct_regular_payment.details.description).to eql("Payment from Ana Devenguer: Enviada desde N26")
           expect(sct_regular_payment.details.original_reference).to eql "Enviada desde N26"
           expect(sct_regular_payment.details.currency).to eql("EUR")
           expect(sct_regular_payment.details.amount).to be 0.01
@@ -207,7 +207,7 @@ RSpec.describe Modulr::API::PaymentsService, :unit, type: :client do
           expect(sct_regular_payment.details.scheme_id).to eql "S230800054197732-e44ec0108b074a73b117dbe1fbf44def"
           expect(sct_regular_payment.details.raw_details.keys).not_to be_empty
           expect(sct_regular_payment.details.payer).to be_a Modulr::Resources::Payments::Counterparty
-          expect(sct_regular_payment.details.payer.name).to eql("Aitor Garcia Rey")
+          expect(sct_regular_payment.details.payer.name).to eql("Ana Devenguer")
           expect(sct_regular_payment.details.payer.identifier.type).to eql("IBAN")
           expect(sct_regular_payment.details.payer.identifier.iban).to eql("ES8731902527103498957662")
           expect(sct_regular_payment.details.payee).to be_a Modulr::Resources::Payments::Counterparty
@@ -438,7 +438,7 @@ RSpec.describe Modulr::API::PaymentsService, :unit, type: :client do
           expect(found_payment.details.amount).to be 0.01
           expect(found_payment.details.reference).to eql("The reference")
           expect(found_payment.details.destination).to be_a Modulr::Resources::Payments::Destination
-          expect(found_payment.details.destination.name).to eql("Aitor García Rey")
+          expect(found_payment.details.destination.name).to eql("Ana García Rey")
           expect(found_payment.details.destination.identifier.type).to eql("IBAN")
           expect(found_payment.details.destination.identifier.iban).to eql("ES8731902527103498957662")
         end

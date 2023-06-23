@@ -16,4 +16,4 @@ x-ratelimit-remaining: 3999900
 x-ratelimit-reset: 1674464655
 x-xss-protection: 1; mode=block
 
-{"id":"P210FFRUVT","status":"VALIDATED","createdDate":"2023-01-20T08:46:23.023+0000","externalReference":"The external reference","details":{"sourceAccountId":"A21BZ2GE","destinationType":"IBAN","destination":{"type":"IBAN","iban":"ES8731902527103498957662","name":"Aitor García Rey"},"currency":"EUR","amount":0.02,"reference":"The reference"},"reference":"P210FFRUVT","approvalStatus":"NOTNEEDED"}
+{"id":"P210FFRUVT","status":"VALIDATED","createdDate":"2023-01-20T08:46:23.023+0000","externalReference":"The external reference","details":{"sourceAccountId":"A21BZ2GE","destinationType":"IBAN","destination":{"type":"IBAN","iban":"ES8731902527103498957662","name":"Ana García Rey"},"currency":"EUR","amount":0.02,"reference":"The reference"},"reference":"P210FFRUVT","approvalStatus":"NOTNEEDED"}

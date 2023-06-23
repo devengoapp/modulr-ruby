@@ -29,7 +29,7 @@ x-xss-protection: 1; mode=block
           "type": "SCAN",
           "accountNumber": "79433111",
           "sortCode": "231470",
-          "name": "Aitor Garcia Rey"
+          "name": "Ana Devenguer"
         },
         "currency": "GBP",
         "amount": 0.01,

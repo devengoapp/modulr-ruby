@@ -29,7 +29,7 @@ x-xss-protection: 1; mode=block
         "destination": {
           "type": "IBAN",
           "iban": "ES8731902527103498957662",
-          "name": "Aitor García Rey"
+          "name": "Ana García Rey"
         },
         "currency": "EUR",
         "amount": 0.01,

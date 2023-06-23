@@ -34,13 +34,13 @@ x-xss-protection: 1; mode=block
         "type": "PI_SECT",
         "amount": 0.01,
         "currency": "EUR",
-        "description": "Payment from Aitor Garcia Rey: Enviada desde N26",
+        "description": "Payment from Ana Devenguer: Enviada desde N26",
         "originalReference": "Enviada desde N26",
         "providerCode": "BOL",
         "ledgerBankCode": "BOLIE",
-        "payerName": "Aitor Garcia Rey",
+        "payerName": "Ana Devenguer",
         "payer": {
-          "name": "Aitor Garcia Rey",
+          "name": "Ana Devenguer",
           "identifier": {
             "type": "IBAN",
             "iban": "ES8731902527103498957662",
@@ -126,7 +126,7 @@ x-xss-protection: 1; mode=block
                             "nm": "AGR tests in Devengo Modulr"
                           },
                           "dbtr": {
-                            "nm": "Aitor Garcia Rey"
+                            "nm": "Ana Devenguer"
                           },
                           "pmtId": {
                             "txId": "e44ec0108b074a73b117dbe1fbf44def",
