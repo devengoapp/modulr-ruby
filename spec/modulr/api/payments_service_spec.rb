@@ -516,19 +516,19 @@ RSpec.describe Modulr::API::PaymentsService, :unit, type: :client do
       context "when payment was not validated" do
         before do
           stub_request(:get, %r{/payments})
-            .with(query: hash_including({ "id" => "P1200AJQPQ" }))
+            .with(query: hash_including({ "id" => "P210HYHNCT" }))
             .to_return(
               read_http_response_fixture("payments/find/outgoing", "failed_sepa_payment")
             )
 
-          stub_request(:get, %r{/accounts/A122CZ7E/transactions})
+          stub_request(:get, %r{/accounts/A21E68ZZ/transactions})
           .to_return(
-            read_http_response_fixture("transactions/list/responses/outgoing", "success_sepa_internal_transactions")
+            read_http_response_fixture("transactions/list/responses/outgoing", "success_sepa_inst_transactions")
           )
         end
 
         let!(:found_payment) do
-          payments.find(id: "P1200AJQPQ")
+          payments.find(id: "P210HYHNCT")
         end
 
         it_behaves_like "builds correct request", {
@@ -539,13 +539,13 @@ RSpec.describe Modulr::API::PaymentsService, :unit, type: :client do
         it "returns the payment" do
           expect(found_payment).to be_a Modulr::Resources::Payments::Payment
           expect(found_payment.message).to eql("Beneficiary Account Blocked. Please review beneficiary information.")
-          expect(found_payment.id).to eql("P1200AJQPQ")
+          expect(found_payment.id).to eql("P210HYHNCT")
           expect(found_payment.status).to eql("ER_INVALID")
           expect(found_payment.created_at).to eql("2023-04-14T11:36:03.003+0000")
           expect(found_payment.reference).to eql("P1200AJQPQ")
           expect(found_payment.approval_status).to eql("NOTNEEDED")
           expect(found_payment.details).to be_a Modulr::Resources::Payments::Details::Outgoing::General
-          expect(found_payment.details.source_account_id).to eql("A122CZ7E")
+          expect(found_payment.details.source_account_id).to eql("A21E68ZZ")
           expect(found_payment.details.currency).to eql("EUR")
           expect(found_payment.details.amount).to be 0.01
           expect(found_payment.details.reference).to eql("From Modulr account")
