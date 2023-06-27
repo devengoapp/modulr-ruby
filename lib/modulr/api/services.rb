@@ -1,9 +1,6 @@
 # frozen_string_literal: true
 
 require_relative "service"
-require_relative "accounts_service"
-require_relative "payments_service"
-require_relative "transactions_service"
 
 module Modulr
   module API
