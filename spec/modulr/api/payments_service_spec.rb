@@ -96,27 +96,29 @@ RSpec.describe Modulr::API::PaymentsService, :unit, type: :client do
           expect(fps_payment.details.created_at).to eql("2023-03-17T08:18:10.569+00:00")
           expect(fps_payment.details.posted_at).to eql("2023-03-17T08:18:10.569+00:00")
           expect(fps_payment.details.type).to eql("PI_FAST")
-          expect(fps_payment.details.description).to eql("Payment from Aitor Garcia Rey: Aitor from Wise")
-          expect(fps_payment.details.original_reference).to eql("Aitor from Wise")
+          expect(fps_payment.details.description).to eql("Incoming faster payment")
+          expect(fps_payment.details.original_reference).to eql("Incoming faster payment fixture")
           expect(fps_payment.details.currency).to eql("GBP")
           expect(fps_payment.details.amount).to be 0.01
-          expect(fps_payment.details.account_number).to eql("A21CM4HA")
+          expect(fps_payment.details.account_number).to eql("A21CM4HE")
           expect(fps_payment.details.scheme_id).to eql("TW00000005322175031020230317826231470")
           expect(fps_payment.details.raw_details.keys).to include(:fpsTransaction)
           expect(fps_payment.details.payer).to be_a Modulr::Resources::Payments::Counterparty
-          expect(fps_payment.details.payer.name).to eql("Aitor Garcia Rey")
+          expect(fps_payment.details.payer.name).to eql("John")
           expect(fps_payment.details.payer.identifier.type).to eql("SCAN")
-          expect(fps_payment.details.payer.identifier.sort_code).to eql("TRWIBEBB")
-          expect(fps_payment.details.payer.identifier.account_number).to eql("P12642236")
+          expect(fps_payment.details.payer.identifier.sort_code).to eql("TRWIBEBC")
+          expect(fps_payment.details.payer.identifier.account_number).to eql("P12642237")
           expect(fps_payment.details.payee).to be_a Modulr::Resources::Payments::Counterparty
           expect(fps_payment.details.payee.name).to eql("Devengo SL")
           expect(fps_payment.details.payee.identifier.type).to eql("SCAN")
-          expect(fps_payment.details.payee.identifier.sort_code).to eql("040392")
-          expect(fps_payment.details.payee.identifier.account_number).to eql("00631973")
+          expect(fps_payment.details.payee.identifier.sort_code).to eql("040393")
+          expect(fps_payment.details.payee.identifier.account_number).to eql("00631974")
           expect(fps_payment.details.destination.name).to eql("Devengo SL")
           expect(fps_payment.details.destination.identifier.type).to eql("SCAN")
-          expect(fps_payment.details.destination.identifier.sort_code).to eql("040392")
-          expect(fps_payment.details.destination.identifier.account_number).to eql("00631973")
+          expect(fps_payment.details.destination.identifier.sort_code).to eql("040393")
+          expect(fps_payment.details.destination.identifier.account_number).to eql("00631974")
+          expect(fps_payment.network).to eql("FPS")
+          expect(fps_payment.scheme).to eql("Faster Payments")
         end
       end
 
@@ -148,38 +150,40 @@ RSpec.describe Modulr::API::PaymentsService, :unit, type: :client do
           expect(sct_inst_payment.details.created_at).to eql("2023-03-20T09:16:53.503+00:00")
           expect(sct_inst_payment.details.posted_at).to eql("2023-03-20T09:16:51.000+00:00")
           expect(sct_inst_payment.details.type).to eql("PI_SEPA_INST")
-          expect(sct_inst_payment.details.description).to eql("Payment from Aitor Garcia Rey: Enviada desde N26")
-          expect(sct_inst_payment.details.original_reference).to eql("Enviada desde N26")
+          expect(sct_inst_payment.details.description).to eql("Incoming sepa instant payment")
+          expect(sct_inst_payment.details.original_reference).to eql("Incoming sepa instant payment fixture")
           expect(sct_inst_payment.details.currency).to eql("EUR")
           expect(sct_inst_payment.details.amount).to be 2.00
-          expect(sct_inst_payment.details.account_number).to eql("A21DC313")
-          expect(sct_inst_payment.details.scheme_id).to eql("SI23032029385314-O-f9ffc22bc62e300788f538eafd75db28")
+          expect(sct_inst_payment.details.account_number).to eql("A21DC314")
+          expect(sct_inst_payment.details.scheme_id).to eql("SI23032029385314-O-f9ffc22bc62e300788f538eafd75db20")
           expect(sct_inst_payment.details.raw_details.keys).to include(:type, :payload)
           expect(sct_inst_payment.details.payer).to be_a Modulr::Resources::Payments::Counterparty
-          expect(sct_inst_payment.details.payer.name).to eql("Aitor Garcia Rey")
+          expect(sct_inst_payment.details.payer.name).to eql("John")
           expect(sct_inst_payment.details.payer.identifier.type).to eql("IBAN")
-          expect(sct_inst_payment.details.payer.identifier.iban).to eql("ES6015632626303264517956")
+          expect(sct_inst_payment.details.payer.identifier.iban).to eql("ES6015632626303264517957")
           expect(sct_inst_payment.details.payee).to be_a Modulr::Resources::Payments::Counterparty
-          expect(sct_inst_payment.details.payee.name).to eql("AGR tests in Devengo Modulr")
+          expect(sct_inst_payment.details.payee.name).to eql("Devengo")
           expect(sct_inst_payment.details.payee.identifier.type).to eql("IBAN")
-          expect(sct_inst_payment.details.payee.identifier.iban).to eql("IE21MODR99035502154595")
-          expect(sct_inst_payment.details.destination.name).to eql("AGR tests in Devengo Modulr")
+          expect(sct_inst_payment.details.payee.identifier.iban).to eql("IE21MODR99035502154596")
+          expect(sct_inst_payment.details.destination.name).to eql("Devengo")
           expect(sct_inst_payment.details.destination.identifier.type).to eql("IBAN")
-          expect(sct_inst_payment.details.destination.identifier.iban).to eql("IE21MODR99035502154595")
+          expect(sct_inst_payment.details.destination.identifier.iban).to eql("IE21MODR99035502154596")
+          expect(sct_inst_payment.network).to eql("SEPA")
+          expect(sct_inst_payment.scheme).to eql("SEPA Instant Credit Transfers")
         end
       end
 
       context "when it is SCT-REGULAR payment" do
         before do
           stub_request(:get, %r{/payments})
-            .with(query: hash_including({ "id" => "P1200AJ55X" }))
+            .with(query: hash_including({ "id" => "P210J30EGV" }))
             .to_return(
               read_http_response_fixture("payments/find/incoming", "success_sepa_regular")
             )
         end
 
         let!(:sct_regular_payment) do
-          payments.find(id: "P1200AJ55X")
+          payments.find(id: "P210J30EGV")
         end
 
         it_behaves_like "builds correct request", {
@@ -189,42 +193,44 @@ RSpec.describe Modulr::API::PaymentsService, :unit, type: :client do
 
         it "returns the payment" do
           expect(sct_regular_payment).to be_a Modulr::Resources::Payments::Payment
-          expect(sct_regular_payment.id).to eql("P1200AJ55X")
+          expect(sct_regular_payment.id).to eql("P210J30EGV")
           expect(sct_regular_payment.status).to eql("PROCESSED")
-          expect(sct_regular_payment.created_at).to eql("2023-04-11T16:16:20.020+0000")
-          expect(sct_regular_payment.reference).to eql("P1200AJ55X")
+          expect(sct_regular_payment.created_at).to eql("2023-06-20T07:16:35.035+0000")
+          expect(sct_regular_payment.reference).to eql("P210J30EGV")
           expect(sct_regular_payment.details).to be_a Modulr::Resources::Payments::Details::Incoming::General
-          expect(sct_regular_payment.details.created_at).to eql("2023-04-11T16:16:20.733+00:00")
-          expect(sct_regular_payment.details.posted_at).to eql("2023-04-11T16:16:20.733+00:00")
+          expect(sct_regular_payment.details.created_at).to eql("2023-06-20T07:16:35.359+00:00")
+          expect(sct_regular_payment.details.posted_at).to eql("2023-06-20T07:16:11.000+00:00")
           expect(sct_regular_payment.details.type).to eql("PI_SECT")
-          expect(sct_regular_payment.details.description).to eql("Incoming payment")
+          expect(sct_regular_payment.details.description).to eql("Incoming sepa regular payment")
           expect(sct_regular_payment.details.original_reference).to be_nil
           expect(sct_regular_payment.details.currency).to eql("EUR")
-          expect(sct_regular_payment.details.amount).to be 0.01
-          expect(sct_regular_payment.details.account_number).to eql("A1216A1Z")
-          expect(sct_regular_payment.details.scheme_id).to be_nil
-          expect(sct_regular_payment.details.raw_details.keys).to be_empty
+          expect(sct_regular_payment.details.amount).to be 40000.0
+          expect(sct_regular_payment.details.account_number).to eql("A21E68Z1")
+          expect(sct_regular_payment.details.scheme_id).to eql("S231710057915821-0569660898269800")
+          expect(sct_regular_payment.details.raw_details.keys).to include(:type, :payload)
           expect(sct_regular_payment.details.payer).to be_a Modulr::Resources::Payments::Counterparty
           expect(sct_regular_payment.details.payer.name).to eql("Jonh")
           expect(sct_regular_payment.details.payer.identifier.type).to eql("IBAN")
-          expect(sct_regular_payment.details.payer.identifier.iban).to eql("GB88MOCK00000001412498")
+          expect(sct_regular_payment.details.payer.identifier.iban).to eql("ES2400810361440001700370")
           expect(sct_regular_payment.details.payee).to be_a Modulr::Resources::Payments::Counterparty
-          expect(sct_regular_payment.details.payee.name).to eql("Jane")
+          expect(sct_regular_payment.details.payee.name).to eql("Devengo")
           expect(sct_regular_payment.details.payee.identifier.type).to eql("IBAN")
-          expect(sct_regular_payment.details.payee.identifier.iban).to eql("ES2914653111661392648933")
+          expect(sct_regular_payment.details.payee.identifier.iban).to eql("IE02MODR99035502304318")
+          expect(sct_regular_payment.network).to eql("SEPA")
+          expect(sct_regular_payment.scheme).to eql("SEPA Credit Transfers")
         end
       end
 
-      context "when it is an ACCOUNT type payment" do
+      context "when it is an FST INTERNAL type payment" do
         before do
           stub_request(:get, %r{/payments})
             .with(query: hash_including({ "id" => "P210GY2JDJ" }))
             .to_return(
-              read_http_response_fixture("payments/find/incoming", "success_internal")
+              read_http_response_fixture("payments/find/incoming", "success_faster_internal_payments")
             )
         end
 
-        let!(:internal_incoming_payment) do
+        let!(:fst_internal_incoming_payment) do
           payments.find(id: "P210GY2JDJ")
         end
 
@@ -234,16 +240,52 @@ RSpec.describe Modulr::API::PaymentsService, :unit, type: :client do
         }
 
         it "returns the payment" do
-          expect(internal_incoming_payment).to be_a Modulr::Resources::Payments::Payment
-          expect(internal_incoming_payment.id).to eql("P210GY2JDJ")
-          expect(internal_incoming_payment.status).to eql("PROCESSED")
-          expect(internal_incoming_payment.created_at).to eql("2023-03-10T18:20:12.012+0000")
-          expect(internal_incoming_payment.reference).to eql("P210GY2JDJ")
-          expect(internal_incoming_payment.details).to be_a Modulr::Resources::Payments::Details::Incoming::Internal
-          expect(internal_incoming_payment.details.currency).to eql("GBP")
-          expect(internal_incoming_payment.details.amount).to be 0.01
-          expect(internal_incoming_payment.details.source_account_id).to eql("A21BZ2GX")
-          expect(internal_incoming_payment.details.reference).to eql("Reference")
+          expect(fst_internal_incoming_payment).to be_a Modulr::Resources::Payments::Payment
+          expect(fst_internal_incoming_payment.id).to eql("P210GY2JDJ")
+          expect(fst_internal_incoming_payment.status).to eql("PROCESSED")
+          expect(fst_internal_incoming_payment.created_at).to eql("2023-03-10T18:20:12.012+0000")
+          expect(fst_internal_incoming_payment.reference).to eql("P210GY2JDJ")
+          expect(fst_internal_incoming_payment.details).to be_a Modulr::Resources::Payments::Details::Incoming::Internal
+          expect(fst_internal_incoming_payment.details.currency).to eql("GBP")
+          expect(fst_internal_incoming_payment.details.amount).to be 0.01
+          expect(fst_internal_incoming_payment.details.source_account_id).to eql("A21BZ2GY")
+          expect(fst_internal_incoming_payment.details.reference).to eql("Faster internal payment")
+          expect(fst_internal_incoming_payment.network).to eql("INTERNAL")
+          expect(fst_internal_incoming_payment.scheme).to eql("INTERNAL")
+        end
+      end
+
+      context "when it is an SEPA INTERNAL type payment" do
+        before do
+          stub_request(:get, %r{/payments})
+            .with(query: hash_including({ "id" => "P210GXV1UW" }))
+            .to_return(
+              read_http_response_fixture("payments/find/incoming", "success_sepa_internal_payments")
+            )
+        end
+
+        let!(:sepa_internal_incoming_payment) do
+          payments.find(id: "P210GXV1UW")
+        end
+
+        it_behaves_like "builds correct request", {
+          method: :get,
+          path: %r{/payments},
+        }
+
+        it "returns the payment" do
+          expect(sepa_internal_incoming_payment).to be_a Modulr::Resources::Payments::Payment
+          expect(sepa_internal_incoming_payment.id).to eql("P210GXV1UW")
+          expect(sepa_internal_incoming_payment.status).to eql("PROCESSED")
+          expect(sepa_internal_incoming_payment.created_at).to eql("2023-03-10T15:30:27.027+0000")
+          expect(sepa_internal_incoming_payment.reference).to eql("P210GXV1UW")
+          expect(sepa_internal_incoming_payment.details).to be_a Modulr::Resources::Payments::Details::Incoming::Internal
+          expect(sepa_internal_incoming_payment.details.currency).to eql("EUR")
+          expect(sepa_internal_incoming_payment.details.amount).to be 0.01
+          expect(sepa_internal_incoming_payment.details.source_account_id).to eql("A21BZ2GF")
+          expect(sepa_internal_incoming_payment.details.reference).to eql("Sepa internal payment")
+          expect(sepa_internal_incoming_payment.network).to eql("INTERNAL")
+          expect(sepa_internal_incoming_payment.scheme).to eql("INTERNAL")
         end
       end
     end
@@ -252,14 +294,19 @@ RSpec.describe Modulr::API::PaymentsService, :unit, type: :client do
       context "when it is a UK faster payment" do
         before do
           stub_request(:get, %r{/payments})
-            .with(query: hash_including({ "id" => "P1200AJBNT" }))
+            .with(query: hash_including({ "id" => "P210H4JZZ7" }))
             .to_return(
               read_http_response_fixture("payments/find/outgoing", "success_faster_payments")
             )
+          
+          stub_request(:get, %r{/accounts/A21CM4HE/transactions})
+          .to_return(
+            read_http_response_fixture("transactions/list/responses/outgoing", "success_faster_transactions")
+          )
         end
 
         let!(:fps_payment) do
-          payments.find(id: "P1200AJBNT")
+          payments.find(id: "P210H4JZZ7")
         end
 
         it_behaves_like "builds correct request", {
@@ -269,35 +316,42 @@ RSpec.describe Modulr::API::PaymentsService, :unit, type: :client do
 
         it "returns the payment" do
           expect(fps_payment).to be_a Modulr::Resources::Payments::Payment
-          expect(fps_payment.id).to eql("P1200AJBNT")
+          expect(fps_payment.id).to eql("P210H4JZZ7")
           expect(fps_payment.status).to eql("PROCESSED")
-          expect(fps_payment.created_at).to eql("2023-04-12T15:02:27.027+0000")
-          expect(fps_payment.reference).to eql("P1200AJBNT")
+          expect(fps_payment.created_at).to eql("2023-03-17T09:20:44.044+0000")
+          expect(fps_payment.reference).to eql("P210H4JZZ7")
           expect(fps_payment.approval_status).to eql("NOTNEEDED")
           expect(fps_payment.details).to be_a Modulr::Resources::Payments::Details::Outgoing::General
-          expect(fps_payment.details.source_account_id).to eql("A120N63Q")
+          expect(fps_payment.details.source_account_id).to eql("A21CM4HE")
           expect(fps_payment.details.currency).to eql("GBP")
           expect(fps_payment.details.amount).to be 0.01
-          expect(fps_payment.details.reference).to eql("From UK Modulr account")
+          expect(fps_payment.details.reference).to eql("Outgoing faster payment")
           expect(fps_payment.details.destination).to be_a Modulr::Resources::Payments::Destination
           expect(fps_payment.details.destination.identifier.type).to eql("SCAN")
-          expect(fps_payment.details.destination.identifier.account_number).to eql("02730900")
-          expect(fps_payment.details.destination.identifier.sort_code).to eql("000000")
-          expect(fps_payment.details.destination.name).to eql("John")
+          expect(fps_payment.details.destination.identifier.account_number).to eql("79433112")
+          expect(fps_payment.details.destination.identifier.sort_code).to eql("231471")
+          expect(fps_payment.details.destination.name).to eql("Jonh")
+          expect(fps_payment.network).to eql("FPS")
+          expect(fps_payment.scheme).to eql("Faster Payments")
         end
       end
 
       context "when it is SCT-INST payment" do
         before do
           stub_request(:get, %r{/payments})
-            .with(query: hash_including({ "id" => "P1200AJQPQ" }))
+            .with(query: hash_including({ "id" => "P210HYHNCT" }))
             .to_return(
               read_http_response_fixture("payments/find/outgoing", "success_sepa_inst")
             )
+          
+          stub_request(:get, %r{/accounts/A21E68ZZ/transactions})
+          .to_return(
+            read_http_response_fixture("transactions/list/responses/outgoing", "success_sepa_inst_transactions")
+          )
         end
 
         let!(:found_payment) do
-          payments.find(id: "P1200AJQPQ")
+          payments.find(id: "P210HYHNCT")
         end
 
         it_behaves_like "builds correct request", {
@@ -308,34 +362,41 @@ RSpec.describe Modulr::API::PaymentsService, :unit, type: :client do
         it "returns the payment" do
           expect(found_payment).to be_a Modulr::Resources::Payments::Payment
           expect(found_payment.message).to be_empty
-          expect(found_payment.id).to eql("P1200AJQPQ")
+          expect(found_payment.id).to eql("P210HYHNCT")
           expect(found_payment.status).to eql("PROCESSED")
-          expect(found_payment.created_at).to eql("2023-04-14T11:36:03.003+0000")
-          expect(found_payment.reference).to eql("P1200AJQPQ")
+          expect(found_payment.created_at).to eql("2023-06-06T07:24:17.017+0000")
+          expect(found_payment.reference).to eql("P210HYHNCT")
           expect(found_payment.approval_status).to eql("NOTNEEDED")
           expect(found_payment.details).to be_a Modulr::Resources::Payments::Details::Outgoing::General
-          expect(found_payment.details.source_account_id).to eql("A122CZ7E")
+          expect(found_payment.details.source_account_id).to eql("A21E68ZZ")
           expect(found_payment.details.currency).to eql("EUR")
-          expect(found_payment.details.amount).to be 0.01
-          expect(found_payment.details.reference).to eql("From Modulr account")
+          expect(found_payment.details.amount).to be 148.0
+          expect(found_payment.details.reference).to eql("Outgoing sepa instant payment")
           expect(found_payment.details.destination).to be_a Modulr::Resources::Payments::Destination
           expect(found_payment.details.destination.identifier.type).to eql("IBAN")
-          expect(found_payment.details.destination.identifier.iban).to eql("ES2914653111661392648933")
+          expect(found_payment.details.destination.identifier.iban).to eql("ES3200810106680006714488")
           expect(found_payment.details.destination.name).to eql("John")
+          expect(found_payment.network).to eql("SEPA")
+          expect(found_payment.scheme).to eql("SEPA Instant Credit Transfers")
         end
       end
 
       context "when it is SCT-REGULAR payment" do
         before do
           stub_request(:get, %r{/payments})
-            .with(query: hash_including({ "id" => "P1200AKJK1" }))
+            .with(query: hash_including({ "id" => "P210J382BE" }))
             .to_return(
               read_http_response_fixture("payments/find/outgoing", "success_sepa_regular")
             )
+
+          stub_request(:get, %r{/accounts/A21E68ZZ/transactions})
+          .to_return(
+            read_http_response_fixture("transactions/list/responses/outgoing", "success_sepa_regular_transactions")
+          )
         end
 
         let!(:found_payment) do
-          payments.find(id: "P1200AKJK1")
+          payments.find(id: "P210J382BE")
         end
 
         it_behaves_like "builds correct request", {
@@ -346,35 +407,42 @@ RSpec.describe Modulr::API::PaymentsService, :unit, type: :client do
         it "returns the payment" do
           expect(found_payment).to be_a Modulr::Resources::Payments::Payment
           expect(found_payment.message).to be_empty
-          expect(found_payment.id).to eql("P1200AKJK1")
+          expect(found_payment.id).to eql("P210J382BE")
           expect(found_payment.status).to eql("PROCESSED")
-          expect(found_payment.created_at).to eql("2023-04-19T09:13:46.046+0000")
-          expect(found_payment.reference).to eql("P1200AKJK1")
+          expect(found_payment.created_at).to eql("2023-06-20T17:53:28.028+0000")
+          expect(found_payment.reference).to eql("P210J382BE")
           expect(found_payment.approval_status).to eql("NOTNEEDED")
           expect(found_payment.details).to be_a Modulr::Resources::Payments::Details::Outgoing::General
-          expect(found_payment.details.source_account_id).to eql("A122CZ7E")
+          expect(found_payment.details.source_account_id).to eql("A21E68ZZ")
           expect(found_payment.details.currency).to eql("EUR")
-          expect(found_payment.details.amount).to be 0.01
-          expect(found_payment.details.reference).to eql("Outgoing payment regular")
+          expect(found_payment.details.amount).to be 950.0
+          expect(found_payment.details.reference).to eql("Outgoing sepa regular payment")
           expect(found_payment.details.destination).to be_a Modulr::Resources::Payments::Destination
           expect(found_payment.details.destination.identifier.type).to eql("IBAN")
-          expect(found_payment.details.destination.identifier.iban).to eql("ES9400814163357423474839")
+          expect(found_payment.details.destination.identifier.iban).to eql("ES0314910001252016488527")
           expect(found_payment.details.destination.name).to eql("John")
-          expect(found_payment.external_reference).to eql("tra_16Zo5PPqFndOhIXIQr8w0f")
+          expect(found_payment.external_reference).to eql("tra-7ThiITm9hlKhY6YCrDXVFL")
+          expect(found_payment.network).to eql("SEPA")
+          expect(found_payment.scheme).to eql("SEPA Credit Transfers")
         end
       end
 
-      context "when it is INTERNAL payment" do
+      context "when it is FST INTERNAL payment" do
         before do
           stub_request(:get, %r{/payments})
-            .with(query: hash_including({ "id" => "P1200ANH2V" }))
+            .with(query: hash_including({ "id" => "P210GY2JDJ" }))
             .to_return(
-              read_http_response_fixture("payments/find/outgoing", "success_sepa_internal")
+              read_http_response_fixture("payments/find/outgoing", "success_faster_internal_payments")
             )
+
+          stub_request(:get, %r{/accounts/A21BZ2GY/transactions})
+          .to_return(
+            read_http_response_fixture("transactions/list/responses/outgoing", "success_faster_internal_transactions")
+          )
         end
 
         let!(:found_payment) do
-          payments.find(id: "P1200ANH2V")
+          payments.find(id: "P210GY2JDJ")
         end
 
         it_behaves_like "builds correct request", {
@@ -385,35 +453,39 @@ RSpec.describe Modulr::API::PaymentsService, :unit, type: :client do
         it "returns the payment" do
           expect(found_payment).to be_a Modulr::Resources::Payments::Payment
           expect(found_payment.message).to be_empty
-          expect(found_payment.id).to eql("P1200ANH2V")
+          expect(found_payment.id).to eql("P210GY2JDJ")
           expect(found_payment.status).to eql("PROCESSED")
-          expect(found_payment.created_at).to eql("2023-04-20T13:08:28.028+0000")
-          expect(found_payment.reference).to eql("P1200ANH2V")
+          expect(found_payment.created_at).to eql("2023-03-10T18:20:12.012+0000")
+          expect(found_payment.reference).to eql("P210GY2JDJ")
           expect(found_payment.approval_status).to eql("NOTNEEDED")
-          expect(found_payment.details).to be_a Modulr::Resources::Payments::Details::Outgoing::General
-          expect(found_payment.details.source_account_id).to eql("A122CZ7E")
-          expect(found_payment.details.currency).to eql("EUR")
+          expect(found_payment.details.source_account_id).to eql("A21BZ2GY")
+          expect(found_payment.details.currency).to eql("GBP")
           expect(found_payment.details.amount).to be 0.01
-          expect(found_payment.details.reference).to eql("Internal payment")
+          expect(found_payment.details.reference).to eql("Faster outgoing internal payment")
           expect(found_payment.details.destination).to be_a Modulr::Resources::Payments::Destination
-          expect(found_payment.details.destination.identifier.type).to eql("IBAN")
-          expect(found_payment.details.destination.identifier.iban).to eql("GB25MOCK00000001412565")
-          expect(found_payment.details.destination.name).to eql("John")
-          expect(found_payment.external_reference).to eql("tra_1TSQ0d0i3gkGqFjxuhdv73")
+          expect(found_payment.details.destination.identifier.type).to eql("ACCOUNT")
+          expect(found_payment.details.destination.identifier.id).to eql("A21CM4HE")
+          expect(found_payment.network).to eql("INTERNAL")
+          expect(found_payment.scheme).to eql("INTERNAL")
         end
       end
 
-      context "when the id is valid" do
+      context "when it is SEPA INTERNAL payment" do
         before do
           stub_request(:get, %r{/payments})
-            .with(query: hash_including({ "id" => "P210FFT5AW" }))
+            .with(query: hash_including({ "id" => "P210GXV1UW" }))
             .to_return(
-              read_http_response_fixture("payments/find/outgoing", "success_iban")
+              read_http_response_fixture("payments/find/outgoing", "success_sepa_internal_payments")
             )
+
+          stub_request(:get, %r{/accounts/A21BZ2GF/transactions})
+          .to_return(
+            read_http_response_fixture("transactions/list/responses/outgoing", "success_sepa_internal_transactions")
+          )
         end
 
         let!(:found_payment) do
-          payments.find(id: "P210FFT5AW")
+          payments.find(id: "P210GXV1UW")
         end
 
         it_behaves_like "builds correct request", {
@@ -424,20 +496,20 @@ RSpec.describe Modulr::API::PaymentsService, :unit, type: :client do
         it "returns the payment" do
           expect(found_payment).to be_a Modulr::Resources::Payments::Payment
           expect(found_payment.message).to be_empty
-          expect(found_payment.id).to eql("P210G2CY0N")
+          expect(found_payment.id).to eql("P210GXV1UW")
           expect(found_payment.status).to eql("PROCESSED")
-          expect(found_payment.created_at).to eql("2023-02-09T18:19:47.047+0000")
-          expect(found_payment.reference).to eql("P210G2CY0N")
+          expect(found_payment.created_at).to eql("2023-03-10T15:30:27.027+0000")
+          expect(found_payment.reference).to eql("P210GXV1UW")
           expect(found_payment.approval_status).to eql("NOTNEEDED")
-          expect(found_payment.details).to be_a Modulr::Resources::Payments::Details::Outgoing::General
-          expect(found_payment.details.source_account_id).to eql("A21BZ2GE")
+          expect(found_payment.details.source_account_id).to eql("A21BZ2GF")
           expect(found_payment.details.currency).to eql("EUR")
           expect(found_payment.details.amount).to be 0.01
-          expect(found_payment.details.reference).to eql("The reference")
+          expect(found_payment.details.reference).to eql("Sepa outgoing internal payment")
           expect(found_payment.details.destination).to be_a Modulr::Resources::Payments::Destination
-          expect(found_payment.details.destination.name).to eql("Aitor García Rey")
-          expect(found_payment.details.destination.identifier.type).to eql("IBAN")
-          expect(found_payment.details.destination.identifier.iban).to eql("ES6015632626303264517956")
+          expect(found_payment.details.destination.identifier.type).to eql("ACCOUNT")
+          expect(found_payment.details.destination.identifier.id).to eql("A21C64X7")
+          expect(found_payment.network).to eql("INTERNAL")
+          expect(found_payment.scheme).to eql("INTERNAL")
         end
       end
 
@@ -448,6 +520,11 @@ RSpec.describe Modulr::API::PaymentsService, :unit, type: :client do
             .to_return(
               read_http_response_fixture("payments/find/outgoing", "failed_sepa_payment")
             )
+
+          stub_request(:get, %r{/accounts/A122CZ7E/transactions})
+          .to_return(
+            read_http_response_fixture("transactions/list/responses/outgoing", "success_sepa_internal_transactions")
+          )
         end
 
         let!(:found_payment) do

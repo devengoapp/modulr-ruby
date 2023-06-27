@@ -69,101 +69,126 @@ RSpec.describe Modulr::API::TransactionsService, :unit, type: :client do
       end
 
       context "when it is a UK faster payment" do
-        let(:account) { "A1229ZQJ" }
-        let(:fixture_name) { "incoming/success_faster_transactions" }
-        let!(:transaction) { transactions.list(account_id: "A1229ZQJ").first }
+        let(:account) { "A21CM4HE" }
+        let(:fixture_name) { "incoming/responses/success_faster_transactions" }
+        let!(:transaction) { transactions.list(account_id: "A21CM4HE").first }
 
         it "returns correct transaction payload" do
           expect(transaction).to be_a Modulr::Resources::Transactions::Transaction
-          expect(transaction.id).to eql("T12006EG20")
+          expect(transaction.id).to eql("T210RU61D7")
           expect(transaction.amount).to be(0.01)
           expect(transaction.currency).to eql("GBP")
           expect(transaction.description).to eql("Incoming faster payment")
-          expect(transaction.created_at).to eql("2023-04-12T10:10:52.000+0000")
-          expect(transaction.final_at).to eql("2023-04-12T10:10:52.146+0000")
+          expect(transaction.created_at).to eql("2023-03-17T08:18:10.000+0000")
+          expect(transaction.final_at).to eql("2023-03-17T08:18:55.851+0000")
           expect(transaction.credit).to be(true)
           expect(transaction.type).to eql("PI_FAST")
-          expect(transaction.source_id).to eql("P1200AJ9NP")
+          expect(transaction.source_id).to eql("P210H4GX3H")
           expect(transaction.external_reference).to be_nil
           expect(transaction.additional_info).to include(
             payer: hash_including(:name, :identifier)
           )
-          expect(transaction.balance).to eql("4995.28")
+          expect(transaction.balance).to eql("0.01")
           expect(transaction.available_balance).to be_nil
         end
       end
 
       context "when it is a UK internal faster payment" do
         let(:account) { "A1229ZQJ" }
-        let(:fixture_name) { "incoming/success_faster_internal_transactions" }
+        let(:fixture_name) { "incoming/responses/success_faster_internal_transactions" }
         let!(:transaction) { transactions.list(account_id: "A1229ZQJ").first }
 
         it "returns correct transaction payload" do
           expect(transaction).to be_a Modulr::Resources::Transactions::Transaction
-          expect(transaction.id).to eql("T12006EHY4")
+          expect(transaction.id).to eql("T210RHN1R3")
           expect(transaction.amount).to be(0.01)
           expect(transaction.currency).to eql("GBP")
-          expect(transaction.description).to eql("Incoming internal faster payment")
-          expect(transaction.created_at).to eql("2023-04-12T15:02:28.000+0000")
-          expect(transaction.final_at).to eql("2023-04-12T15:02:29.676+0000")
+          expect(transaction.description).to eql("Faster internal payment")
+          expect(transaction.created_at).to eql("2023-03-10T18:20:13.000+0000")
+          expect(transaction.final_at).to eql("2023-03-10T18:20:13.298+0000")
           expect(transaction.credit).to be(true)
           expect(transaction.type).to eql("INT_INTERC")
-          expect(transaction.source_id).to eql("P1200AJBNT")
-          expect(transaction.external_reference).to eql("tra_2mWHsnsUHdqA4oA0MiP7up")
-          expect(transaction.additional_info).to include(
-            payer: hash_including(:name, :identifier)
-          )
-          expect(transaction.balance).to eql("4995.28")
-          expect(transaction.available_balance).to be_nil
-        end
-      end
-
-      context "when it is a EUR payment" do
-        let(:account) { "A1216A1Z" }
-        let(:fixture_name) { "incoming/success_sepa_transactions" }
-        let!(:transaction) { transactions.list(account_id: "A1216A1Z").first }
-
-        it "returns correct transaction payload" do
-          expect(transaction).to be_a Modulr::Resources::Transactions::Transaction
-          expect(transaction.id).to eql("T12006EBDW")
-          expect(transaction.amount).to be(0.01)
-          expect(transaction.currency).to eql("EUR")
-          expect(transaction.description).to eql("Incoming sepa payment")
-          expect(transaction.created_at).to eql("2023-04-11T16:16:20.000+0000")
-          expect(transaction.final_at).to eql("2023-04-11T16:16:20.916+0000")
-          expect(transaction.credit).to be(true)
-          expect(transaction.type).to eql("PI_SECT")
-          expect(transaction.source_id).to eql("P1200AJ55X")
+          expect(transaction.source_id).to eql("P210GY2JDJ")
           expect(transaction.external_reference).to be_nil
           expect(transaction.additional_info).to include(
             payer: hash_including(:name, :identifier)
           )
-          expect(transaction.balance).to eql("19381.22")
+          expect(transaction.balance).to eql("0.01")
+          expect(transaction.available_balance).to be_nil
+        end
+      end
+
+      context "when it is a EUR instant payment" do
+        let(:account) { "A21DC314" }
+        let(:fixture_name) { "incoming/responses/success_sepa_inst_transactions" }
+        let!(:transaction) { transactions.list(account_id: "A21DC314").first }
+
+        it "returns correct transaction payload" do
+          expect(transaction).to be_a Modulr::Resources::Transactions::Transaction
+          expect(transaction.id).to eql("T210RVSTQM")
+          expect(transaction.amount).to be(2.0)
+          expect(transaction.currency).to eql("EUR")
+          expect(transaction.description).to eql("Incoming sepa instant payment")
+          expect(transaction.created_at).to eql("2023-03-20T09:16:51.000+0000")
+          expect(transaction.final_at).to eql("2023-03-20T09:16:53.702+0000")
+          expect(transaction.credit).to be(true)
+          expect(transaction.type).to eql("PI_SEPA_INST")
+          expect(transaction.source_id).to eql("P210H5KU1B")
+          expect(transaction.external_reference).to be_nil
+          expect(transaction.additional_info).to include(
+            payer: hash_including(:name, :identifier)
+          )
+          expect(transaction.balance).to eql("2.01")
+          expect(transaction.available_balance).to be_nil
+        end
+      end
+
+      context "when it is a EUR regular payment" do
+        let(:account) { "A21E68Z1" }
+        let(:fixture_name) { "incoming/responses/success_sepa_regular_transactions" }
+        let!(:transaction) { transactions.list(account_id: "A21E68Z1").first }
+
+        it "returns correct transaction payload" do
+          expect(transaction).to be_a Modulr::Resources::Transactions::Transaction
+          expect(transaction.id).to eql("T210T3YK09")
+          expect(transaction.amount).to be(40000.0)
+          expect(transaction.currency).to eql("EUR")
+          expect(transaction.description).to eql("Incoming sepa regular payment")
+          expect(transaction.created_at).to eql("2023-06-20T07:16:11.000+0000")
+          expect(transaction.final_at).to eql("2023-06-20T07:16:35.708+0000")
+          expect(transaction.credit).to be(true)
+          expect(transaction.type).to eql("PI_SECT")
+          expect(transaction.source_id).to eql("P210J30EGV")
+          expect(transaction.external_reference).to be_nil
+          expect(transaction.additional_info).to include(
+            payer: hash_including(:name, :identifier)
+          )
+          expect(transaction.balance).to eql("201003.97")
           expect(transaction.available_balance).to be_nil
         end
       end
 
       context "when it is a EUR internal payment" do
-        let(:account) { "A1216A40" }
-        let(:fixture_name) { "incoming/success_sepa_internal_transactions" }
-        let!(:transaction) { transactions.list(account_id: "A1216A40").first }
+        let(:account) { "A21C64X7" }
+        let(:fixture_name) { "incoming/responses/success_sepa_internal_transactions" }
+        let!(:transaction) { transactions.list(account_id: "A21C64X7").first }
 
         it "returns correct transaction payload" do
           expect(transaction).to be_a Modulr::Resources::Transactions::Transaction
-          expect(transaction.id).to eql("T12006EJ1H")
+          expect(transaction.id).to eql("T210RHA656")
           expect(transaction.amount).to be(0.01)
           expect(transaction.currency).to eql("EUR")
-          expect(transaction.description).to eql("Incoming internal sepa")
-          expect(transaction.created_at).to eql("2023-04-12T15:15:07.000+0000")
-          expect(transaction.final_at).to eql("2023-04-12T15:15:07.369+0000")
+          expect(transaction.description).to eql("Payment from Devengo: Sepa internal payment")
+          expect(transaction.created_at).to eql("2023-03-10T15:30:28.000+0000")
+          expect(transaction.final_at).to eql("2023-03-10T15:30:28.448+0000")
           expect(transaction.credit).to be(true)
           expect(transaction.type).to eql("INT_INTERC")
-          expect(transaction.source_id).to eql("P1200AJBRK")
-          expect(transaction.external_reference).to eql("tra_24WBQb650pCE7w4Mz8nMLZ")
+          expect(transaction.source_id).to eql("P210GXV1UW")
+          expect(transaction.external_reference).to be_nil
           expect(transaction.additional_info).to include(
             payer: hash_including(:name, :identifier)
           )
-          expect(transaction.balance).to eql("102.47")
+          expect(transaction.balance).to eql("0.07")
           expect(transaction.available_balance).to be_nil
         end
       end
@@ -177,118 +202,122 @@ RSpec.describe Modulr::API::TransactionsService, :unit, type: :client do
       end
 
       context "when it is a UK faster payment" do
-        let(:account) { "A122CZ7E" }
-        let(:fixture_name) { "outgoing/success_faster_transactions" }
-        let!(:transaction) { transactions.list(account_id: "A122CZ7E").first }
+        let(:account) { "A21CM4HE" }
+        let(:fixture_name) { "outgoing/responses/success_faster_transactions" }
+        let!(:transaction) { transactions.list(account_id: "A21CM4HE").first }
 
         it "returns correct transaction payload" do
           expect(transaction).to be_a Modulr::Resources::Transactions::Transaction
-          expect(transaction.id).to eql("T12006APHM")
+          expect(transaction.id).to eql("T210RU91P4")
           expect(transaction.amount).to be(0.01)
           expect(transaction.currency).to eql("GBP")
-          expect(transaction.description).to eql("Payment to Uk account")
-          expect(transaction.created_at).to eql("2023-03-24T11:38:00.000+0000")
-          expect(transaction.final_at).to eql("2023-03-24T11:38:01.983+0000")
+          expect(transaction.description).to eql("Payment to Jonh: Outgoing faster payment")
+          expect(transaction.created_at).to eql("2023-03-17T09:20:55.000+0000")
+          expect(transaction.final_at).to eql("2023-03-17T09:20:56.418+0000")
           expect(transaction.credit).to be(false)
           expect(transaction.type).to eql("PO_FAST")
-          expect(transaction.source_id).to eql("P1200AB9X3")
-          expect(transaction.external_reference).to eql("tra_6A2UC6aOemcxpBhfpUGVM7")
+          expect(transaction.source_id).to eql("P210H4JZZ7")
+          expect(transaction.external_reference).to be_nil
           expect(transaction.additional_info).to include(:schemeInfo)
-          expect(transaction.balance).to eql("49998.86")
+          expect(transaction.balance).to eql("0.01")
           expect(transaction.available_balance).to be_nil
         end
       end
 
       context "when it is a UK internal faster payment" do
-        let(:account) { "A120N63Q" }
-        let(:fixture_name) { "outgoing/success_faster_internal_transactions" }
-        let!(:transaction) { transactions.list(account_id: "A120N63Q").first }
+        let(:account) { "A21BZ2GY" }
+        let(:fixture_name) { "outgoing/responses/success_faster_internal_transactions" }
+        let!(:transaction) { transactions.list(account_id: "A21BZ2GY").first }
 
         it "returns correct transaction payload" do
           expect(transaction).to be_a Modulr::Resources::Transactions::Transaction
-          expect(transaction.id).to eql("T12006EHY3")
+          expect(transaction.id).to eql("T210RHN1R1")
           expect(transaction.amount).to be(0.01)
           expect(transaction.currency).to eql("GBP")
-          expect(transaction.description).to eql("Internal Payment from UK account")
-          expect(transaction.created_at).to eql("2023-04-12T15:02:28.000+0000")
-          expect(transaction.final_at).to eql("2023-04-12T15:02:29.640+0000")
+          expect(transaction.description).to eql("Payment to Devengo: Faster outgoing internal payment")
+          expect(transaction.created_at).to eql("2023-03-10T18:20:13.000+0000")
+          expect(transaction.final_at).to eql("2023-03-10T18:20:13.244+0000")
           expect(transaction.credit).to be(false)
           expect(transaction.type).to eql("INT_INTERC")
-          expect(transaction.source_id).to eql("P1200AJBNT")
-          expect(transaction.external_reference).to eql("tra_2mWHsnsUHdqA4oA0MiP7up")
+          expect(transaction.source_id).to eql("P210GY2JDJ")
+          expect(transaction.external_reference).to be_nil
           expect(transaction.additional_info).to be_nil
-          expect(transaction.balance).to eql("49998.86")
+          expect(transaction.balance).to eql("4.10")
           expect(transaction.available_balance).to be_nil
         end
       end
 
       context "when it is a EUR instant payment" do
-        let(:account) { "A122CZ7E" }
-        let(:fixture_name) { "outgoing/success_sepa_inst_transactions" }
-        let!(:transaction) { transactions.list(account_id: "A122CZ7E").first }
+        let(:account) { "A21E68ZZ" }
+        let(:fixture_name) { "outgoing/responses/success_sepa_inst_transactions" }
+        let!(:transaction) { transactions.list(account_id: "A21E68ZZ").first }
 
         it "returns correct transaction payload" do
           expect(transaction).to be_a Modulr::Resources::Transactions::Transaction
-          expect(transaction.id).to eql("T12006FS3Z")
-          expect(transaction.amount).to be(0.01)
+          expect(transaction.id).to eql("T210SY412P")
+          expect(transaction.amount).to be(148.0)
           expect(transaction.currency).to eql("EUR")
-          expect(transaction.description).to eql("Payment to John: Outgoing payment instant")
-          expect(transaction.created_at).to eql("2023-04-19T09:13:47.000+0000")
-          expect(transaction.final_at).to eql("2023-04-19T09:13:48.008+0000")
+          expect(transaction.description).to eql("Payment to John: Outgoing sepa instant payment")
+          expect(transaction.created_at).to eql("2023-06-06T07:24:21.000+0000")
+          expect(transaction.final_at).to eql("2023-06-06T07:24:23.531+0000")
           expect(transaction.credit).to be(false)
           expect(transaction.type).to eql("PO_SEPA_INST")
-          expect(transaction.source_id).to eql("P1200AKJK1")
-          expect(transaction.external_reference).to eql("tra_16Zo5PPqFndOhIXIQr8w0f")
+          expect(transaction.source_id).to eql("P210HYHNCT")
+          expect(transaction.external_reference).to eql("tra_cPz0LfwBZ41oYzITQDW1Z")
           expect(transaction.additional_info).to include(
             schemeInfo: hash_including(name: "SEPA_INSTANT")
           )
-          expect(transaction.balance).to eql("4995.28")
+          expect(transaction.balance).to eql("200823.97")
           expect(transaction.available_balance).to be_nil
         end
       end
 
       context "when it is a EUR regular payment" do
         let(:account) { "A122CZ7E" }
-        let(:fixture_name) { "outgoing/success_sepa_regular_transactions" }
+        let(:fixture_name) { "outgoing/responses/success_sepa_regular_transactions" }
         let!(:transaction) { transactions.list(account_id: "A122CZ7E").first }
 
         it "returns correct transaction payload" do
           expect(transaction).to be_a Modulr::Resources::Transactions::Transaction
-          expect(transaction.id).to eql("T12005ZT1K")
-          expect(transaction.amount).to be(0.01)
+          expect(transaction.id).to eql("T210T4BENK")
+          expect(transaction.amount).to be(950.0)
           expect(transaction.currency).to eql("EUR")
-          expect(transaction.description).to eql("Payment to John: Outgoing payment regular")
-          expect(transaction.created_at).to eql("2023-02-17T13:10:07.000+0000")
-          expect(transaction.final_at).to eql("2023-02-17T13:10:09.529+0000")
+          expect(transaction.description).to eql("Payment to John: Outgoing sepa regular payment")
+          expect(transaction.created_at).to eql("2023-06-20T17:53:33.000+0000")
+          expect(transaction.final_at).to eql("2023-06-21T05:51:48.647+0000")
           expect(transaction.credit).to be(false)
           expect(transaction.type).to eql("PO_SECT")
-          expect(transaction.source_id).to eql("P12006YWZ1")
-          expect(transaction.external_reference).to be_nil
-          expect(transaction.additional_info).to be_nil
-          expect(transaction.balance).to eql("4995.28")
+          expect(transaction.source_id).to eql("P210J382BE")
+          expect(transaction.external_reference).to eql("tra-7ThiITm9hlKhY6YCrDXVFL")
+          expect(transaction.additional_info).to include(
+            schemeInfo: hash_including(name: "SEPA_CREDIT_TRANSFER")
+          )
+          expect(transaction.balance).to eql("200823.97")
           expect(transaction.available_balance).to be_nil
         end
       end
 
       context "when it is a EUR internal payment" do
-        let(:account) { "A122CZ7E" }
-        let(:fixture_name) { "outgoing/success_sepa_internal_transactions" }
-        let!(:transaction) { transactions.list(account_id: "A122CZ7E").first }
+        let(:account) { "A21BZ2GF" }
+        let(:fixture_name) { "outgoing/responses/success_sepa_internal_transactions" }
+        let!(:transaction) { transactions.list(account_id: "A21BZ2GF").first }
 
         it "returns correct transaction payload" do
           expect(transaction).to be_a Modulr::Resources::Transactions::Transaction
-          expect(transaction.id).to eql("T12006EJ1G")
+          expect(transaction.id).to eql("T210RHA653")
           expect(transaction.amount).to be(0.01)
           expect(transaction.currency).to eql("EUR")
-          expect(transaction.description).to eql("Payment to To Modulr account: Modulr internal")
-          expect(transaction.created_at).to eql("2023-04-12T15:15:07.000+0000")
-          expect(transaction.final_at).to eql("2023-04-12T15:15:07.300+0000")
+          expect(transaction.description).to eql("Payment to Devengo: Sepa outgoing internal payment")
+          expect(transaction.created_at).to eql("2023-03-10T15:30:28.000+0000")
+          expect(transaction.final_at).to eql("2023-03-10T15:30:28.407+0000")
           expect(transaction.credit).to be(false)
           expect(transaction.type).to eql("INT_INTERC")
-          expect(transaction.source_id).to eql("P1200AJBRK")
-          expect(transaction.external_reference).to eql("tra_24WBQb650pCE7w4Mz8nMLZ")
-          expect(transaction.additional_info).to be_nil
-          expect(transaction.balance).to eql("4995.28")
+          expect(transaction.source_id).to eql("P210GXV1UW")
+          expect(transaction.external_reference).to be_nil
+          expect(transaction.additional_info).to include(
+            schemeInfo: {}
+          )
+          expect(transaction.balance).to eql("0.58")
           expect(transaction.available_balance).to be_nil
         end
       end
