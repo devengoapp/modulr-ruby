@@ -23,7 +23,7 @@ module Modulr
         private def parse_attributes(attributes)
           details = attributes[:details]
 
-          case details&.dig(:type) || details&.dig(:destinationType)
+          case type
           when "PI_SECT"
             incoming_detail(details)
             sepa_regular
@@ -40,20 +40,14 @@ module Modulr
           when "ACCOUNT"
             incoming_internal_details(details)
             internal
-          else
-            outgoing_payment_details(details)
-          end
-        end
-
-        private def outgoing_payment_details(details)
-          outgoing_detail(details)
-
-          case type
           when "PO_SECT"
+            outgoing_detail(details)
             sepa_regular
           when "PO_SEPA_INST"
+            outgoing_detail(details)
             sepa_instant
           when "PO_FAST"
+            outgoing_detail(details)
             faster_payments
           when "INT_INTERC"
             internal

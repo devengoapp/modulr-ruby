@@ -10,6 +10,10 @@ module Modulr
 
         type =  if outgoing && !internal
                   fetch_transaction_type
+                elsif incoming
+                  @payment_attributes[:details][:type]
+                elsif internal
+                  @payment_attributes[:details][:destinationType]
                 else
                   nil
                 end
