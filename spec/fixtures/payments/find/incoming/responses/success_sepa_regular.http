@@ -19,49 +19,115 @@ x-xss-protection: 1; mode=block
 {
   "content": [
     {
-      "id": "P1200AJ55X",
+      "id": "P210J30EGV",
       "status": "PROCESSED",
-      "createdDate": "2023-04-11T16:16:20.020+0000",
+      "createdDate": "2023-06-20T07:16:35.035+0000",
       "details": {
-        "created": "2023-04-11T16:16:20.733+00:00",
+        "created": "2023-06-20T07:16:35.359+00:00",
         "retryCount": 0,
         "sourceService": "bolProviderService",
-        "requestReference": "SI23032029385314",
+        "requestReference": "S231710057915821",
         "reprocess": false,
         "priority": 0,
-        "accountNumber": "A1216A1Z",
-        "posted": "2023-04-11T16:16:20.733+00:00",
+        "accountNumber": "A21E68Z1",
+        "posted": "2023-06-20T07:16:11.000+00:00",
         "type": "PI_SECT",
-        "amount": 0.01,
+        "amount": 40000.0,
         "currency": "EUR",
-        "description": "Incoming payment",
+        "description": "Incoming sepa regular payment",
         "providerCode": "BOL",
-        "ledgerBankCode": "BOLIEREG",
-        "payerName": "Jonh ",
+        "ledgerBankCode": "BOLIE",
+        "payerName": "Jonh",
         "payer": {
           "name": "Jonh",
           "identifier": {
             "type": "IBAN",
-            "iban": "GB88MOCK00000001412498"
-          }
+            "iban": "ES2400810361440001700370",
+            "bic": "BSABESBBXXX"
+          },
+          "address": {"country": "ES"}
         },
         "payee": {
-          "name": "Jane",
+          "name": "Devengo",
           "identifier": {
             "type": "IBAN",
-            "iban": "ES2914653111661392648933"
+            "iban": "IE02MODR99035502304318",
+            "bic": "MODRIE22XXX"
+          },
+          "address": {
+            "addressLine1": "", "country": "ES"
           }
         },
+        "schemeId": "S231710057915821-0569660898269800",
+        "schemeType": "SEPA_CREDIT_TRANSFER",
         "clearingRequired": false,
-        "originatedOverseas": false,
-        "details": {},
-        "manualRecall": false
-      },
-      "reference": "P1200AJ55X"
+        "originatedOverseas": true,
+        "details": 
+        {"type": "FFCCTRNS",
+          "payload": 
+          {"id": "Edoc",
+            "docs": 
+            {"doc": 
+              {"header": 
+                {"type": "FFCCTRNS",
+                  "dates": 
+                  [{"date": [2023, 6, 20, 10, 16, 11], "type": "FormDoc"}],
+                  "docId": "S231710057915821",
+                  "priority": 51,
+                  "reference": [],
+                  "businessArea": "SEPASCT"},
+                "ffcctrns": 
+                {"document": 
+                  {"fitoFICstmrCdtTrf": 
+                    {"grpHdr": 
+                      {"msgId": "S231710057915821",
+                        "creDtTm": [2023, 6, 20, 10, 16, 11],
+                        "nbOfTxs": "1",
+                        "instdAgt": {"finInstnId": {"bic": "MODRIE22XXX"}},
+                        "sttlmInf": 
+                        {"clrSys": {"prtry": "LITAS_MIG"}, "sttlmMtd": "CLRG"},
+                        "intrBkSttlmDt": [2023, 6, 20],
+                        "ttlIntrBkSttlmAmt": {"ccy": "EUR", "value": 40000.0}},
+                      "cdtTrfTxInf": 
+                      [{"cdtr": 
+                          {"nm": "Devengo",
+                          "pstlAdr": 
+                            {"ctry": "ES",
+                            "adrLine": 
+                              []}},
+                        "dbtr": 
+                          {"nm": "John",
+                          "pstlAdr": {"ctry": "ES", "adrLine": []}},
+                        "pmtId": 
+                          {"txId": "0569660898269800",
+                          "instrId": "O231711443976315",
+                          "endToEndId": "NOTPROVIDED"},
+                        "chrgBr": "SLEV",
+                        "cdtrAgt": {"finInstnId": {"bic": "MODRIE22XXX"}},
+                        "dbtrAgt": {"finInstnId": {"bic": "BSABESBBXXX"}},
+                        "cdtrAcct": {"id": {"iban": "IE02MODR99035502304318"}},
+                        "dbtrAcct": 
+                          {"id": {"iban": "ES2400810361440001700370"}},
+                        "instgAgt": {"finInstnId": {"bic": "BSABESBB"}},
+                        "pmtTpInf": {"svcLvl": {"cd": "SEPA"}},
+                        "intrBkSttlmAmt": 
+                          {"ccy": "EUR", "value": 40000.0}}]}}}}},
+            "type": "FFCCTRNS",
+            "header": 
+            {"date": [2023, 6, 20, 10, 16, 11],
+              "msgId": "S231710057915821",
+              "sender": "LIABLT2XMSD",
+              "system": "LITAS-MIG",
+              "priority": 51,
+              "receiver": "MODRIE22XXX",
+              "reference": []},
+            "version": "pacs.008.001.02.2021"}},
+        "manualRecall": false},
+      "reference": "P210J30EGV"
     }
   ],
-  "size": 1,
-  "totalSize": 1,
-  "page": 0,
-  "totalPages": 1
-}
+ "size": 1,
+ "totalSize": 1,
+ "page": 0,
+ "totalPages": 1
+ }

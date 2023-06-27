@@ -19,33 +19,33 @@ x-xss-protection: 1; mode=block
 {
   "content": [
     {
-      "id": "P1200AKJK1",
+      "id": "P210J382BE",
       "status": "PROCESSED",
-      "createdDate": "2023-04-19T09:13:46.046+0000",
-      "externalReference": "tra_16Zo5PPqFndOhIXIQr8w0f",
+      "createdDate": "2023-06-20T17:53:28.028+0000",
+      "externalReference": "tra-7ThiITm9hlKhY6YCrDXVFL",
       "details": {
-        "sourceAccountId": "A122CZ7E",
+        "sourceAccountId": "A21E68ZZ",
         "destinationType": "IBAN",
         "destination": {
           "type": "IBAN",
-          "iban": "ES9400814163357423474839",
+          "iban": "ES0314910001252016488527",
           "name": "John"
         },
         "currency": "EUR",
-        "amount": 0.01,
-        "reference": "Outgoing payment regular",
-        "externalReference": "tra_16Zo5PPqFndOhIXIQr8w0f"
+        "amount": 950.0,
+        "reference": "Outgoing sepa regular payment",
+        "externalReference": "tra-7ThiITm9hlKhY6YCrDXVFL"
       },
-      "reference": "P1200AKJK1",
+      "reference": "P210J382BE",
       "approvalStatus": "NOTNEEDED",
       "message": "",
       "schemeInfo": {
-        "name": "SEPA_INSTANT"
+        "name": "SEPA_CREDIT_TRANSFER"
       }
     }
   ],
-  "size": 1,
-  "totalSize": 1,
-  "page": 0,
-  "totalPages": 1
+ "size": 1,
+ "totalSize": 1,
+ "page": 0,
+ "totalPages": 1
 }

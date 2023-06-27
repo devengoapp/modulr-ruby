@@ -19,32 +19,29 @@ x-xss-protection: 1; mode=block
 {
   "content": [
     {
-      "id": "P210G2CY0N",
+      "id": "P210GXV1UW",
       "status": "PROCESSED",
-      "createdDate": "2023-02-09T18:19:47.047+0000",
-      "externalReference": "The external reference",
+      "createdDate": "2023-03-10T15:30:27.027+0000",
       "details": {
-        "sourceAccountId": "A21BZ2GE",
-        "destinationType": "IBAN",
+        "sourceAccountId": "A21BZ2GF",
+        "destinationId": "A21C64X7",
+        "destinationType": "ACCOUNT",
         "destination": {
-          "type": "IBAN",
-          "iban": "ES6015632626303264517956",
-          "name": "Aitor García Rey"
+          "type": "ACCOUNT",
+          "id": "A21C64X7"
         },
         "currency": "EUR",
         "amount": 0.01,
-        "reference": "The reference",
-        "externalReference": "The external reference",
-        "endToEndReference": "e2e reference"
+        "reference": "Sepa outgoing internal payment"
       },
-      "reference": "P210G2CY0N",
+      "reference": "P210GXV1UW",
       "approvalStatus": "NOTNEEDED",
       "message": "",
-      "schemeInfo": { "name": "SEPA_INSTANT" }
+      "schemeInfo": {}
     }
   ],
-  "size": 1,
-  "totalSize": 1,
-  "page": 0,
-  "totalPages": 1
+ "size": 1,
+ "totalSize": 1,
+ "page": 0,
+ "totalPages": 1
 }

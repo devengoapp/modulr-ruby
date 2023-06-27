@@ -19,30 +19,28 @@ x-xss-protection: 1; mode=block
 {
   "content": [
     {
-      "id": "P1200AJBRK",
+      "id": "P210GY2JDJ",
       "status": "PROCESSED",
-      "createdDate": "2023-04-12T15:15:06.006+0000",
-      "externalReference": "tra_24WBQb650pCE7w4Mz8nMLZ",
+      "createdDate": "2023-03-10T18:20:12.012+0000",
       "details": {
-        "sourceAccountId": "A122CZ7E",
-        "destinationType": "IBAN",
+        "sourceAccountId": "A21BZ2GY",
+        "destinationId": "A21CM4HE",
+        "destinationType": "ACCOUNT",
         "destination": {
-          "type": "IBAN",
-          "iban": "GB25MOCK00000001412565",
-          "name": "To Modulr account"
+          "type": "ACCOUNT",
+          "id": "A21CM4HE"
         },
-        "currency": "EUR",
+        "currency": "GBP",
         "amount": 0.01,
-        "reference": "Modulr account",
-        "externalReference": "tra_24WBQb650pCE7w4Mz8nMLZ"
+        "reference": "Faster outgoing internal payment"
       },
-      "reference": "P1200AJBRK",
+      "reference": "P210GY2JDJ",
       "approvalStatus": "NOTNEEDED",
       "message": ""
     }
   ],
-  "size": 1,
-  "totalSize": 1,
-  "page": 0,
-  "totalPages": 1
+ "size": 1,
+ "totalSize": 1,
+ "page": 0,
+ "totalPages": 1
 }

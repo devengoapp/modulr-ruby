@@ -1,0 +1,65 @@
+HTTP/2.0 200 OK
+Date: Wed, 21 Jun 2023 11:50:36 GMT
+Content-Type: application/json
+Cache-Control: no-cache, no-store, must-revalidate
+Content-Security-Policy: default-src https: data: 'unsafe-inline' 'unsafe-eval'
+Expires: 0
+Pragma: no-cache
+Server: Apache
+Strict-Transport-Security: max-age=31536000
+Vary: Origin
+X-Content-type-options: nosniff
+X-Frame-Options: SAMEORIGIN
+X-Ratelimit-Limit: 4000000
+X-Ratelimit-Remaining: 3997835
+X-Ratelimit-Reset: 1687566698
+X-Xss-Protection: 1; mode=block
+
+{
+  "content": [
+    {
+      "id": "T210RU91P4",
+      "amount": 0.01,
+      "currency": "GBP",
+      "description": "Payment to Jonh: Outgoing faster payment",
+      "transactionDate": "2023-03-17T09:20:55.000+0000",
+      "postedDate": "2023-03-17T09:20:56.418+0000",
+      "credit": false,
+      "type": "PO_FAST",
+      "sourceId": "P210H4JZZ7",
+      "additionalInfo": {
+        "schemeInfo": {
+          "id": "MODULO00P210H4JZZ71020230317826040392"
+        }
+      },
+      "account": {
+        "id": "A21CM4HE",
+        "name": "Devengo",
+        "balance": "0.01",
+        "currency": "GBP",
+        "status": "ACTIVE",
+        "identifiers": [
+          {
+            "type": "SCAN",
+            "accountNumber": "00631974",
+            "sortCode": "040393",
+            "providerExtraInfo": {
+              "virtualAccountId": "32f866f0-598b-4ca9-bef9-30d1d23a074e"
+            }
+          }
+        ],
+        "customerId": "C2188C27",
+        "customerName": "Devengo",
+        "externalReference": "acc_21lEThqzWSOFLBIbjBnJvP",
+        "accessGroups": [],
+        "createdDate": "2023-02-20T11:04:54.317+0000",
+        "directDebit": false,
+        "securedFundingLimit": "0.00"
+      }
+    }
+  ],
+ "size": 1,
+ "totalSize": 1,
+ "page": 0,
+ "totalPages": 1
+}

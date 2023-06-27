@@ -1,0 +1,63 @@
+HTTP/2.0 200 OK
+Date: Wed, 21 Jun 2023 11:50:36 GMT
+Content-Type: application/json
+Cache-Control: no-cache, no-store, must-revalidate
+Content-Security-Policy: default-src https: data: 'unsafe-inline' 'unsafe-eval'
+Expires: 0
+Pragma: no-cache
+Server: Apache
+Strict-Transport-Security: max-age=31536000
+Vary: Origin
+X-Content-type-options: nosniff
+X-Frame-Options: SAMEORIGIN
+X-Ratelimit-Limit: 4000000
+X-Ratelimit-Remaining: 3997835
+X-Ratelimit-Reset: 1687566698
+X-Xss-Protection: 1; mode=block
+
+{
+  "content": [
+    {
+      "id": "T210T4BENK",
+      "amount": 950.0,
+      "currency": "EUR",
+      "description": "Payment to John: Outgoing sepa regular payment",
+      "transactionDate": "2023-06-20T17:53:33.000+0000",
+      "postedDate": "2023-06-21T05:51:48.647+0000",
+      "credit": false,
+      "type": "PO_SECT",
+      "sourceId": "P210J382BE",
+      "sourceExternalReference": "tra-7ThiITm9hlKhY6YCrDXVFL",
+      "additionalInfo": {
+        "schemeInfo": {"name": "SEPA_CREDIT_TRANSFER"}
+      },
+      "account": {
+        "id": "A21E68ZZ",
+        "name": "Devengo",
+        "balance": "200823.97",
+        "currency": "EUR",
+        "status": "ACTIVE",
+        "identifiers": [
+          {
+            "type": "IBAN",
+            "iban": "IE02MODR99035502304318",
+            "bic": "MODRIE22XXX",
+            "providerExtraInfo": 
+              {"sortCode": "990356", "accountNumber": "02304318"}
+          }
+        ],
+        "customerId": "C218BBJ0",
+        "customerName": "Devengo",
+        "externalReference": "acc_3encHRm5g1qqIE3Qy8Jpyi",
+        "accessGroups": [],
+        "createdDate": "2023-04-26T07:39:35.537+0000",
+        "directDebit": false,
+        "securedFundingLimit": "0.00"
+      }
+    }
+  ],
+ "size": 1,
+ "totalSize": 1,
+ "page": 0,
+ "totalPages": 1
+}

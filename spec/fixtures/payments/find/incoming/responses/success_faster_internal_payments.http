@@ -19,33 +19,28 @@ x-xss-protection: 1; mode=block
 {
   "content": [
     {
-      "id": "P210H4JZZ7",
+      "id": "P210GY2JDJ",
       "status": "PROCESSED",
-      "createdDate": "2023-03-17T09:20:44.044+0000",
+      "createdDate": "2023-03-10T18:20:12.012+0000",
       "details": {
-        "sourceAccountId": "A21CM4HA",
-        "destinationType": "SCAN",
+        "sourceAccountId": "A21BZ2GY",
+        "destinationId": "A21CM4HE",
+        "destinationType": "ACCOUNT",
         "destination": {
-          "type": "SCAN",
-          "accountNumber": "79433111",
-          "sortCode": "231470",
-          "name": "Aitor Garcia Rey"
+          "type": "ACCOUNT",
+          "id": "A21CM4HE"
         },
         "currency": "GBP",
         "amount": 0.01,
-        "reference": "To wise"
+        "reference": "Faster internal payment"
       },
-      "reference": "P210H4JZZ7",
+      "reference": "P210GY2JDJ",
       "approvalStatus": "NOTNEEDED",
-      "message": "",
-      "schemeInfo": {
-        "id": "MODULO00P210H4JZZ71020230317826040392",
-        "responseCode": "0000"
-      }
+      "message": ""
     }
   ],
-  "size": 1,
-  "totalSize": 1,
-  "page": 0,
-  "totalPages": 1
+ "size": 1,
+ "totalSize": 1,
+ "page": 0,
+ "totalPages": 1
 }

@@ -19,30 +19,29 @@ x-xss-protection: 1; mode=block
 {
   "content": [
     {
-      "id": "P1200ANH2V",
+      "id": "P210GXV1UW",
       "status": "PROCESSED",
-      "createdDate": "2023-04-20T13:08:28.028+0000",
-      "externalReference": "tra_1TSQ0d0i3gkGqFjxuhdv73",
+      "createdDate": "2023-03-10T15:30:27.027+0000",
       "details": {
-        "sourceAccountId": "A122CZ7E",
-        "destinationType": "IBAN",
+        "sourceAccountId": "A21BZ2GF",
+        "destinationId": "A21C64X7",
+        "destinationType": "ACCOUNT",
         "destination": {
-          "type": "IBAN",
-          "iban": "GB25MOCK00000001412565",
-          "name": "John"
+          "type": "ACCOUNT",
+          "id": "A21C64X7"
         },
         "currency": "EUR",
         "amount": 0.01,
-        "reference": "Internal payment",
-        "externalReference": "tra_1TSQ0d0i3gkGqFjxuhdv73"
+        "reference": "Sepa internal payment"
       },
-      "reference": "P1200ANH2V",
+      "reference": "P210GXV1UW",
       "approvalStatus": "NOTNEEDED",
-      "message": ""
+      "message": "",
+      "schemeInfo": {}
     }
   ],
-  "size": 1,
-  "totalSize": 1,
-  "page": 0,
-  "totalPages": 1
+ "size": 1,
+ "totalSize": 1,
+ "page": 0,
+ "totalPages": 1
 }
