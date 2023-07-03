@@ -18,7 +18,7 @@ RSpec.describe Modulr::API::PaymentsService, :unit, type: :client do
           amount: "0.02",
           destination: {
             type: "IBAN",
-            iban: "ES6015632626303264517956",
+            iban: "ES8731902527103498957662",
             name: "Aitor García Rey",
           },
           reference: "The reference"
@@ -34,7 +34,7 @@ RSpec.describe Modulr::API::PaymentsService, :unit, type: :client do
           amount: "0.02",
           destination: {
             type: "IBAN",
-            iban: "ES6015632626303264517956",
+            iban: "ES8731902527103498957662",
             name: "Aitor García Rey",
           },
           reference: "The reference",
@@ -117,6 +117,7 @@ RSpec.describe Modulr::API::PaymentsService, :unit, type: :client do
           expect(fps_payment.details.destination.identifier.type).to eql("SCAN")
           expect(fps_payment.details.destination.identifier.sort_code).to eql("040393")
           expect(fps_payment.details.destination.identifier.account_number).to eql("00631974")
+          expect(fps_payment.end_to_end_id).to eql("Incoming faster payment fixture")
           expect(fps_payment.network).to eql("FPS")
           expect(fps_payment.scheme).to eql("Faster Payments")
         end
@@ -168,6 +169,7 @@ RSpec.describe Modulr::API::PaymentsService, :unit, type: :client do
           expect(sct_inst_payment.details.destination.name).to eql("Devengo")
           expect(sct_inst_payment.details.destination.identifier.type).to eql("IBAN")
           expect(sct_inst_payment.details.destination.identifier.iban).to eql("IE21MODR99035502154596")
+          expect(sct_inst_payment.end_to_end_id).to eql "NOTPROVIDED"
           expect(sct_inst_payment.network).to eql("SEPA")
           expect(sct_inst_payment.scheme).to eql("SEPA Instant Credit Transfers")
         end
@@ -216,6 +218,7 @@ RSpec.describe Modulr::API::PaymentsService, :unit, type: :client do
           expect(sct_regular_payment.details.payee.name).to eql("Devengo")
           expect(sct_regular_payment.details.payee.identifier.type).to eql("IBAN")
           expect(sct_regular_payment.details.payee.identifier.iban).to eql("IE02MODR99035502304318")
+          expect(sct_regular_payment.end_to_end_id).to eql("NOTPROVIDED")
           expect(sct_regular_payment.network).to eql("SEPA")
           expect(sct_regular_payment.scheme).to eql("SEPA Credit Transfers")
         end
