@@ -206,7 +206,7 @@ RSpec.describe Modulr::API::PaymentsService, :unit, type: :client do
           expect(sct_regular_payment.details.description).to eql("Incoming sepa regular payment")
           expect(sct_regular_payment.details.original_reference).to be_nil
           expect(sct_regular_payment.details.currency).to eql("EUR")
-          expect(sct_regular_payment.details.amount).to be 40000.0
+          expect(sct_regular_payment.details.amount).to be 40_000.0
           expect(sct_regular_payment.details.account_number).to eql("A21E68Z1")
           expect(sct_regular_payment.details.scheme_id).to eql("S231710057915821-0569660898269800")
           expect(sct_regular_payment.details.raw_details.keys).to include(:type, :payload)
@@ -301,11 +301,11 @@ RSpec.describe Modulr::API::PaymentsService, :unit, type: :client do
             .to_return(
               read_http_response_fixture("payments/find/outgoing", "success_faster_payments")
             )
-          
+
           stub_request(:get, %r{/accounts/A21CM4HE/transactions})
-          .to_return(
-            read_http_response_fixture("transactions/list/responses/outgoing", "success_faster_transactions")
-          )
+            .to_return(
+              read_http_response_fixture("transactions/list/responses/outgoing", "success_faster_transactions")
+            )
         end
 
         let!(:fps_payment) do
@@ -346,11 +346,11 @@ RSpec.describe Modulr::API::PaymentsService, :unit, type: :client do
             .to_return(
               read_http_response_fixture("payments/find/outgoing", "success_sepa_inst")
             )
-          
+
           stub_request(:get, %r{/accounts/A21E68ZZ/transactions})
-          .to_return(
-            read_http_response_fixture("transactions/list/responses/outgoing", "success_sepa_inst_transactions")
-          )
+            .to_return(
+              read_http_response_fixture("transactions/list/responses/outgoing", "success_sepa_inst_transactions")
+            )
         end
 
         let!(:found_payment) do
@@ -393,9 +393,9 @@ RSpec.describe Modulr::API::PaymentsService, :unit, type: :client do
             )
 
           stub_request(:get, %r{/accounts/A21E68ZZ/transactions})
-          .to_return(
-            read_http_response_fixture("transactions/list/responses/outgoing", "success_sepa_regular_transactions")
-          )
+            .to_return(
+              read_http_response_fixture("transactions/list/responses/outgoing", "success_sepa_regular_transactions")
+            )
         end
 
         let!(:found_payment) do
@@ -439,9 +439,9 @@ RSpec.describe Modulr::API::PaymentsService, :unit, type: :client do
             )
 
           stub_request(:get, %r{/accounts/A21BZ2GY/transactions})
-          .to_return(
-            read_http_response_fixture("transactions/list/responses/outgoing", "success_faster_internal_transactions")
-          )
+            .to_return(
+              read_http_response_fixture("transactions/list/responses/outgoing", "success_faster_internal_transactions")
+            )
         end
 
         let!(:found_payment) do
@@ -482,9 +482,9 @@ RSpec.describe Modulr::API::PaymentsService, :unit, type: :client do
             )
 
           stub_request(:get, %r{/accounts/A21BZ2GF/transactions})
-          .to_return(
-            read_http_response_fixture("transactions/list/responses/outgoing", "success_sepa_internal_transactions")
-          )
+            .to_return(
+              read_http_response_fixture("transactions/list/responses/outgoing", "success_sepa_internal_transactions")
+            )
         end
 
         let!(:found_payment) do
@@ -525,9 +525,9 @@ RSpec.describe Modulr::API::PaymentsService, :unit, type: :client do
             )
 
           stub_request(:get, %r{/accounts/A21E68ZZ/transactions})
-          .to_return(
-            read_http_response_fixture("transactions/list/responses/outgoing", "success_sepa_inst_transactions")
-          )
+            .to_return(
+              read_http_response_fixture("transactions/list/responses/outgoing", "success_sepa_inst_transactions")
+            )
         end
 
         let!(:found_payment) do

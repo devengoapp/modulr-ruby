@@ -52,7 +52,7 @@ module Modulr
           attributes[:details].dig(:details, :fpsTransaction, :paymentInfo, :endToEndId)
         end
 
-        private def parse_attributes(attributes)
+        private def parse_attributes(attributes) # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity
           details = attributes[:details]
 
           case type

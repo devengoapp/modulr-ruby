@@ -3,20 +3,18 @@
 module Modulr
   module API
     class PaymentsService < Service
-      def find(id:)
+      def find(id:) # rubocop:disable Metrics/AbcSize
         response = client.get("/payments", { id: id })
         @payment_attributes = response.body[:content]&.first
         raise NotFoundError, "Payment #{id} not found" unless @payment_attributes
 
-        type =  if outgoing && !internal
-                  fetch_transaction_type
-                elsif incoming
-                  @payment_attributes[:details][:type]
-                elsif internal
-                  @payment_attributes[:details][:destinationType]
-                else
-                  nil
-                end
+        type = if outgoing && !internal
+                 fetch_transaction_type
+               elsif incoming
+                 @payment_attributes[:details][:type]
+               elsif internal
+                 @payment_attributes[:details][:destinationType]
+               end
 
         @payment_attributes = @payment_attributes.merge(type: type)
 
@@ -66,7 +64,8 @@ module Modulr
       # rubocop:enable Metrics/AbcSize
 
       private def fetch_transaction_type
-        client.transactions.list(account_id: @payment_attributes[:details][:sourceAccountId], source_id: @payment_attributes[:id]).first.type
+        client.transactions.list(account_id: @payment_attributes[:details][:sourceAccountId],
+                                 source_id: @payment_attributes[:id]).first.type
       end
 
       private def incoming
@@ -78,7 +77,7 @@ module Modulr
       end
 
       private def outgoing
-         @payment_attributes[:details][:sourceAccountId] != nil && @payment_attributes[:details][:destinationId].nil?
+        !@payment_attributes[:details][:sourceAccountId].nil? && @payment_attributes[:details][:destinationId].nil?
       end
     end
   end

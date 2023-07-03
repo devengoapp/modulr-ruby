@@ -151,7 +151,7 @@ RSpec.describe Modulr::API::TransactionsService, :unit, type: :client do
         it "returns correct transaction payload" do
           expect(transaction).to be_a Modulr::Resources::Transactions::Transaction
           expect(transaction.id).to eql("T210T3YK09")
-          expect(transaction.amount).to be(40000.0)
+          expect(transaction.amount).to be(40_000.0)
           expect(transaction.currency).to eql("EUR")
           expect(transaction.description).to eql("Incoming sepa regular payment")
           expect(transaction.created_at).to eql("2023-06-20T07:16:11.000+0000")
