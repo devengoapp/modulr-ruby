@@ -301,7 +301,6 @@ RSpec.describe Modulr::API::PaymentsService, :unit, type: :client do
             .to_return(
               read_http_response_fixture("payments/find/outgoing", "success_faster_payments")
             )
-
           stub_request(:get, %r{/accounts/A21CM4HE/transactions})
             .to_return(
               read_http_response_fixture("transactions/list/responses/outgoing", "success_faster_transactions")
@@ -567,6 +566,10 @@ RSpec.describe Modulr::API::PaymentsService, :unit, type: :client do
         stub_request(:get, %r{/payments}).to_return(
           read_http_response_fixture("payments/list", "success")
         )
+        stub_request(:get, %r{/accounts/A21E68ZZ/transactions})
+          .to_return(
+            read_http_response_fixture("transactions/list/responses/outgoing", "success_sepa_inst_transactions")
+          )
       end
 
       let!(:payment_list) do

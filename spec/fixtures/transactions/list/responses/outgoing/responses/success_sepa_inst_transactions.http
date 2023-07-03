@@ -55,8 +55,8 @@ X-Xss-Protection: 1; mode=block
       }
     }
   ],
- "size": 1,
- "totalSize": 1,
- "page": 0,
- "totalPages": 1
+  "size": 1,
+  "totalSize": 1,
+  "page": 0,
+  "totalPages": 1
 }
