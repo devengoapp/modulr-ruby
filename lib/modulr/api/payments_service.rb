@@ -5,27 +5,25 @@ module Modulr
     class PaymentsService < Service
       def find(id:, **opts)
         response = client.get("/payments", { id: id })
-        payment_attributes = if include_transaction?(opts)
-                               payment_attributes_with_type(id, response.body[:content]&.first)
-                             else
-                               response.body[:content]&.first
-                             end
+        payment_attributes = response.body[:content]&.first
+        payment_attributes_with_type(id, payment_attributes) if include_transaction?(opts)
 
         Resources::Payments::Payment.new(response.env[:raw_body], payment_attributes)
       end
 
-      def list(**opts) # rubocop:disable Metrics/AbcSize
+      def list(**opts)
         return find(id: opts[:id]) if opts[:id]
 
         response = client.get("/payments", build_query_params(opts))
+        payments_attributes = response.body[:content]
 
         if include_transaction?(opts)
-          response.body[:content].each do |payment_attributes|
+          payments_attributes.each do |payment_attributes|
             payment_attributes_with_type(payment_attributes[:id], payment_attributes)
           end
         end
 
-        Resources::Payments::Collection.new(response.env[:raw_body], response.body[:content])
+        Resources::Payments::Collection.new(response.env[:raw_body], payments_attributes)
       end
 
       # rubocop:disable Metrics/ParameterLists
