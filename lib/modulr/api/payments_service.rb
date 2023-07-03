@@ -3,9 +3,14 @@
 module Modulr
   module API
     class PaymentsService < Service
-      def find(id:)
+      def find(id:, **opts)
         response = client.get("/payments", { id: id })
-        payment_attributes = payment_attributes_with_type(id, response.body[:content]&.first)
+        payment_attributes = if include_transaction?(opts)
+                               payment_attributes_with_type(id, response.body[:content]&.first)
+                             else
+                               response.body[:content]&.first
+                             end
+
         Resources::Payments::Payment.new(response.env[:raw_body], payment_attributes)
       end
 
@@ -13,9 +18,13 @@ module Modulr
         return find(id: opts[:id]) if opts[:id]
 
         response = client.get("/payments", build_query_params(opts))
-        response.body[:content].each do |payment_attributes|
-          payment_attributes_with_type(payment_attributes[:id], payment_attributes)
+
+        if include_transaction?(opts)
+          response.body[:content].each do |payment_attributes|
+            payment_attributes_with_type(payment_attributes[:id], payment_attributes)
+          end
         end
+
         Resources::Payments::Collection.new(response.env[:raw_body], response.body[:content])
       end
 
@@ -53,6 +62,12 @@ module Modulr
         end
       end
       # rubocop:enable Metrics/AbcSize
+
+      private def include_transaction?(opts)
+        return true if opts[:include_transaction].nil?
+
+        opts[:include_transaction]
+      end
 
       private def payment_attributes_with_type(id, attrs)
         raise NotFoundError, "Payment #{id} not found" unless attrs

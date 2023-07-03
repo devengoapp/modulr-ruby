@@ -52,36 +52,34 @@ module Modulr
           attributes[:details].dig(:details, :fpsTransaction, :paymentInfo, :endToEndId)
         end
 
-        private def parse_attributes(attributes) # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity
-          details = attributes[:details]
+        private def parse_attributes(attributes)
+          parse_details(attributes)
+          parse_scheme if type
+        end
 
-          case type
-          when "PI_SECT"
+        private def parse_details(attributes)
+          details = attributes[:details]
+          detail_type = details&.dig(:type) || details&.dig(:destinationType)
+
+          case detail_type
+          when "PI_SECT", "PI_SEPA_INST", "PI_FAST", "PI_REV"
             incoming_detail(details)
-            sepa_regular
-          when "PI_SEPA_INST"
-            incoming_detail(details)
-            sepa_instant
-          when "PI_FAST"
-            incoming_detail(details)
-            faster_payments
-          when "PI_REV"
-            incoming_detail(details)
-            @network = nil
-            @scheme = nil
           when "ACCOUNT"
             incoming_internal_details(details)
-            internal
-          when "PO_SECT"
+          else
             outgoing_detail(details)
+          end
+        end
+
+        private def parse_scheme
+          case type
+          when "PI_SECT", "PO_SECT"
             sepa_regular
-          when "PO_SEPA_INST"
-            outgoing_detail(details)
+          when "PI_SEPA_INST", "PO_SEPA_INST"
             sepa_instant
-          when "PO_FAST"
-            outgoing_detail(details)
+          when "PI_FAST", "PO_FAST"
             faster_payments
-          when "INT_INTERC"
+          when "ACCOUNT", "INT_INTERC"
             internal
           else
             @network = nil
