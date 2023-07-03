@@ -14,7 +14,7 @@ module Modulr
         Resources::Payments::Payment.new(response.env[:raw_body], payment_attributes)
       end
 
-      def list(**opts)
+      def list(**opts) # rubocop:disable Metrics/AbcSize
         return find(id: opts[:id]) if opts[:id]
 
         response = client.get("/payments", build_query_params(opts))
