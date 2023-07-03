@@ -3,7 +3,7 @@
 module Modulr
   module API
     class PaymentsService < Service
-      def find(id:) # rubocop:disable Metrics/AbcSize
+      def find(id:)
         response = client.get("/payments", { id: id })
         payment_attributes = payment_attributes_with_type(id, response.body[:content]&.first)
         Resources::Payments::Payment.new(response.env[:raw_body], payment_attributes)
