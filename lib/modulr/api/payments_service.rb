@@ -3,10 +3,10 @@
 module Modulr
   module API
     class PaymentsService < Service
-      def find(id:, **opts)
+      def find(id:)
         response = client.get("/payments", { id: id })
         payment_attributes = response.body[:content]&.first
-        payment_attributes_with_type(id, payment_attributes) if include_transaction?(opts)
+        raise NotFoundError, "Payment #{id} not found" unless payment_attributes
 
         Resources::Payments::Payment.new(response.env[:raw_body], payment_attributes)
       end
@@ -15,19 +15,10 @@ module Modulr
         return find(id: opts[:id]) if opts[:id]
 
         response = client.get("/payments", build_query_params(opts))
-        payments_attributes = response.body[:content]
-
-        if include_transaction?(opts)
-          payments_attributes.each do |payment_attributes|
-            payment_attributes_with_type(payment_attributes[:id], payment_attributes)
-          end
-        end
-
-        Resources::Payments::Collection.new(response.env[:raw_body], payments_attributes)
+        Resources::Payments::Collection.new(response.env[:raw_body], response.body[:content])
       end
 
-      # rubocop:disable Metrics/ParameterLists
-      def create(account_id:, destination:, reference:, currency:, amount:, **opts)
+      def create(account_id:, destination:, reference:, currency:, amount:, **opts) # rubocop:disable Metrics/ParameterLists
         payload = {
           sourceAccountId: account_id,
           destination: destination,
@@ -40,12 +31,10 @@ module Modulr
         payload[:endToEndReference] = opts[:e2e_reference] if opts[:e2e_reference]
 
         response = client.post("/payments", payload)
-        Resources::Payments::Payment.new(response.env[:raw_body], response.body)
+        Resources::Payments::Payment.new(response.env[:raw_body], response.body, { network_scheme: false })
       end
-      # rubocop:enable Metrics/ParameterLists
 
-      # rubocop:disable Metrics/AbcSize
-      private def build_query_params(opts)
+      private def build_query_params(opts) # rubocop:disable Metrics/AbcSize
         same_name_params = [:type, :status]
         date_params = { to: :toCreatedDate, from: :fromCreatedDate, updated_since: :modifiedSince }
         mapped_params = {
@@ -58,48 +47,6 @@ module Modulr
           date_params.each { |original, mapped| params[mapped] = format_datetime(opts[original]) if opts[original] }
           mapped_params.each { |original, mapped| params[mapped] = opts[original] if opts[original] }
         end
-      end
-      # rubocop:enable Metrics/AbcSize
-
-      private def include_transaction?(opts)
-        return true if opts[:include_transaction].nil?
-
-        opts[:include_transaction]
-      end
-
-      private def payment_attributes_with_type(id, attrs)
-        raise NotFoundError, "Payment #{id} not found" unless attrs
-
-        @details = attrs[:details]
-        type = if outgoing && !internal
-                 fetch_transaction_type
-               elsif incoming
-                 @details[:type]
-               elsif internal
-                 @details[:destinationType]
-               end
-
-        attrs[:type] = type
-        attrs
-      end
-
-      private def fetch_transaction_type
-        client.transactions.list(
-          account_id: @details[:sourceAccountId],
-          source_id: @details[:id]
-        )&.first&.type
-      end
-
-      private def incoming
-        @details[:sourceAccountId].nil?
-      end
-
-      private def internal
-        @details[:sourceAccountId] && @details[:destinationId]
-      end
-
-      private def outgoing
-        !@details[:sourceAccountId].nil? && @details[:destinationId].nil?
       end
     end
   end

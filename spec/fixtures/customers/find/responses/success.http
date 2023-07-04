@@ -16,4 +16,82 @@ x-ratelimit-remaining: 3999982
 x-ratelimit-reset: 1674464655
 x-xss-protection: 1; mode=block
 
-{"id":"C2188C26","name":"Devengo","type":"PLC","status":"ACTIVE","verificationStatus":"VERIFIED","companyRegNumber":"B42722025","expectedMonthlySpend":1,"registeredAddress":{"id":1102076021,"addressLine1":"Barquillo 40","addressLine2":"Primero Derecha","postTown":"Madrid","postCode":"28004","country":"ES"},"tradingAddress":{"id":1102076121,"addressLine1":"Barquillo 40","addressLine2":"Primero Derecha","postTown":"Madrid","postCode":"28004","country":"ES"},"partnerId":"R210061P","associates":[{"id":"S218CJKV","firstName":"Alberto","middleName":"","lastName":"Molpeceres","email":"al-berto@de-vengo.com","phone":"+(34)551304614","applicant":false,"type":"DIRECTOR","dateOfBirth":"1974-11-23","verificationStatus":"REFERRED","homeAddress":{"id":1102076521,"addressLine1":"Palangreros 41","addressLine2":"","postTown":"Fuengirola","postCode":"29640","country":"ES"},"additionalPersonalIdentifiers":[]},{"id":"S218CJKU","firstName":"Fernando","middleName":"","lastName":"Cabello-Astolfi","email":"fer-nando@devengo.com","phone":"+(34)656629175","applicant":true,"type":"DIRECTOR","dateOfBirth":"1974-03-20","verificationStatus":"REFERRED","homeAddress":{"id":1102076421,"addressLine1":"Barquillo 40","addressLine2":"Primero Derecha","postTown":"Madrid","postCode":"28004","country":"ES"},"additionalPersonalIdentifiers":[]},{"id":"S218CJKT","firstName":"Alberto","middleName":"","lastName":"Molpeceres","email":"al-berto@de-vengo.com","phone":"+(34)551304614","applicant":false,"ownership":21,"type":"BENE_OWNER","dateOfBirth":"1974-11-23","verificationStatus":"REFERRED","homeAddress":{"id":1102076321,"addressLine1":"Palangrelos 41","addressLine2":"","postTown":"Fuengirola","postCode":"29640","country":"ES"},"additionalPersonalIdentifiers":[]},{"id":"S218CJKS","firstName":"Fernando","middleName":"","lastName":"Cabello-Astolfi","email":"fernando@devengo.com","phone":"+(44)34656629175","applicant":false,"ownership":36,"type":"BENE_OWNER","dateOfBirth":"1974-03-20","verificationStatus":"REFERRED","homeAddress":{"id":1102076221,"addressLine1":"Barquillo 40","addressLine2":"Primero Derecha","postTown":"Madrid","postCode":"28004","country":"ES"},"additionalPersonalIdentifiers":[]}],"industryCode":"K","tcsVersion":1,"externalReference":"","createdDate":"2022-12-30T12:31:18.860+0000","holdPaymentsForFunds":false,"cardConstraintsBid":"","needAddressVerification":false,"accessGroupsVisible":false,"legalEntity":"IE"}
+{
+  "id": "C2188C26",
+  "name": "Devengo",
+  "type": "PLC",
+  "status": "ACTIVE",
+  "verificationStatus": "VERIFIED",
+  "companyRegNumber": "B42722025",
+  "expectedMonthlySpend": 1,
+  "registeredAddress": {
+    "id": 1102076021,
+    "addressLine1": "1 Street name",
+    "addressLine2": "",
+    "postTown": "London",
+    "postCode": "AB1 2CD",
+    "country": "GB"
+  },
+  "tradingAddress": {
+    "id": 1102076121,
+    "addressLine1": "1 Street name",
+    "addressLine2": "",
+    "postTown": "London",
+    "postCode": "AB1 2CD",
+    "country": "GB"
+  },
+  "partnerId": "R210061P",
+  "associates": [
+    {
+      "id": "S218CJKV",
+      "firstName": "John",
+      "middleName": "",
+      "lastName": "Devenguer",
+      "email": "john@de-vengo.com",
+      "phone": "+(34)551304614",
+      "applicant": false,
+      "type": "DIRECTOR",
+      "dateOfBirth": "1974-11-23",
+      "verificationStatus": "REFERRED",
+      "homeAddress": {
+        "id": 1102076521,
+        "addressLine1": "2 Street name",
+        "addressLine2": "",
+        "postTown": "London",
+        "postCode": "AB1 2CD",
+        "country": "GB"
+      },
+      "additionalPersonalIdentifiers": []
+    },
+    {
+      "id": "S218CJKU",
+      "firstName": "Ana",
+      "middleName": "",
+      "lastName": "Devenguer",
+      "email": "ana@de-vengo.com",
+      "phone": "+(34)756629175",
+      "applicant": true,
+      "type": "DIRECTOR",
+      "dateOfBirth": "1974-03-20",
+      "verificationStatus": "REFERRED",
+      "homeAddress": {
+        "id": 1102076421,
+        "addressLine1": "3 Street name",
+        "addressLine2": "",
+        "postTown": "London",
+        "postCode": "AB1 2CD",
+        "country": "GB"
+      },
+      "additionalPersonalIdentifiers": []
+    }
+  ],
+  "industryCode": "K",
+  "tcsVersion": 1,
+  "externalReference": "",
+  "createdDate": "2022-12-30T12:31:18.860+0000",
+  "holdPaymentsForFunds": false,
+  "cardConstraintsBid": "",
+  "needAddressVerification": false,
+  "accessGroupsVisible": false,
+  "legalEntity": "IE"
+}

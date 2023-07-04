@@ -13,15 +13,15 @@ RSpec.describe Modulr::API::PaymentsService, :unit, type: :client do
 
       let!(:created_payment) do
         payments.create(
-          account_id: "A21BZ2GE",
+          account_id: "A21E68ZZ",
           currency: "EUR",
-          amount: "0.02",
+          amount: "148.0",
           destination: {
             type: "IBAN",
-            iban: "ES8731902527103498957662",
-            name: "Aitor García Rey",
+            iban: "ES3200810106680006714488",
+            name: "John",
           },
-          reference: "The reference"
+          reference: "Outgoing sepa instant payment"
         )
       end
 
@@ -29,15 +29,15 @@ RSpec.describe Modulr::API::PaymentsService, :unit, type: :client do
         method: :post,
         path: %r{/payments},
         body: {
-          sourceAccountId: "A21BZ2GE",
+          sourceAccountId: "A21E68ZZ",
           currency: "EUR",
-          amount: "0.02",
+          amount: "148.0",
           destination: {
             type: "IBAN",
-            iban: "ES8731902527103498957662",
-            name: "Aitor García Rey",
+            iban: "ES3200810106680006714488",
+            name: "John",
           },
-          reference: "The reference",
+          reference: "Outgoing sepa instant payment",
         },
       }
 
@@ -68,58 +68,6 @@ RSpec.describe Modulr::API::PaymentsService, :unit, type: :client do
     end
 
     context "with incoming payments" do
-      context "when avoid to include transaction" do
-        before do
-          stub_request(:get, %r{/payments})
-            .with(query: hash_including({ "id" => "P210H5KU1B" }))
-            .to_return(
-              read_http_response_fixture("payments/find/incoming", "success_sepa_inst")
-            )
-        end
-
-        let!(:sct_inst_payment) do
-          payments.find(id: "P210H5KU1B", include_transaction: false)
-        end
-
-        it_behaves_like "builds correct request", {
-          method: :get,
-          path: %r{/payments},
-        }
-
-        it "returns the payment" do
-          expect(sct_inst_payment).to be_a Modulr::Resources::Payments::Payment
-          expect(sct_inst_payment.id).to eql("P210H5KU1B")
-          expect(sct_inst_payment.status).to eql("PROCESSED")
-          expect(sct_inst_payment.created_at).to eql("2023-03-20T09:16:53.053+0000")
-          expect(sct_inst_payment.reference).to eql("P210H5KU1B")
-          expect(sct_inst_payment.details).to be_a Modulr::Resources::Payments::Details::Incoming::General
-          expect(sct_inst_payment.details.created_at).to eql("2023-03-20T09:16:53.503+00:00")
-          expect(sct_inst_payment.details.posted_at).to eql("2023-03-20T09:16:51.000+00:00")
-          expect(sct_inst_payment.details.type).to eql("PI_SEPA_INST")
-          expect(sct_inst_payment.details.description).to eql("Incoming sepa instant payment")
-          expect(sct_inst_payment.details.original_reference).to eql("Incoming sepa instant payment fixture")
-          expect(sct_inst_payment.details.currency).to eql("EUR")
-          expect(sct_inst_payment.details.amount).to be 2.00
-          expect(sct_inst_payment.details.account_number).to eql("A21DC314")
-          expect(sct_inst_payment.details.scheme_id).to eql("SI23032029385314-O-f9ffc22bc62e300788f538eafd75db20")
-          expect(sct_inst_payment.details.raw_details.keys).to include(:type, :payload)
-          expect(sct_inst_payment.details.payer).to be_a Modulr::Resources::Payments::Counterparty
-          expect(sct_inst_payment.details.payer.name).to eql("John")
-          expect(sct_inst_payment.details.payer.identifier.type).to eql("IBAN")
-          expect(sct_inst_payment.details.payer.identifier.iban).to eql("ES6015632626303264517957")
-          expect(sct_inst_payment.details.payee).to be_a Modulr::Resources::Payments::Counterparty
-          expect(sct_inst_payment.details.payee.name).to eql("Devengo")
-          expect(sct_inst_payment.details.payee.identifier.type).to eql("IBAN")
-          expect(sct_inst_payment.details.payee.identifier.iban).to eql("IE21MODR99035502154596")
-          expect(sct_inst_payment.details.destination.name).to eql("Devengo")
-          expect(sct_inst_payment.details.destination.identifier.type).to eql("IBAN")
-          expect(sct_inst_payment.details.destination.identifier.iban).to eql("IE21MODR99035502154596")
-          expect(sct_inst_payment.end_to_end_id).to eql "NOTPROVIDED"
-          expect(sct_inst_payment.network).to be_nil
-          expect(sct_inst_payment.scheme).to be_nil
-        end
-      end
-
       context "when it is a UK faster payment" do
         before do
           stub_request(:get, %r{/payments})
@@ -346,56 +294,12 @@ RSpec.describe Modulr::API::PaymentsService, :unit, type: :client do
     end
 
     context "with outgoing payments" do
-      context "when avoid to include transaction" do
-        before do
-          stub_request(:get, %r{/payments})
-            .with(query: hash_including({ "id" => "P210HYHNCT" }))
-            .to_return(
-              read_http_response_fixture("payments/find/outgoing", "success_sepa_inst")
-            )
-        end
-
-        let!(:found_payment) do
-          payments.find(id: "P210HYHNCT", include_transaction: false)
-        end
-
-        it_behaves_like "builds correct request", {
-          method: :get,
-          path: %r{/payments},
-        }
-
-        it "returns the payment" do
-          expect(found_payment).to be_a Modulr::Resources::Payments::Payment
-          expect(found_payment.message).to be_empty
-          expect(found_payment.id).to eql("P210HYHNCT")
-          expect(found_payment.status).to eql("PROCESSED")
-          expect(found_payment.created_at).to eql("2023-06-06T07:24:17.017+0000")
-          expect(found_payment.reference).to eql("P210HYHNCT")
-          expect(found_payment.approval_status).to eql("NOTNEEDED")
-          expect(found_payment.details).to be_a Modulr::Resources::Payments::Details::Outgoing::General
-          expect(found_payment.details.source_account_id).to eql("A21E68ZZ")
-          expect(found_payment.details.currency).to eql("EUR")
-          expect(found_payment.details.amount).to be 148.0
-          expect(found_payment.details.reference).to eql("Outgoing sepa instant payment")
-          expect(found_payment.details.destination).to be_a Modulr::Resources::Payments::Destination
-          expect(found_payment.details.destination.identifier.type).to eql("IBAN")
-          expect(found_payment.details.destination.identifier.iban).to eql("ES3200810106680006714488")
-          expect(found_payment.details.destination.name).to eql("John")
-          expect(found_payment.network).to be_nil
-          expect(found_payment.scheme).to be_nil
-        end
-      end
-
       context "when it is a UK faster payment" do
         before do
           stub_request(:get, %r{/payments})
             .with(query: hash_including({ "id" => "P210H4JZZ7" }))
             .to_return(
               read_http_response_fixture("payments/find/outgoing", "success_faster_payments")
-            )
-          stub_request(:get, %r{/accounts/A21CM4HE/transactions})
-            .to_return(
-              read_http_response_fixture("transactions/list/responses/outgoing", "success_faster_transactions")
             )
         end
 
@@ -437,11 +341,6 @@ RSpec.describe Modulr::API::PaymentsService, :unit, type: :client do
             .to_return(
               read_http_response_fixture("payments/find/outgoing", "success_sepa_inst")
             )
-
-          stub_request(:get, %r{/accounts/A21E68ZZ/transactions})
-            .to_return(
-              read_http_response_fixture("transactions/list/responses/outgoing", "success_sepa_inst_transactions")
-            )
         end
 
         let!(:found_payment) do
@@ -481,11 +380,6 @@ RSpec.describe Modulr::API::PaymentsService, :unit, type: :client do
             .with(query: hash_including({ "id" => "P210J382BE" }))
             .to_return(
               read_http_response_fixture("payments/find/outgoing", "success_sepa_regular")
-            )
-
-          stub_request(:get, %r{/accounts/A21E68ZZ/transactions})
-            .to_return(
-              read_http_response_fixture("transactions/list/responses/outgoing", "success_sepa_regular_transactions")
             )
         end
 
@@ -528,11 +422,6 @@ RSpec.describe Modulr::API::PaymentsService, :unit, type: :client do
             .to_return(
               read_http_response_fixture("payments/find/outgoing", "success_faster_internal_payments")
             )
-
-          stub_request(:get, %r{/accounts/A21BZ2GY/transactions})
-            .to_return(
-              read_http_response_fixture("transactions/list/responses/outgoing", "success_faster_internal_transactions")
-            )
         end
 
         let!(:found_payment) do
@@ -570,11 +459,6 @@ RSpec.describe Modulr::API::PaymentsService, :unit, type: :client do
             .with(query: hash_including({ "id" => "P210GXV1UW" }))
             .to_return(
               read_http_response_fixture("payments/find/outgoing", "success_sepa_internal_payments")
-            )
-
-          stub_request(:get, %r{/accounts/A21BZ2GF/transactions})
-            .to_return(
-              read_http_response_fixture("transactions/list/responses/outgoing", "success_sepa_internal_transactions")
             )
         end
 
@@ -614,11 +498,6 @@ RSpec.describe Modulr::API::PaymentsService, :unit, type: :client do
             .to_return(
               read_http_response_fixture("payments/find/outgoing", "failed_sepa_payment")
             )
-
-          stub_request(:get, %r{/accounts/A21E68ZZ/transactions})
-            .to_return(
-              read_http_response_fixture("transactions/list/responses/outgoing", "success_sepa_inst_transactions")
-            )
         end
 
         let!(:found_payment) do
@@ -653,32 +532,11 @@ RSpec.describe Modulr::API::PaymentsService, :unit, type: :client do
   end
 
   describe "list payment" do
-    context "when avoid to include transaction" do
-      before do
-        stub_request(:get, %r{/payments}).to_return(
-          read_http_response_fixture("payments/list", "success")
-        )
-      end
-
-      let!(:payment_list) do
-        payments.list(include_transaction: false, from: Date.today - 1, type: "PAYOUT")
-      end
-
-      it "returns a collection of payments" do
-        expect(payment_list).to be_a Modulr::Resources::Payments::Collection
-        expect(payment_list.count).to be(4)
-      end
-    end
-
     context "when params are valid" do
       before do
         stub_request(:get, %r{/payments}).to_return(
           read_http_response_fixture("payments/list", "success")
         )
-        stub_request(:get, %r{/accounts/A21E68ZZ/transactions})
-          .to_return(
-            read_http_response_fixture("transactions/list/responses/outgoing", "success_sepa_inst_transactions")
-          )
       end
 
       let!(:payment_list) do
