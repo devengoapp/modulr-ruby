@@ -1,5 +1,5 @@
 # frozen_string_literal: true
-require 'byebug'
+
 module Modulr
   module API
     class PaymentsService < Service
@@ -34,7 +34,6 @@ module Modulr
         response = client.post("/payments", payload)
         Resources::Payments::Payment.new(response.env[:raw_body], response.body)
       end
-      # rubocop:enable Metrics/ParameterLists
 
       # rubocop:disable Metrics/AbcSize
       private def build_query_params(opts)

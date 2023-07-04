@@ -73,7 +73,6 @@ module Modulr
         end
 
         private def payment_type
-          byebug
           if incoming?
             @attr_details[:type]
           elsif internal?
@@ -99,7 +98,6 @@ module Modulr
         end
 
         private def outgoing_type
-          byebug
           return "PO_FAST" if @attributes.dig(:schemeInfo, :id)&.include?("MODULO")
 
           case @attributes.dig(:schemeInfo, :name)
