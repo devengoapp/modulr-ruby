@@ -19,192 +19,115 @@ x-xss-protection: 1; mode=block
 {
   "content": [
     {
-      "id": "P210H5Z0KK",
+      "id": "P210J30EGV",
       "status": "PROCESSED",
-      "createdDate": "2023-03-21T11:14:35.035+0000",
+      "createdDate": "2023-06-20T07:16:35.035+0000",
       "details": {
-        "created": "2023-03-21T11:14:35.131+00:00",
+        "created": "2023-06-20T07:16:35.359+00:00",
         "retryCount": 0,
         "sourceService": "bolProviderService",
-        "requestReference": "S230800054197732",
+        "requestReference": "S231710057915821",
         "reprocess": false,
         "priority": 0,
-        "accountNumber": "A21DC313",
-        "posted": "2023-03-21T11:13:39.000+00:00",
+        "accountNumber": "A21E68Z1",
+        "posted": "2023-06-20T07:16:11.000+00:00",
         "type": "PI_SECT",
-        "amount": 0.01,
+        "amount": 40000.0,
         "currency": "EUR",
-        "description": "Payment from Aitor Garcia Rey: Enviada desde N26",
-        "originalReference": "Enviada desde N26",
+        "description": "Incoming sepa regular payment",
         "providerCode": "BOL",
         "ledgerBankCode": "BOLIE",
-        "payerName": "Aitor Garcia Rey",
+        "payerName": "Jonh",
         "payer": {
-          "name": "Aitor Garcia Rey",
+          "name": "Jonh",
           "identifier": {
             "type": "IBAN",
-            "iban": "ES8731902527103498957662",
-            "bic": "NTSBDEB1XXX"
-          }
+            "iban": "ES2400810361440001700370",
+            "bic": "BSABESBBXXX"
+          },
+          "address": {"country": "ES"}
         },
         "payee": {
-          "name": "AGR tests in Devengo Modulr",
+          "name": "Devengo",
           "identifier": {
             "type": "IBAN",
-            "iban": "IE21MODR99035502154595",
+            "iban": "IE02MODR99035502304318",
             "bic": "MODRIE22XXX"
+          },
+          "address": {
+            "addressLine1": "", "country": "ES"
           }
         },
-        "schemeId": "S230800054197732-e44ec0108b074a73b117dbe1fbf44def",
-        "schemeType": "SEPA",
+        "schemeId": "S231710057915821-0569660898269800",
+        "schemeType": "SEPA_CREDIT_TRANSFER",
         "clearingRequired": false,
         "originatedOverseas": true,
-        "details": {
-          "type": "FFCCTRNS",
-          "payload": {
-            "id": "Edoc",
-            "docs": {
-              "doc": {
-                "header": {
-                  "type": "FFCCTRNS",
-                  "dates": [
-                    {
-                      "date": [
-                        2023,
-                        3,
-                        21,
-                        13,
-                        13,
-                        39
-                      ],
-                      "type": "FormDoc"
-                    }
-                  ],
-                  "docId": "S230800054197732",
+        "details": 
+        {"type": "FFCCTRNS",
+          "payload": 
+          {"id": "Edoc",
+            "docs": 
+            {"doc": 
+              {"header": 
+                {"type": "FFCCTRNS",
+                  "dates": 
+                  [{"date": [2023, 6, 20, 10, 16, 11], "type": "FormDoc"}],
+                  "docId": "S231710057915821",
                   "priority": 51,
                   "reference": [],
-                  "businessArea": "SEPASCT"
-                },
-                "ffcctrns": {
-                  "document": {
-                    "fitoFICstmrCdtTrf": {
-                      "grpHdr": {
-                        "msgId": "S230800054197732",
-                        "creDtTm": [
-                          2023,
-                          3,
-                          21,
-                          13,
-                          13,
-                          39
-                        ],
+                  "businessArea": "SEPASCT"},
+                "ffcctrns": 
+                {"document": 
+                  {"fitoFICstmrCdtTrf": 
+                    {"grpHdr": 
+                      {"msgId": "S231710057915821",
+                        "creDtTm": [2023, 6, 20, 10, 16, 11],
                         "nbOfTxs": "1",
-                        "instdAgt": {
-                          "finInstnId": {
-                            "bic": "MODRIE22XXX"
-                          }
-                        },
-                        "sttlmInf": {
-                          "clrSys": {
-                            "prtry": "LITAS_MIG"
-                          },
-                          "sttlmMtd": "CLRG"
-                        },
-                        "intrBkSttlmDt": [
-                          2023,
-                          3,
-                          21
-                        ],
-                        "ttlIntrBkSttlmAmt": {
-                          "ccy": "EUR",
-                          "value": 0.01
-                        }
-                      },
-                      "cdtTrfTxInf": [
-                        {
-                          "cdtr": {
-                            "nm": "AGR tests in Devengo Modulr"
-                          },
-                          "dbtr": {
-                            "nm": "Aitor Garcia Rey"
-                          },
-                          "pmtId": {
-                            "txId": "e44ec0108b074a73b117dbe1fbf44def",
-                            "instrId": "O230801408552580",
-                            "endToEndId": "e44ec0108b074a73b117dbe1fbf44def"
-                          },
-                          "chrgBr": "SLEV",
-                          "rmtInf": {
-                            "ustrd": "Enviada desde N26"
-                          },
-                          "cdtrAgt": {
-                            "finInstnId": {
-                              "bic": "MODRIE22XXX"
-                            }
-                          },
-                          "dbtrAgt": {
-                            "finInstnId": {
-                              "bic": "NTSBDEB1XXX"
-                            }
-                          },
-                          "cdtrAcct": {
-                            "id": {
-                              "iban": "IE21MODR99035502154595"
-                            }
-                          },
-                          "dbtrAcct": {
-                            "id": {
-                              "iban": "ES8731902527103498957662"
-                            }
-                          },
-                          "instgAgt": {
-                            "finInstnId": {
-                              "bic": "MARKDEFF"
-                            }
-                          },
-                          "pmtTpInf": {
-                            "svcLvl": {
-                              "cd": "SEPA"
-                            }
-                          },
-                          "intrBkSttlmAmt": {
-                            "ccy": "EUR",
-                            "value": 0.01
-                          }
-                        }
-                      ]
-                    }
-                  }
-                }
-              }
-            },
+                        "instdAgt": {"finInstnId": {"bic": "MODRIE22XXX"}},
+                        "sttlmInf": 
+                        {"clrSys": {"prtry": "LITAS_MIG"}, "sttlmMtd": "CLRG"},
+                        "intrBkSttlmDt": [2023, 6, 20],
+                        "ttlIntrBkSttlmAmt": {"ccy": "EUR", "value": 40000.0}},
+                      "cdtTrfTxInf": 
+                      [{"cdtr": 
+                          {"nm": "Devengo",
+                          "pstlAdr": 
+                            {"ctry": "ES",
+                            "adrLine": 
+                              []}},
+                        "dbtr": 
+                          {"nm": "John",
+                          "pstlAdr": {"ctry": "ES", "adrLine": []}},
+                        "pmtId": 
+                          {"txId": "0569660898269800",
+                          "instrId": "O231711443976315",
+                          "endToEndId": "NOTPROVIDED"},
+                        "chrgBr": "SLEV",
+                        "cdtrAgt": {"finInstnId": {"bic": "MODRIE22XXX"}},
+                        "dbtrAgt": {"finInstnId": {"bic": "BSABESBBXXX"}},
+                        "cdtrAcct": {"id": {"iban": "IE02MODR99035502304318"}},
+                        "dbtrAcct": 
+                          {"id": {"iban": "ES2400810361440001700370"}},
+                        "instgAgt": {"finInstnId": {"bic": "BSABESBB"}},
+                        "pmtTpInf": {"svcLvl": {"cd": "SEPA"}},
+                        "intrBkSttlmAmt": 
+                          {"ccy": "EUR", "value": 40000.0}}]}}}}},
             "type": "FFCCTRNS",
-            "header": {
-              "date": [
-                2023,
-                3,
-                21,
-                13,
-                13,
-                39
-              ],
-              "msgId": "S230800054197732",
+            "header": 
+            {"date": [2023, 6, 20, 10, 16, 11],
+              "msgId": "S231710057915821",
               "sender": "LIABLT2XMSD",
               "system": "LITAS-MIG",
               "priority": 51,
               "receiver": "MODRIE22XXX",
-              "reference": []
-            },
-            "version": "pacs.008.001.02.2021"
-          }
-        },
-        "manualRecall": false
-      },
-      "reference": "P210H5Z0KK"
+              "reference": []},
+            "version": "pacs.008.001.02.2021"}},
+        "manualRecall": false},
+      "reference": "P210J30EGV"
     }
   ],
-  "size": 1,
-  "totalSize": 1,
-  "page": 0,
-  "totalPages": 1
-}
+ "size": 1,
+ "totalSize": 1,
+ "page": 0,
+ "totalPages": 1
+ }

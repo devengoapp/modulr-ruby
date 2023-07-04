@@ -1,0 +1,79 @@
+HTTP/2.0 200 OK
+Date: Wed, 21 Jun 2023 11:50:36 GMT
+Content-Type: application/json
+Cache-Control: no-cache, no-store, must-revalidate
+Content-Security-Policy: default-src https: data: 'unsafe-inline' 'unsafe-eval'
+Expires: 0
+Pragma: no-cache
+Server: Apache
+Strict-Transport-Security: max-age=31536000
+Vary: Origin
+X-Content-type-options: nosniff
+X-Frame-Options: SAMEORIGIN
+X-Ratelimit-Limit: 4000000
+X-Ratelimit-Remaining: 3997835
+X-Ratelimit-Reset: 1687566698
+X-Xss-Protection: 1; mode=block
+
+{
+  "content": [
+    {
+      "id": "T210RU61D7",
+      "amount": 0.01,
+      "currency": "GBP",
+      "description": "Incoming faster payment",
+      "transactionDate": "2023-03-17T08:18:10.000+0000",
+      "postedDate": "2023-03-17T08:18:55.851+0000",
+      "credit": true,
+      "type": "PI_FAST",
+      "sourceId": "P210H4GX3H",
+      "additionalInfo": {
+      "payer": {
+        "name": "John",
+        "address": {
+          "country": "GB",
+          "postCode": "AB1 2CD",
+          "postTown": "London",
+          "addressLine1": "1 Street name",
+          "addressLine2": ""
+          },
+        "identifier": {
+          "type": "SCAN",
+          "country": "GB",
+          "sortCode": "TRWIBEBC",
+          "accountNumber": "P12642237"
+          }
+        },
+      "schemeInfo": {
+        "id": "TW00000005322175031020230317826231470"
+        }
+      },
+    "account": {
+      "id": "A21CM4HE",
+      "name": "Devengo",
+      "balance": "0.01",
+      "currency": "GBP",
+      "status": "ACTIVE",
+      "identifiers": [
+        {
+          "type": "SCAN",
+          "accountNumber": "00631974",
+          "sortCode": "040393",
+          "providerExtraInfo": {}
+        }
+      ],
+      "customerId": "C2188C28",
+      "customerName": "Devengo",
+      "externalReference": "acc_12lEThqzWSOFLBIbjBnJvP",
+      "accessGroups": [],
+      "createdDate": "2023-02-20T11:04:54.317+0000",
+      "directDebit": false,
+      "securedFundingLimit": "0.00"
+      }
+    }
+  ],
+ "size": 1,
+ "totalSize": 1,
+ "page": 0,
+ "totalPages": 1
+ }

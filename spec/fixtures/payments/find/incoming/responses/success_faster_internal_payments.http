@@ -19,32 +19,28 @@ x-xss-protection: 1; mode=block
 {
   "content": [
     {
-      "id": "P210G2CY0N",
+      "id": "P210GY2JDJ",
       "status": "PROCESSED",
-      "createdDate": "2023-02-09T18:19:47.047+0000",
-      "externalReference": "The external reference",
+      "createdDate": "2023-03-10T18:20:12.012+0000",
       "details": {
-        "sourceAccountId": "A21BZ2GE",
-        "destinationType": "IBAN",
+        "sourceAccountId": "A21BZ2GY",
+        "destinationId": "A21CM4HE",
+        "destinationType": "ACCOUNT",
         "destination": {
-          "type": "IBAN",
-          "iban": "ES8731902527103498957662",
-          "name": "Aitor García Rey"
+          "type": "ACCOUNT",
+          "id": "A21CM4HE"
         },
-        "currency": "EUR",
+        "currency": "GBP",
         "amount": 0.01,
-        "reference": "The reference",
-        "externalReference": "The external reference",
-        "endToEndReference": "e2e reference"
+        "reference": "Faster internal payment"
       },
-      "reference": "P210G2CY0N",
+      "reference": "P210GY2JDJ",
       "approvalStatus": "NOTNEEDED",
-      "message": "",
-      "schemeInfo": { "name": "SEPA_INSTANT" }
+      "message": ""
     }
   ],
-  "size": 1,
-  "totalSize": 1,
-  "page": 0,
-  "totalPages": 1
+ "size": 1,
+ "totalSize": 1,
+ "page": 0,
+ "totalPages": 1
 }

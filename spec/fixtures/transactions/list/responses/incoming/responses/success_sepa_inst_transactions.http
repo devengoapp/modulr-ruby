@@ -1,0 +1,73 @@
+HTTP/2.0 200 OK
+Date: Wed, 21 Jun 2023 11:50:36 GMT
+Content-Type: application/json
+Cache-Control: no-cache, no-store, must-revalidate
+Content-Security-Policy: default-src https: data: 'unsafe-inline' 'unsafe-eval'
+Expires: 0
+Pragma: no-cache
+Server: Apache
+Strict-Transport-Security: max-age=31536000
+Vary: Origin
+X-Content-type-options: nosniff
+X-Frame-Options: SAMEORIGIN
+X-Ratelimit-Limit: 4000000
+X-Ratelimit-Remaining: 3997835
+X-Ratelimit-Reset: 1687566698
+X-Xss-Protection: 1; mode=block
+
+{
+  "content": [
+    {
+      "id": "T210RVSTQM",
+      "amount": 2.0,
+      "currency": "EUR",
+      "description": "Incoming sepa instant payment",
+      "transactionDate": "2023-03-20T09:16:51.000+0000",
+      "postedDate": "2023-03-20T09:16:53.702+0000",
+      "credit": true,
+      "type": "PI_SEPA_INST",
+      "sourceId": "P210H5KU1B",
+      "additionalInfo": {
+        "payer": {
+          "name": "John",
+          "identifier": {
+            "bic": "NTSBESM1XXX",
+            "iban": "ES6015632626303264517950",
+            "type": "IBAN"
+          }
+        },
+        "schemeInfo": {
+          "id": "SI23032029385314-O-f9ffc22bc62e300788f538eafd75db20",
+          "name": "SEPA_INSTANT"
+        }
+      },
+      "account": {
+        "id": "A21DC314",
+        "name": "Devengo",
+        "balance": "2.01",
+        "currency": "EUR",
+        "status": "ACTIVE",
+        "identifiers": [
+          {
+          "type": "IBAN",
+          "iban": "IE21MODR99035502154596",
+          "bic": "MODRIE22XXX",
+          "providerExtraInfo": 
+            {"sortCode": "990356", "accountNumber": "02154596"}
+          }
+        ],
+        "customerId": "C2188C28",
+        "customerName": "Devengo",
+        "externalReference": "acc_6ZnYzzMk6SUJCcFCDeT9XZ",
+        "accessGroups": [],
+        "createdDate": "2023-03-20T09:13:45.640+0000",
+        "directDebit": false,
+        "securedFundingLimit": "0.00"
+      }
+    }
+  ],
+ "size": 1,
+ "totalSize": 1,
+ "page": 0,
+ "totalPages": 1
+}

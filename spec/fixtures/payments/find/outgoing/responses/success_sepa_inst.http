@@ -17,26 +17,27 @@ x-ratelimit-reset: 1674464655
 x-xss-protection: 1; mode=block
 
 {
-  "content": [
+  "content": 
+  [
     {
-      "id": "P1200AJQPQ",
+      "id": "P210HYHNCT",
       "status": "PROCESSED",
-      "createdDate": "2023-04-14T11:36:03.003+0000",
-      "externalReference": "tra_AZ6t3dfk9GNn8cVMCtYt9",
+      "createdDate": "2023-06-06T07:24:17.017+0000",
+      "externalReference": "tra_cPz0LfwBZ41oYzITQDW1Z",
       "details": {
-        "sourceAccountId": "A122CZ7E",
+        "sourceAccountId": "A21E68ZZ",
         "destinationType": "IBAN",
         "destination": {
           "type": "IBAN",
-          "iban": "ES2914653111661392648933",
+          "iban": "ES3200810106680006714488",
           "name": "John"
         },
         "currency": "EUR",
-        "amount": 0.01,
-        "reference": "From Modulr account",
-        "externalReference": "tra_AZ6t3dfk9GNn8cVMCtYt9"
+        "amount": 148.0,
+        "reference": "Outgoing sepa instant payment",
+        "externalReference": "tra_cPz0LfwBZ41oYzITQDW1Z"
       },
-      "reference": "P1200AJQPQ",
+      "reference": "P210HYHNCT",
       "approvalStatus": "NOTNEEDED",
       "message": "",
       "schemeInfo": {
@@ -44,8 +45,8 @@ x-xss-protection: 1; mode=block
       }
     }
   ],
-  "size": 1,
-  "totalSize": 1,
-  "page": 0,
-  "totalPages": 1
+ "size": 1,
+ "totalSize": 1,
+ "page": 0,
+ "totalPages": 1
 }

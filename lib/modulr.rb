@@ -8,8 +8,9 @@ require_relative "modulr/api/service"
 require_relative "modulr/api/services"
 require_relative "modulr/api/accounts_service"
 require_relative "modulr/api/customers_service"
-require_relative "modulr/api/payments_service"
 require_relative "modulr/api/notifications_service"
+require_relative "modulr/api/payments_service"
+require_relative "modulr/api/transactions_service"
 
 require_relative "modulr/resources/base"
 
