@@ -82,8 +82,7 @@ module Modulr
           when "ACCOUNT", "INT_INTERC"
             internal
           else
-            @network = nil
-            @scheme = nil
+            raise "Unable to find network and scheme for payment with ID: #{id} and Type: #{type}"
           end
         end
 
