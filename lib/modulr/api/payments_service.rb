@@ -31,7 +31,7 @@ module Modulr
         payload[:endToEndReference] = opts[:e2e_reference] if opts[:e2e_reference]
 
         response = client.post("/payments", payload)
-        Resources::Payments::Payment.new(response.env[:raw_body], response.body, {network_scheme: false})
+        Resources::Payments::Payment.new(response.env[:raw_body], response.body, { network_scheme: false })
       end
 
       private def build_query_params(opts) # rubocop:disable Metrics/AbcSize
