@@ -15,9 +15,10 @@ module Modulr
         map :message, :message
         map :type
 
-        def initialize(raw_response, attributes = {})
+        def initialize(raw_response,  attributes = {}, opts = {network_scheme: true})
           super(raw_response, attributes)
           @attributes = attributes
+          @opts = opts
           parse_attributes
           @end_to_end_id = if incoming_sepa?
                              sepa_end_to_end_id
@@ -55,7 +56,7 @@ module Modulr
 
         private def parse_attributes
           parse_details
-          parse_scheme
+          parse_scheme if @opts[:network_scheme]
         end
 
         private def parse_details

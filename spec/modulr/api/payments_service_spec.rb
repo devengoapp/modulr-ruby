@@ -29,18 +29,13 @@ RSpec.describe Modulr::API::PaymentsService, :unit, type: :client do
         method: :post,
         path: %r{/payments},
         body: {
-          details: {
-            sourceAccountId: "A21E68ZZ",
-            currency: "EUR",
-            amount: "148.0",
-            destination: {
-              type: "IBAN",
-              iban: "ES3200810106680006714488",
-              name: "John",
-            },
-          },
-          schemeInfo: {
-            name: "SEPA_INSTANT",
+          sourceAccountId: "A21E68ZZ",
+          currency: "EUR",
+          amount: "148.0",
+          destination: {
+            type: "IBAN",
+            iban: "ES3200810106680006714488",
+            name: "John",
           },
           reference: "Outgoing sepa instant payment",
         },

@@ -18,8 +18,7 @@ module Modulr
         Resources::Payments::Collection.new(response.env[:raw_body], response.body[:content])
       end
 
-      # rubocop:disable Metrics/ParameterLists
-      def create(account_id:, destination:, reference:, currency:, amount:, **opts)
+      def create(account_id:, destination:, reference:, currency:, amount:, **opts) # rubocop:disable Metrics/ParameterLists
         payload = {
           sourceAccountId: account_id,
           destination: destination,
@@ -32,11 +31,10 @@ module Modulr
         payload[:endToEndReference] = opts[:e2e_reference] if opts[:e2e_reference]
 
         response = client.post("/payments", payload)
-        Resources::Payments::Payment.new(response.env[:raw_body], response.body)
+        Resources::Payments::Payment.new(response.env[:raw_body], response.body, {network_scheme: false})
       end
 
-      # rubocop:disable Metrics/AbcSize
-      private def build_query_params(opts)
+      private def build_query_params(opts) # rubocop:disable Metrics/AbcSize
         same_name_params = [:type, :status]
         date_params = { to: :toCreatedDate, from: :fromCreatedDate, updated_since: :modifiedSince }
         mapped_params = {
