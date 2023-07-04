@@ -1,5 +1,5 @@
 # frozen_string_literal: true
-
+require 'byebug'
 module Modulr
   module Resources
     module Payments
@@ -74,13 +74,14 @@ module Modulr
         end
 
         private def payment_type
-          if incoming?
-            @attr_details[:type]
-          elsif internal?
-            @attr_details[:destinationType]
-          else
-            outgoing_type
-          end
+          @type = if incoming?
+                    @attr_details[:type]
+                  elsif internal?
+                    "INT_INTERC"
+                  else
+                    outgoing_type
+                  end
+          @type
         end
 
         private def parse_scheme
@@ -91,7 +92,7 @@ module Modulr
             sepa_instant
           when "PI_FAST", "PO_FAST"
             faster_payments
-          when "ACCOUNT"
+          when "INT_INTERC"
             internal
           else
             raise "Unable to find network and scheme for payment with ID: #{id} and Type: #{type}"
@@ -146,7 +147,8 @@ module Modulr
         end
 
         private def internal?
-          @attr_details[:sourceAccountId] && @attr_details[:destinationId]
+          (@attr_details[:sourceAccountId] && @attr_details.key?(:destinationId)) ||
+          @attributes[:schemeInfo].empty?
         end
       end
     end

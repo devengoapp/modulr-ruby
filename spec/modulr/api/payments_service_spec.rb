@@ -120,6 +120,7 @@ RSpec.describe Modulr::API::PaymentsService, :unit, type: :client do
           expect(fps_payment.end_to_end_id).to eql("Incoming faster payment fixture")
           expect(fps_payment.network).to eql("FPS")
           expect(fps_payment.scheme).to eql("Faster Payments")
+          expect(fps_payment.type).to eql("PI_FAST")
         end
       end
 
@@ -172,6 +173,7 @@ RSpec.describe Modulr::API::PaymentsService, :unit, type: :client do
           expect(sct_inst_payment.end_to_end_id).to eql "NOTPROVIDED"
           expect(sct_inst_payment.network).to eql("SEPA")
           expect(sct_inst_payment.scheme).to eql("SEPA Instant Credit Transfers")
+          expect(sct_inst_payment.type).to eql("PI_SEPA_INST")
         end
       end
 
@@ -221,6 +223,7 @@ RSpec.describe Modulr::API::PaymentsService, :unit, type: :client do
           expect(sct_regular_payment.end_to_end_id).to eql("NOTPROVIDED")
           expect(sct_regular_payment.network).to eql("SEPA")
           expect(sct_regular_payment.scheme).to eql("SEPA Credit Transfers")
+          expect(sct_regular_payment.type).to eql("PI_SECT")
         end
       end
 
@@ -255,6 +258,7 @@ RSpec.describe Modulr::API::PaymentsService, :unit, type: :client do
           expect(fst_internal_incoming_payment.details.reference).to eql("Faster internal payment")
           expect(fst_internal_incoming_payment.network).to eql("INTERNAL")
           expect(fst_internal_incoming_payment.scheme).to eql("INTERNAL")
+          expect(fst_internal_incoming_payment.type).to eql("INT_INTERC")
         end
       end
 
@@ -289,6 +293,7 @@ RSpec.describe Modulr::API::PaymentsService, :unit, type: :client do
           expect(sepa_internal_incoming_payment.details.reference).to eql("Sepa internal payment")
           expect(sepa_internal_incoming_payment.network).to eql("INTERNAL")
           expect(sepa_internal_incoming_payment.scheme).to eql("INTERNAL")
+          expect(sepa_internal_incoming_payment.type).to eql("INT_INTERC")
         end
       end
     end
@@ -331,6 +336,7 @@ RSpec.describe Modulr::API::PaymentsService, :unit, type: :client do
           expect(fps_payment.details.destination.name).to eql("Jonh")
           expect(fps_payment.network).to eql("FPS")
           expect(fps_payment.scheme).to eql("Faster Payments")
+          expect(fps_payment.type).to eql("PO_FAST")
         end
       end
 
@@ -371,6 +377,7 @@ RSpec.describe Modulr::API::PaymentsService, :unit, type: :client do
           expect(found_payment.details.destination.name).to eql("John")
           expect(found_payment.network).to eql("SEPA")
           expect(found_payment.scheme).to eql("SEPA Instant Credit Transfers")
+          expect(found_payment.type).to eql("PO_SEPA_INST")
         end
       end
 
@@ -412,6 +419,7 @@ RSpec.describe Modulr::API::PaymentsService, :unit, type: :client do
           expect(found_payment.external_reference).to eql("tra-7ThiITm9hlKhY6YCrDXVFL")
           expect(found_payment.network).to eql("SEPA")
           expect(found_payment.scheme).to eql("SEPA Credit Transfers")
+          expect(found_payment.type).to eql("PO_SECT")
         end
       end
 
@@ -450,6 +458,7 @@ RSpec.describe Modulr::API::PaymentsService, :unit, type: :client do
           expect(found_payment.details.destination.identifier.id).to eql("A21CM4HE")
           expect(found_payment.network).to eql("INTERNAL")
           expect(found_payment.scheme).to eql("INTERNAL")
+          expect(found_payment.type).to eql("INT_INTERC")
         end
       end
 
@@ -488,6 +497,7 @@ RSpec.describe Modulr::API::PaymentsService, :unit, type: :client do
           expect(found_payment.details.destination.identifier.id).to eql("A21C64X7")
           expect(found_payment.network).to eql("INTERNAL")
           expect(found_payment.scheme).to eql("INTERNAL")
+          expect(found_payment.type).to eql("INT_INTERC")
         end
       end
 
