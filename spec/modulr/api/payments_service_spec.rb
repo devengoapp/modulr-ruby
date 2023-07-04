@@ -13,15 +13,15 @@ RSpec.describe Modulr::API::PaymentsService, :unit, type: :client do
 
       let!(:created_payment) do
         payments.create(
-          account_id: "A21BZ2GE",
+          account_id: "A21E68ZZ",
           currency: "EUR",
-          amount: "0.02",
+          amount: "148.0",
           destination: {
             type: "IBAN",
-            iban: "ES8731902527103498957662",
-            name: "Aitor García Rey",
+            iban: "ES3200810106680006714488",
+            name: "John",
           },
-          reference: "The reference"
+          reference: "Outgoing sepa instant payment"
         )
       end
 
@@ -29,24 +29,24 @@ RSpec.describe Modulr::API::PaymentsService, :unit, type: :client do
         method: :post,
         path: %r{/payments},
         body: {
-          sourceAccountId: "A21BZ2GE",
+          sourceAccountId: "A21E68ZZ",
           currency: "EUR",
-          amount: "0.02",
+          amount: "148.0",
           destination: {
             type: "IBAN",
-            iban: "ES8731902527103498957662",
-            name: "Aitor García Rey",
+            iban: "ES3200810106680006714488",
+            name: "John",
           },
-          reference: "The reference",
+          reference: "Outgoing sepa instant payment",
         },
       }
 
       it "returns created payment" do
         expect(created_payment).to be_a Modulr::Resources::Payments::Payment
-        expect(created_payment.id).to eql("P210FFRUVT")
+        expect(created_payment.id).to eql("P210HYHNCT")
         expect(created_payment.status).to eql("VALIDATED")
-        expect(created_payment.reference).to eql("P210FFRUVT")
-        expect(created_payment.external_reference).to eql("The external reference")
+        expect(created_payment.reference).to eql("P210HYHNCT")
+        expect(created_payment.external_reference).to eql("tra_cPz0LfwBZ41oYzITQDW1Z")
         expect(created_payment.approval_status).to eql("NOTNEEDED")
       end
     end
