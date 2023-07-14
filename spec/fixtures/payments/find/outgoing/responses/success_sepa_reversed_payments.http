@@ -1,0 +1,269 @@
+HTTP/1.1 200 OK
+content-type: application/json
+transfer-encoding: chunked
+connection: keep-alive
+cache-control: no-cache, no-store, must-revalidate
+content-security-policy: default-src https: data: 'unsafe-inline' 'unsafe-eval'
+expires: 0
+pragma: no-cache
+server: Apache
+strict-transport-security: max-age=31536000
+vary: Origin
+x-content-type-options: nosniff
+x-frame-options: SAMEORIGIN
+x-ratelimit-limit: 4000000
+x-ratelimit-remaining: 3999893
+x-ratelimit-reset: 1674464655
+x-xss-protection: 1; mode=block
+
+{
+  "content": [
+    {
+      "id": "P210GXV1UW",
+      "status": "PROCESSED",
+      "createdDate": "2023-03-10T15:30:27.027+0000",
+      "details": {
+        "created": "2023-03-10T15:30:27.027+0000",
+        "retryCount": 0,
+        "sourceService": "bolProviderService",
+        "requestReference": "S231950059016337",
+        "reprocess": false,
+        "priority": 0,
+        "accountNumber": "A21E68ZZ",
+        "posted": "2023-03-10T15:30:27.028+0000",
+        "type": "PO_REV",
+        "amount": 1.00,
+        "currency": "EUR",
+        "description": "Return outgoing payment",
+        "originalReference": "Devengo",
+        "providerCode": "BOL",
+        "ledgerBankCode": "BOLIE",
+        "payerName": "John",
+        "payer": {
+          "name": "John",
+          "identifier": {
+            "type": "IBAN",
+            "iban": "ES3200810106680006714488",
+            "bic": "MODRGB2LXXX"
+          }
+        },
+        "payee": {
+          "name": "Devengo SL",
+          "identifier": {
+            "type": "IBAN",
+            "iban": "ES2914653111661392648933",
+            "bic": "MODRIE22XXX"
+          },
+          "address": {
+            "addressLine1": "Devengo address",
+            "addressLine2": "Madrid 28108",
+            "country": "ES"
+          }
+        },
+        "schemeId": "S231950059016337-O231951454397512",
+        "schemeType": "SEPA_CREDIT_TRANSFER",
+        "clearingRequired": false,
+        "originatingPayment": {
+          "amount": 1.00,
+          "exchangeRate": 1,
+          "currency": "EUR",
+          "institution": {
+            "name": "Devengo SL",
+            "id": "MODRGB2LXXX",
+            "bic": "MODRGB2LXXX",
+            "address": {
+              "addressLine1": "Devengo address",
+              "addressLine2": "Madrid 28108",
+              "country": "ES"
+            }
+          }
+        },
+        "originatedOverseas": true,
+        "details": {
+          "type": "PRTRN",
+          "payload": {
+            "id": "Edoc",
+            "docs": {
+              "doc": {
+                "prtrn": {
+                  "document": {
+                    "pmtRtr": {
+                      "txInf": [
+                        {
+                          "rtrId": "O231951454397512",
+                          "chrgBr": "SLEV",
+                          "instgAgt": {
+                            "finInstnId": {
+                              "bic": "BCOEESMM"
+                            }
+                          },
+                          "orgnlTxId": "P210HYHNCT",
+                          "rtrRsnInf": {
+                            "rsn": {
+                              "cd": "MS_03"
+                            },
+                            "orgtr": {
+                              "id": {
+                                "orgId": {
+                                  "bicorBEI": "MODRGB2LXXX"
+                                }
+                              }
+                            }
+                          },
+                          "orgnlTxRef": {
+                            "cdtr": {
+                              "nm": "John"
+                            },
+                            "dbtr": {
+                              "nm": "Devengo",
+                              "pstlAdr": {
+                                "ctry": "ES",
+                                "adrLine": [
+                                  "Devengo address",
+                                  "Madrid 28108"
+                                ]
+                              }
+                            },
+                            "rmtInf": {
+                              "ustrd": "Devengo"
+                            },
+                            "cdtrAgt": {
+                              "finInstnId": {
+                                "bic": "MODRGB2LXXX"
+                              }
+                            },
+                            "dbtrAgt": {
+                              "finInstnId": {
+                                "bic": "MODRIE22XXX"
+                              }
+                            },
+                            "cdtrAcct": {
+                              "id": {
+                                "iban": "ES3200810106680006714488"
+                              }
+                            },
+                            "dbtrAcct": {
+                              "id": {
+                                "iban": "ES2914653111661392648933"
+                              }
+                            },
+                            "pmtTpInf": {
+                              "svcLvl": {
+                                "cd": "SEPA"
+                              }
+                            },
+                            "sttlmInf": {
+                              "sttlmMtd": "CLRG"
+                            },
+                            "intrBkSttlmDt": [
+                              2023,
+                              7,
+                              11
+                            ]
+                          },
+                          "orgnlGrpInf": {
+                            "orgnlMsgId": "MD23071108000000",
+                            "orgnlMsgNmId": "pacs.008.000.01"
+                          },
+                          "orgnlEndToEndId": "P210HYHNCT",
+                          "rtrdIntrBkSttlmAmt": {
+                            "ccy": "EUR",
+                            "value": 1.0
+                          },
+                          "orgnlIntrBkSttlmAmt": {
+                            "ccy": "EUR",
+                            "value": 1.0
+                          }
+                        }
+                      ],
+                      "grpHdr": {
+                        "msgId": "S231950059016337",
+                        "creDtTm": [
+                          2023,
+                          7,
+                          14,
+                          12,
+                          17,
+                          57
+                        ],
+                        "nbOfTxs": "1",
+                        "instdAgt": {
+                          "finInstnId": {
+                            "bic": "MODRIE22XXX"
+                          }
+                        },
+                        "sttlmInf": {
+                          "clrSys": {
+                            "prtry": "LITAS_MIG"
+                          },
+                          "sttlmMtd": "CLRG"
+                        },
+                        "intrBkSttlmDt": [
+                          2023,
+                          7,
+                          14
+                        ],
+                        "ttlRtrdIntrBkSttlmAmt": {
+                          "ccy": "EUR",
+                          "value": 1.0
+                        }
+                      }
+                    }
+                  }
+                },
+                "header": {
+                  "type": "PRTRN",
+                  "dates": [
+                    {
+                      "date": [
+                        2023,
+                        7,
+                        14,
+                        12,
+                        17,
+                        57
+                      ],
+                      "type": "FormDoc"
+                    }
+                  ],
+                  "docId": "S231950059016337",
+                  "priority": 51,
+                  "reference": [],
+                  "businessArea": "SEPASCT"
+                }
+              }
+            },
+            "type": "PRTRN",
+            "header": {
+              "date": [
+                2023,
+                7,
+                14,
+                12,
+                17,
+                57
+              ],
+              "msgId": "S231950059016337",
+              "sender": "LIABLT2XMSD",
+              "system": "LITAS-MIG",
+              "priority": 51,
+              "receiver": "MODRIE22XXX",
+              "reference": []
+            },
+            "version": "pacs.004.001.00.2023"
+          }
+        },
+        "returnDetails": {
+          "originalSchemeId": "P210HYHNCT",
+          "returnReasonCode": "OTHER"
+        },
+        "manualRecall": false
+      },
+      "reference": "P210GXV1UW"
+    }
+  ],
+  "size": 1,
+  "totalSize": 1,
+  "page": 0,
+  "totalPages": 1
+}

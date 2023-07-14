@@ -47,6 +47,8 @@ module Modulr
             doc.dig(key, :document, :fitoFICstmrCdtTrf, :cdtTrfTxInf, :pmtId, :endToEndId)
           when "FFCCTRNS" # SEPA regular
             doc.dig(key, :document, :fitoFICstmrCdtTrf, :cdtTrfTxInf).first&.dig(:pmtId, :endToEndId)
+          when "PRTRN" # SEPA REVERSAL
+            nil
           end
         end
 
@@ -64,7 +66,7 @@ module Modulr
           detail_type = @attr_details&.dig(:type) || @attr_details&.dig(:destinationType)
 
           case detail_type
-          when "PI_SECT", "PI_SEPA_INST", "PI_FAST", "PI_REV"
+          when "PI_SECT", "PI_SEPA_INST", "PI_FAST", "PI_REV", "PO_REV"
             incoming_detail
           when "ACCOUNT"
             incoming_internal_details
@@ -86,7 +88,7 @@ module Modulr
 
         private def parse_scheme
           case payment_type
-          when "PI_SECT", "PO_SECT"
+          when "PI_SECT", "PO_SECT", "PO_REV"
             sepa_regular
           when "PI_SEPA_INST", "PO_SEPA_INST"
             sepa_instant

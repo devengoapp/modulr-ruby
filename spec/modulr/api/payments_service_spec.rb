@@ -501,6 +501,58 @@ RSpec.describe Modulr::API::PaymentsService, :unit, type: :client do
         end
       end
 
+      context "when it is SEPA REVERSED payment" do
+        before do
+          stub_request(:get, %r{/payments})
+            .with(query: hash_including({ "id" => "P210GXV1UW" }))
+            .to_return(
+              read_http_response_fixture("payments/find/outgoing", "success_sepa_reversed_payments")
+            )
+        end
+
+        let!(:found_payment) do
+          payments.find(id: "P210GXV1UW")
+        end
+
+        it_behaves_like "builds correct request", {
+          method: :get,
+          path: %r{/payments},
+        }
+
+        it "returns the payment" do
+          expect(found_payment.created_at).to eql("2023-03-10T15:30:27.027+0000")
+          expect(found_payment.reference).to eql("P210GXV1UW")
+          expect(found_payment.details).to be_a Modulr::Resources::Payments::Details::Incoming::General
+          expect(found_payment.details.created_at).to eql("2023-03-10T15:30:27.027+0000")
+          expect(found_payment.details.posted_at).to eql("2023-03-10T15:30:27.028+0000")
+          expect(found_payment.details.type).to eql("PO_REV")
+          expect(found_payment.details.description).to eql("Return outgoing payment")
+          expect(found_payment.details.original_reference).to eql("Devengo")
+          expect(found_payment.details.currency).to eql("EUR")
+          expect(found_payment.details.amount).to be 1.0
+          expect(found_payment.details.account_number).to eql("A21E68ZZ")
+          expect(found_payment.details.scheme_id).to eql("S231950059016337-O231951454397512")
+          expect(found_payment.details.raw_details.keys).to include(:type, :payload)
+          expect(found_payment.details.payer).to be_a Modulr::Resources::Payments::Counterparty
+          expect(found_payment.details.payer.name).to eql("John")
+          expect(found_payment.details.payer.identifier.type).to eql("IBAN")
+          expect(found_payment.details.payer.identifier.iban).to eql("ES3200810106680006714488")
+          expect(found_payment.details.payee).to be_a Modulr::Resources::Payments::Counterparty
+          expect(found_payment.details.payee.name).to eql("Devengo SL")
+          expect(found_payment.details.payee.identifier.type).to eql("IBAN")
+          expect(found_payment.details.payee.identifier.iban).to eql("ES2914653111661392648933")
+          expect(found_payment.details.payee.identifier.bic).to eql("MODRIE22XXX")
+          expect(found_payment.details.destination.name).to eql("Devengo SL")
+          expect(found_payment.details.destination.identifier.type).to eql("IBAN")
+          expect(found_payment.details.destination.identifier.iban).to eql("ES2914653111661392648933")
+          expect(found_payment.details.destination.identifier.bic).to eql("MODRIE22XXX")
+          expect(found_payment.end_to_end_id).to be_nil
+          expect(found_payment.network).to eql("SEPA")
+          expect(found_payment.scheme).to eql("SEPA Credit Transfers")
+          expect(found_payment.type).to eql("PO_REV")
+        end
+      end
+
       context "when payment was not validated" do
         before do
           stub_request(:get, %r{/payments})
