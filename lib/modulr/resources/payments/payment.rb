@@ -78,10 +78,10 @@ module Modulr
         private def payment_type
           @type = if incoming?
                     @attr_details[:type]
+                  elsif outgoing?
+                    outgoing_type
                   elsif internal?
                     "INT_INTERC"
-                  else
-                    outgoing_type
                   end
           @type
         end
@@ -96,8 +96,6 @@ module Modulr
             faster_payments
           when "INT_INTERC"
             internal
-          else
-            raise "Unable to find network and scheme for payment with ID: #{id} and Type: #{type}"
           end
         end
 
@@ -148,10 +146,13 @@ module Modulr
           !@attr_details.key?(:sourceAccountId)
         end
 
+        private def outgoing?
+          @attributes.key?(:schemeInfo) && !@attributes[:schemeInfo].empty?
+        end
+
         private def internal?
           (@attr_details[:sourceAccountId] && @attr_details.key?(:destinationId)) ||
-          !@attributes.key?(:schemeInfo) ||
-          @attributes[:schemeInfo].empty?
+          (@attributes.key?(:schemeInfo) && @attributes[:schemeInfo].empty?)
         end
       end
     end
