@@ -35,7 +35,7 @@ module Modulr
       end
 
       private def build_query_params(opts) # rubocop:disable Metrics/AbcSize
-        same_name_params = [:type, :status]
+        same_name_params = [:type, :status, :size, :page]
         date_params = { to: :toCreatedDate, from: :fromCreatedDate, updated_since: :modifiedSince }
         mapped_params = {
           external_reference: :externalReference,
