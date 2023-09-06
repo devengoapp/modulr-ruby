@@ -4,7 +4,7 @@ module Modulr
   module Resources
     module Accounts
       class Account < Base
-        attr_reader :identifiers
+        attr_reader :identifiers, :requested_at
 
         STATUS = {
           active: "ACTIVE",
@@ -23,8 +23,9 @@ module Modulr
         map :createdDate, :created_at
         map :directDebit, :direct_debit
 
-        def initialize(raw_response, attributes = {})
+        def initialize(raw_response, attributes = {}, opts = { requested_at: nil })
           super(raw_response, attributes)
+          @requested_at = opts[:requested_at]
           @identifiers = Accounts::Identifiers.new(nil, attributes[:identifiers])
         end
       end

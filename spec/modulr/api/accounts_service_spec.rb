@@ -31,6 +31,7 @@ RSpec.describe Modulr::API::AccountsService, :unit, type: :client do
       }
 
       it "returns created account" do
+        expect(created_account.requested_at).to be_nil
         expect(created_account).to be_a Modulr::Resources::Accounts::Account
         expect(created_account.customer_id).to eql("C0000001")
         expect(created_account.external_reference).to eql("A new account in EUR")
@@ -100,6 +101,7 @@ RSpec.describe Modulr::API::AccountsService, :unit, type: :client do
       }
 
       it "returns the account" do
+        expect(found_account.requested_at).to eql("Wed, 06 Sep 2023 10:30:42 GMT")
         expect(found_account).to be_a Modulr::Resources::Accounts::Account
         expect(found_account.customer_id).to eql("C0000001")
         expect(found_account.external_reference).to eql("A new account in EUR")

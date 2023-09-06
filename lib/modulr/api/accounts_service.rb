@@ -5,7 +5,11 @@ module Modulr
     class AccountsService < Service
       def find(id:)
         response = client.get("/accounts/#{id}")
-        Resources::Accounts::Account.new(response.env[:raw_body], response.body)
+        Resources::Accounts::Account.new(
+          response.env[:raw_body],
+          response.body,
+          { requested_at: response.headers["date"] }
+        )
       end
 
       def create(customer_id:, currency:, product_code:, **opts)

@@ -15,5 +15,6 @@ x-ratelimit-limit: 4000000
 x-ratelimit-remaining: 3999987
 x-ratelimit-reset: 1674464655
 x-xss-protection: 1; mode=block
+date: Wed, 06 Sep 2023 10:30:42 GMT
 
 {"id":"A21C64X7","name":"Devengo","balance":"0.00","availableBalance":"0.00","currency":"EUR","status":"ACTIVE","identifiers":[{"type":"IBAN","iban":"IE20MODR99035502290414","bic":"MODRIE22XXX","providerExtraInfo":{"sortCode":"990356","accountNumber":"02290414"}}],"customerId":"C0000001","customerName":"Devengo","externalReference":"A new account in EUR","accessGroups":[],"createdDate":"2023-01-18T11:20:00.897+0000","directDebit":false}
