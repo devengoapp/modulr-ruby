@@ -602,14 +602,14 @@ RSpec.describe Modulr::API::PaymentsService, :unit, type: :client do
       end
 
       let!(:payment_list) do
-        payments.list(from: Date.today - 1, type: "PAYOUT", page: 0, size: 20)
+        payments.list(from: DateTime.parse("2023-02-07T10:21:32+02:00"), type: "PAYOUT", page: 0, size: 20)
       end
 
       it_behaves_like "builds correct request", {
         method: :get,
         path: %r{/payments},
         query: {
-          fromCreatedDate: "2023-09-05T00:00:00+0000",
+          fromCreatedDate: "2023-02-07T10:21:32+0200",
           type: "PAYOUT",
           page: "0",
           size: "20",
