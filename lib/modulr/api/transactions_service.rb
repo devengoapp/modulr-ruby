@@ -9,7 +9,7 @@ module Modulr
       end
 
       private def build_query_params(opts) # rubocop:disable Metrics/AbcSize
-        same_name_params = [:credit, :type]
+        same_name_params = [:credit, :type, :size, :page]
         date_params = { to: :toTransactionDate, from: :fromTransactionDate, to_posted: :toPostedDate,
                         from_posted: :fromPostedDate, }
         mapped_params = {

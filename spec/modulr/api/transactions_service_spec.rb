@@ -32,12 +32,12 @@ RSpec.describe Modulr::API::TransactionsService, :unit, type: :client do
         )
       end
 
-      let!(:list) { transactions.list(account_id: "A0000001", credit: true) }
+      let!(:list) { transactions.list(account_id: "A0000001", credit: true, page: 0, size: 20) }
 
       it_behaves_like "builds correct request", {
         method: :get,
         path: %r{/accounts/A0000001/transactions},
-        query: { credit: "true" },
+        query: { credit: "true", page: "0", size: "20" },
       }
 
       it "returns transactions list" do
