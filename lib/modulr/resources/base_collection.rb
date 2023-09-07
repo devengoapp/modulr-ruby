@@ -3,7 +3,7 @@
 module Modulr
   module Resources
     class BaseCollection
-      attr_reader :raw_response
+      attr_reader :raw_response, :items
 
       include Enumerable
 
