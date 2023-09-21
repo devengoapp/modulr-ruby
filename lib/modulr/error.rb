@@ -6,7 +6,7 @@ module Modulr
 
     def initialize(error)
       @wrapped_error = error
-      @response = @wrapped_error.response
+      @response = @wrapped_error.response if @wrapped_error.respond_to?(:response)
       @status = structured_response[:status]
       super(error_message)
     end

@@ -6,7 +6,7 @@ module Modulr
       def find(id:)
         response = client.get("/payments", { id: id })
         payment_attributes = response.body[:content]&.first
-        raise NotFoundError, "Payment #{id} not found" unless payment_attributes
+        raise ClientError, "Payment #{id} not found" unless payment_attributes
 
         Resources::Payments::Payment.new(response.env[:raw_body], payment_attributes)
       end

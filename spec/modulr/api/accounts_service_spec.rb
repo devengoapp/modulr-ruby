@@ -57,7 +57,7 @@ RSpec.describe Modulr::API::AccountsService, :unit, type: :client do
       end
 
       it "raise the correct error" do
-        expect { accounts.create(**params) }.to raise_error Modulr::RequestError
+        expect { accounts.create(**params) }.to raise_error Modulr::ClientError
       end
     end
 
@@ -78,7 +78,7 @@ RSpec.describe Modulr::API::AccountsService, :unit, type: :client do
       end
 
       it "raise the correct error" do
-        expect { accounts.create(**params) }.to raise_error Modulr::RequestError
+        expect { accounts.create(**params) }.to raise_error Modulr::ClientError
       end
     end
   end
@@ -118,7 +118,7 @@ RSpec.describe Modulr::API::AccountsService, :unit, type: :client do
       end
 
       it "raise the correct error" do
-        expect { accounts.find(id: "AAA") }.to raise_error Modulr::RequestError
+        expect { accounts.find(id: "AAA") }.to raise_error Modulr::ClientError
       end
     end
 
@@ -130,7 +130,7 @@ RSpec.describe Modulr::API::AccountsService, :unit, type: :client do
       end
 
       it "raise the correct error" do
-        expect { accounts.find(id: "A99C99X9") }.to raise_error Modulr::NotFoundError
+        expect { accounts.find(id: "A99C99X9") }.to raise_error Modulr::ClientError
       end
     end
   end

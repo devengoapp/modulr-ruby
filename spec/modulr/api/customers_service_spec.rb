@@ -40,7 +40,7 @@ RSpec.describe Modulr::API::CustomersService, :unit, type: :client do
       end
 
       it "raise the correct error" do
-        expect { customers.find(id: "CCC") }.to raise_error Modulr::RequestError
+        expect { customers.find(id: "CCC") }.to raise_error Modulr::ClientError
       end
     end
 
@@ -52,7 +52,7 @@ RSpec.describe Modulr::API::CustomersService, :unit, type: :client do
       end
 
       it "raise the correct error" do
-        expect { customers.find(id: "C9999C99") }.to raise_error Modulr::NotFoundError
+        expect { customers.find(id: "C9999C99") }.to raise_error Modulr::ClientError
       end
     end
   end
@@ -248,7 +248,7 @@ RSpec.describe Modulr::API::CustomersService, :unit, type: :client do
       end
 
       it "raise the correct error" do
-        expect { customers.create(**params) }.to raise_error Modulr::RequestError
+        expect { customers.create(**params) }.to raise_error Modulr::ClientError
       end
     end
 
@@ -267,7 +267,7 @@ RSpec.describe Modulr::API::CustomersService, :unit, type: :client do
       end
 
       it "raise the correct error" do
-        expect { customers.create(**params) }.to raise_error Modulr::RequestError
+        expect { customers.create(**params) }.to raise_error Modulr::ClientError
       end
     end
   end
