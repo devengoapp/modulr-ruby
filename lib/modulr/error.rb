@@ -2,44 +2,37 @@
 
 module Modulr
   class Error < StandardError
-  end
+    attr_reader :wrapped_error, :status, :response
 
-  class RequestError < Error
-    attr_reader :response, :errors
-
-    def initialize(response)
-      @response = response
-      @errors = extract_errors
-      super(message_from(response))
+    def initialize(error)
+      @wrapped_error = error
+      @response = @wrapped_error.response
+      @status = structured_response[:status]
+      super(error_message)
     end
 
-    private def extract_errors
-      return unless json?
+    private def error_message
+      return @wrapped_error unless @response
 
-      response[:body]
+      wrapped_error_description = "#{@wrapped_error.class}: #{@wrapped_error}"
+      response_description = "Status: #{structured_response[:status]} - Response: '#{structured_response[:body]}'"
+      "#{response_description} (#{wrapped_error_description})"
     end
 
-    private def message_from(response)
-      return response if response.is_a?(String)
+    private def structured_response
+      return {} unless @response
+      return @response if @response.is_a?(Hash)
 
-      if errors
-        errors.map { |error| "#{error[:field]} #{error[:code]} #{error[:message]}" }.join(", ")
-      else
-        "#{response[:status]} #{response[:body]}"
-      end
-    end
-
-    private def json?
-      return unless response.is_a?(Hash)
-
-      content_type = response[:headers]["content-type"]
-      content_type&.start_with?("application/json")
+      {
+        status: @response.status,
+        body: @response.body,
+      }
     end
   end
 
-  class NotFoundError < RequestError
+  class ClientError < Error
   end
 
-  class ForbiddenError < RequestError
+  class ServerError < Error
   end
 end
