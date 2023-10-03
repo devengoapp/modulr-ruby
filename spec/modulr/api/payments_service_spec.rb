@@ -63,7 +63,7 @@ RSpec.describe Modulr::API::PaymentsService, :unit, type: :client do
       end
 
       it "raise the correct error" do
-        expect { payments.find(id: "P99C99X9") }.to raise_error Modulr::NotFoundError
+        expect { payments.find(id: "P99C99X9") }.to raise_error Modulr::ClientError
       end
     end
 
@@ -631,9 +631,8 @@ RSpec.describe Modulr::API::PaymentsService, :unit, type: :client do
 
       it "raise the correct error" do
         expect { payments.list(from: Date.today - 300) }.to(raise_error do |exception|
-          expect(exception).to be_a(Modulr::RequestError)
-          expect(exception.errors).not_to be_empty
-          expect(exception.errors.select { |error| error[:field] == "fromCreatedDate" }).not_to be_empty
+          expect(exception).to be_a(Modulr::ClientError)
+          expect(exception.status).to be(400)
         end)
       end
     end

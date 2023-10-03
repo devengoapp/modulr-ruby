@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-# frozen_string_literal: true
-
 RSpec.describe Modulr::API::NotificationsService, :unit, type: :client do
   subject(:notifications) { described_class.new(initialize_client) }
 
@@ -64,9 +62,8 @@ RSpec.describe Modulr::API::NotificationsService, :unit, type: :client do
 
       it "raise the correct error" do
         expect { notifications.create(**params) }.to(raise_error do |exception|
-          expect(exception).to be_a(Modulr::RequestError)
-          expect(exception.errors).not_to be_empty
-          expect(exception.errors.select { |error| error[:field] == "config.secret" }).not_to be_empty
+          expect(exception).to be_a(Modulr::ClientError)
+          expect(exception.status).to be(400)
         end)
       end
     end
@@ -90,9 +87,8 @@ RSpec.describe Modulr::API::NotificationsService, :unit, type: :client do
 
       it "raise the correct error" do
         expect { notifications.create(**params) }.to(raise_error do |exception|
-          expect(exception).to be_a(Modulr::RequestError)
-          expect(exception.errors).not_to be_empty
-          expect(exception.errors.select { |error| error[:field] == "type" }).not_to be_empty
+          expect(exception).to be_a(Modulr::ClientError)
+          expect(exception.status).to be(400)
         end)
       end
     end

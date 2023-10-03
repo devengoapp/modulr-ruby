@@ -97,19 +97,13 @@ module Modulr
     end
 
     def handle_request_error(error)
-      response = error.response
       case error
       when Faraday::ClientError
-        case response[:status]
-        when 403
-          raise ForbiddenError, response
-        when 404
-          raise NotFoundError, response
-        else
-          raise RequestError, response
-        end
+        raise ClientError, error
+      when Faraday::ServerError
+        raise ServerError, error
       else
-        raise Error, response
+        raise Error, error
       end
     end
 
