@@ -5,8 +5,14 @@ require_relative "lib/modulr/version"
 Gem::Specification.new do |spec|
   spec.name = "modulr-api"
   spec.version = Modulr::VERSION
-  spec.authors = ["Aitor García Rey"]
-  spec.email = ["aitor@devengo.com"]
+  spec.authors = [
+    "Aitor García Rey", "Fran Moya", "Techi Rexach", "Iván Guardado",
+    "Carlos López", "Nacho Ortiz",
+  ]
+  spec.email = [
+    "aitor@devengo.com", "fran@devengo.com", "techi@devengo.com", "ivan@devengo.com",
+    "carlos@devengo.com", "nacho@devengo.com",
+  ]
 
   spec.summary = "Ruby client for Modulr Finance API."
   spec.description = "Ruby client for Modulr Finance API."
