@@ -23,10 +23,10 @@ module Modulr
         map :createdDate, :created_at
         map :directDebit, :direct_debit
 
-        def initialize(raw_response, attributes = {}, opts = { requested_at: nil })
-          super(raw_response, attributes)
+        def initialize(response, opts = { requested_at: nil })
+          super(response.env[:raw_body], response.body)
           @requested_at = opts[:requested_at]
-          @identifiers = Accounts::Identifiers.new(nil, attributes[:identifiers])
+          @identifiers = Accounts::Identifiers.new(nil, response.body[:identifiers])
         end
       end
     end
