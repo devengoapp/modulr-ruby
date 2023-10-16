@@ -4,8 +4,8 @@ module Modulr
   module Resources
     module Transactions
       class Transactions < BaseCollection
-        def initialize(raw_response, attributes_collection)
-          super(raw_response, Transaction, attributes_collection)
+        def initialize(response)
+          super(response.env[:raw_body], Transaction, response.body[:content])
         end
       end
     end
