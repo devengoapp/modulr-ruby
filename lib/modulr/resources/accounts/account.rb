@@ -26,7 +26,7 @@ module Modulr
         def initialize(response, opts = { requested_at: nil })
           super(response.env[:raw_body], response.body)
           @requested_at = opts[:requested_at]
-          @identifiers = Accounts::Identifiers.new(nil, response.body[:identifiers])
+          @identifiers = Accounts::Identifiers.new(response)
         end
       end
     end
