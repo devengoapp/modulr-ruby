@@ -24,7 +24,7 @@ module Modulr
         map :directDebit, :direct_debit
 
         def initialize(response, opts = { requested_at: nil })
-          super(response.env[:raw_body], response.body)
+          super(response, response.body)
           @requested_at = opts[:requested_at]
           @identifiers = Accounts::Identifiers.new(response)
         end

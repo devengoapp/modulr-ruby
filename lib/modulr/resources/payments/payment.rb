@@ -16,8 +16,7 @@ module Modulr
         map :type
 
         def initialize(response, attributes = {}, opts = { network_scheme: true })
-          raw_response = response.nil? ? nil : response.env[:raw_body]
-          super(raw_response, attributes)
+          super(response, attributes)
           @attributes = attributes
           @opts = opts
           parse_attributes
