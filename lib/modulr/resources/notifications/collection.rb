@@ -5,7 +5,9 @@ module Modulr
     module Notifications
       class Collection < BaseCollection
         def initialize(response)
-          super(response, Notification, response.body)
+          attributes_collection = response.body
+
+          super(response, Notification, attributes_collection)
         end
       end
     end

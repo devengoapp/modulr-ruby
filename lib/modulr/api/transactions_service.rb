@@ -5,7 +5,9 @@ module Modulr
     class TransactionsService < Service
       def list(account_id:, **opts)
         response = client.get("/accounts/#{account_id}/transactions", build_query_params(opts))
-        Resources::Transactions::Transactions.new(response)
+        attributes_collection = response.body[:content]
+
+        Resources::Transactions::Transactions.new(response, attributes_collection)
       end
 
       private def build_query_params(opts) # rubocop:disable Metrics/AbcSize

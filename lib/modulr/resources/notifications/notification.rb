@@ -14,6 +14,7 @@ module Modulr
 
         def initialize(response, attributes = {})
           super(response, attributes)
+
           @config = Config.new(nil, attributes[:config])
         end
       end

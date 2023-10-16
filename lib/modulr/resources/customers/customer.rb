@@ -22,8 +22,8 @@ module Modulr
         map :accessGroupsVisible, :access_groups_visible
         map :legalEntity, :legal_entity
 
-        def initialize(response)
-          super(response, response.body)
+        def initialize(response, attributes)
+          super(response, attributes)
         end
       end
     end

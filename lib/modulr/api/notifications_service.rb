@@ -5,7 +5,9 @@ module Modulr
     class NotificationsService < Service
       def find(id:, **opts)
         response = client.get("#{base_notification_url(opts)}/notifications/#{id}")
-        Resources::Notifications::Notification.new(response, response.body)
+        attributes = response.body
+
+        Resources::Notifications::Notification.new(response, attributes)
       end
 
       def list(**opts)
@@ -21,7 +23,9 @@ module Modulr
           config: config,
         }
         response = client.post("#{base_notification_url(opts)}/notifications", payload)
-        Resources::Notifications::Notification.new(response, response.body)
+        attributes = response.body
+
+        Resources::Notifications::Notification.new(response, attributes)
       end
 
       def update(id:, status:, destinations:, config:, **opts)
@@ -31,7 +35,9 @@ module Modulr
           config: config,
         }
         response = client.put("#{base_notification_url(opts)}/notifications/#{id}", payload)
-        Resources::Notifications::Notification.new(response, response.body)
+        attributes = response.body
+
+        Resources::Notifications::Notification.new(response, attributes)
       end
 
       protected def base_notification_url(opts)

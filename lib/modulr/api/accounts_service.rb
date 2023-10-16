@@ -5,8 +5,11 @@ module Modulr
     class AccountsService < Service
       def find(id:)
         response = client.get("/accounts/#{id}")
+        attributes = response.body
+
         Resources::Accounts::Account.new(
           response,
+          attributes,
           { requested_at: response.headers["date"] }
         )
       end
@@ -19,7 +22,9 @@ module Modulr
         payload[:externalReference] = opts[:external_reference] if opts[:external_reference]
 
         response = client.post("/customers/#{customer_id}/accounts", payload)
-        Resources::Accounts::Account.new(response)
+        attributes = response.body
+
+        Resources::Accounts::Account.new(response, attributes)
       end
 
       def close(account_id:)

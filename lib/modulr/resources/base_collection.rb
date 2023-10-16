@@ -9,8 +9,7 @@ module Modulr
 
       def initialize(response, item_klass, attributes_collection = [])
         @raw_response = response.nil? ? nil : response.env[:raw_body]
-        @attributes_collection = attributes_collection
-        @items = attributes_collection.map { |attributes_item| item_klass.new(nil, attributes_item) }
+        @items = attributes_collection.map { |attributes| item_klass.new(nil, attributes) }
       end
 
       def each(&block)
