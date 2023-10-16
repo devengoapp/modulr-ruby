@@ -5,7 +5,7 @@ module Modulr
     module Payments
       class Collection < BaseCollection
         def initialize(response)
-          super(response.env[:raw_body], Payment, response.body[:content])
+          super(response, Payment, response.body[:content])
         end
       end
     end

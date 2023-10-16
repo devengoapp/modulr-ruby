@@ -7,8 +7,8 @@ module Modulr
 
       include Enumerable
 
-      def initialize(raw_response, item_klass, attributes_collection = [])
-        @raw_response = raw_response
+      def initialize(response, item_klass, attributes_collection = [])
+        @raw_response = response.nil? ? nil : response.env[:raw_body]
         @attributes_collection = attributes_collection
         @items = attributes_collection.map { |attributes_item| item_klass.new(nil, attributes_item) }
       end

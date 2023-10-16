@@ -4,8 +4,8 @@ module Modulr
   module Resources
     module Notifications
       class Collection < BaseCollection
-        def initialize(raw_response, attributes_collection)
-          super(raw_response, Notification, attributes_collection)
+        def initialize(response, attributes_collection)
+          super(response, Notification, attributes_collection)
         end
       end
     end
