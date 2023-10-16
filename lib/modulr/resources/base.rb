@@ -8,7 +8,6 @@ module Modulr
       def initialize(response, attributes = {})
         @raw_response = response.nil? ? nil : response.env[:raw_body]
 
-
         attributes.each do |key, value|
           m = "#{key}=".to_sym
           send(m, value) if respond_to?(m)
