@@ -7,7 +7,7 @@ module Modulr
     class CustomersService < Service
       def find(id:)
         response = client.get("/customers/#{id}")
-        Resources::Customers::Customer.new(response, response.body)
+        Resources::Customers::Customer.new(response)
       end
 
       def create(type:, legal_entity:, **opts)
@@ -31,7 +31,7 @@ module Modulr
         payload[:taxProfile] = opts[:tax_profile] if opts[:tax_profile]
 
         response = client.post("/customers", payload)
-        Resources::Customers::Customer.new(response, response.body)
+        Resources::Customers::Customer.new(response)
       end
     end
   end
