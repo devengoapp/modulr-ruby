@@ -12,7 +12,9 @@ module Modulr
         map :status
         map :destinations
 
-        def initialize(raw_response, attributes = {})
+        def initialize(response, attributes = {})
+          raw_response = response.nil? ? nil : response.env[:raw_body]
+
           super(raw_response, attributes)
           @config = Config.new(nil, attributes[:config])
         end
