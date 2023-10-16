@@ -3,12 +3,12 @@
 module Modulr
   module Resources
     class BaseCollection
-      attr_reader :raw_response
+      attr_reader :response
 
       include Enumerable
 
       def initialize(response, item_klass, attributes_collection = [])
-        @raw_response = response.nil? ? nil : response.env[:raw_body]
+        @response = response
         @items = attributes_collection.map { |attributes| item_klass.new(nil, attributes) }
       end
 

@@ -3,10 +3,10 @@
 module Modulr
   module Resources
     class Base
-      attr_reader :raw_response
+      attr_reader :response
 
       def initialize(response, attributes = {})
-        @raw_response = response.nil? ? nil : response.env[:raw_body]
+        @response = response
 
         attributes.each do |key, value|
           m = "#{key}=".to_sym
