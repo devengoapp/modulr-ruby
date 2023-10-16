@@ -12,7 +12,9 @@ module Modulr
 
       def list(**opts)
         response = client.get("#{base_notification_url(opts)}/notifications")
-        Resources::Notifications::Collection.new(response)
+        attributes_collection = response.body
+
+        Resources::Notifications::Collection.new(response, attributes_collection)
       end
 
       def create(type:, channel:, destinations:, config:, **opts)
