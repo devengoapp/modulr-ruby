@@ -27,7 +27,7 @@ module Modulr
           super(response, attributes)
 
           @requested_at = opts[:requested_at]
-          @identifiers = Accounts::Identifiers.new(response)
+          @identifiers = Accounts::Identifiers.new(attributes[:identifiers])
         end
       end
     end

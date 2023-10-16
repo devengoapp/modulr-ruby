@@ -4,8 +4,8 @@ module Modulr
   module Resources
     module Accounts
       class Identifiers < BaseCollection
-        def initialize(response)
-          super(nil, Identifier, response.body[:identifiers])
+        def initialize(attributes_collection)
+          super(nil, Identifier, attributes_collection)
         end
       end
     end
