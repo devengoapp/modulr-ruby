@@ -21,10 +21,6 @@ module Modulr
         map :needAddressVerification, :need_address_verification
         map :accessGroupsVisible, :access_groups_visible
         map :legalEntity, :legal_entity
-
-        def initialize(response, attributes)
-          super(response, attributes)
-        end
       end
     end
   end

@@ -11,6 +11,7 @@ module Modulr
 
         def initialize(response, attributes = {})
           super(response, attributes)
+
           @identifier = Accounts::Identifier.new(nil, attributes[:identifier])
         end
       end
