@@ -8,14 +8,14 @@ module Modulr
         payment_attributes = response.body[:content]&.first
         raise ClientError, "Payment #{id} not found" unless payment_attributes
 
-        Resources::Payments::Payment.new(response.env[:raw_body], payment_attributes)
+        Resources::Payments::Payment.new(response, payment_attributes)
       end
 
       def list(**opts)
         return find(id: opts[:id]) if opts[:id]
 
         response = client.get("/payments", build_query_params(opts))
-        Resources::Payments::Collection.new(response.env[:raw_body], response.body[:content])
+        Resources::Payments::Collection.new(response)
       end
 
       def create(account_id:, destination:, reference:, currency:, amount:, **opts) # rubocop:disable Metrics/ParameterLists
@@ -31,7 +31,7 @@ module Modulr
         payload[:endToEndReference] = opts[:e2e_reference] if opts[:e2e_reference]
 
         response = client.post("/payments", payload)
-        Resources::Payments::Payment.new(response.env[:raw_body], response.body, { network_scheme: false })
+        Resources::Payments::Payment.new(response, response.body, { network_scheme: false })
       end
 
       private def build_query_params(opts) # rubocop:disable Metrics/AbcSize
