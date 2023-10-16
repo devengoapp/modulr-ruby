@@ -25,6 +25,7 @@ module Modulr
 
         def initialize(response, attributes, opts = { requested_at: nil })
           super(response, attributes)
+
           @requested_at = opts[:requested_at]
           @identifiers = Accounts::Identifiers.new(response)
         end

@@ -15,6 +15,7 @@ module Modulr
 
             def initialize(response, attributes = {})
               super(response, attributes)
+
               @destination = Destination.new(nil, attributes[:destination])
             end
           end

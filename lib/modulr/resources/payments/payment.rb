@@ -17,6 +17,7 @@ module Modulr
 
         def initialize(response, attributes = {}, opts = { network_scheme: true })
           super(response, attributes)
+
           @attributes = attributes
           @opts = opts
           parse_attributes

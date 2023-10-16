@@ -29,6 +29,7 @@ module Modulr
 
             def initialize(response, attributes = {})
               super(response, attributes)
+
               @payer = Counterparty.new(nil, attributes[:payer])
               @payee = Counterparty.new(nil, attributes[:payee])
               @destination = parse_destination(attributes)
