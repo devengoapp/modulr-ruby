@@ -15,8 +15,9 @@ module Modulr
         map :message, :message
         map :type
 
-        def initialize(raw_response, attributes = {}, opts = { network_scheme: true })
-          super(raw_response, attributes)
+        def initialize(response, attributes = {}, opts = { network_scheme: true })
+          super(response, attributes)
+
           @attributes = attributes
           @opts = opts
           parse_attributes

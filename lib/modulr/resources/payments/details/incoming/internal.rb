@@ -13,8 +13,9 @@ module Modulr
             map :amount
             map :reference
 
-            def initialize(raw_response, attributes = {})
-              super(raw_response, attributes)
+            def initialize(response, attributes = {})
+              super(response, attributes)
+
               @destination = Destination.new(nil, attributes[:destination])
             end
           end

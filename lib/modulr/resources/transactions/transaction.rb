@@ -18,8 +18,8 @@ module Modulr
         map :sourceExternalReference, :external_reference
         map :additionalInfo, :additional_info
 
-        def initialize(raw_response, attributes = {})
-          super(raw_response, attributes)
+        def initialize(response, attributes = {})
+          super(response, attributes)
 
           @balance = attributes[:account][:balance]
           @available_balance = attributes[:account][:availableBalance]

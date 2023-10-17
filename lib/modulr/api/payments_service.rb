@@ -5,17 +5,19 @@ module Modulr
     class PaymentsService < Service
       def find(id:)
         response = client.get("/payments", { id: id })
-        payment_attributes = response.body[:content]&.first
-        raise ClientError, "Payment #{id} not found" unless payment_attributes
+        attributes = response.body[:content]&.first
+        raise ClientError, "Payment #{id} not found" unless attributes
 
-        Resources::Payments::Payment.new(response.env[:raw_body], payment_attributes)
+        Resources::Payments::Payment.new(response, attributes)
       end
 
       def list(**opts)
         return find(id: opts[:id]) if opts[:id]
 
         response = client.get("/payments", build_query_params(opts))
-        Resources::Payments::Collection.new(response.env[:raw_body], response.body[:content])
+        attributes_collection = response.body[:content]
+
+        Resources::Payments::Collection.new(response, attributes_collection)
       end
 
       def create(account_id:, destination:, reference:, currency:, amount:, **opts) # rubocop:disable Metrics/ParameterLists
@@ -31,7 +33,9 @@ module Modulr
         payload[:endToEndReference] = opts[:e2e_reference] if opts[:e2e_reference]
 
         response = client.post("/payments", payload)
-        Resources::Payments::Payment.new(response.env[:raw_body], response.body, { network_scheme: false })
+        attributes = response.body
+
+        Resources::Payments::Payment.new(response, attributes, { network_scheme: false })
       end
 
       private def build_query_params(opts) # rubocop:disable Metrics/AbcSize

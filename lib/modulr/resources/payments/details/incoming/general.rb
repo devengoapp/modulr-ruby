@@ -27,8 +27,9 @@ module Modulr
             map :schemeType, :scheme_type
             map :details, :raw_details
 
-            def initialize(raw_response, attributes = {})
-              super(raw_response, attributes)
+            def initialize(response, attributes = {})
+              super(response, attributes)
+
               @payer = Counterparty.new(nil, attributes[:payer])
               @payee = Counterparty.new(nil, attributes[:payee])
               @destination = parse_destination(attributes)
