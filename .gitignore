@@ -11,3 +11,8 @@
 
 # Ignore private http client environment variables
 /doc/modulr_requests/http-client.private.env.json
+
+# Ignore IDEs files
+.idea
+*.iml
+out
