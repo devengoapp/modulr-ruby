@@ -3,8 +3,14 @@
 module Modulr
   module API
     class AccountsService < Service
-      def find(id:)
-        response = client.get("/accounts/#{id}")
+      def find(id:, **opts)
+        query_parameters = {}
+        query_parameters[:statuses] = opts[:statuses] if opts[:statuses]
+        if opts[:include_pending_transactions]
+          query_parameters[:includePendingTransactions] = opts[:include_pending_transactions]
+        end
+
+        response = client.get("/accounts/#{id}", query_parameters)
         attributes = response.body
 
         Resources::Accounts::Account.new(
