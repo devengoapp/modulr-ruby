@@ -31,6 +31,7 @@ module Modulr
 
         payload[:externalReference] = opts[:external_reference] if opts[:external_reference]
         payload[:endToEndReference] = opts[:e2e_reference] if opts[:e2e_reference]
+        payload[:destination] = opts[:destination] if opts[:destination]
 
         response = client.post("/payments", payload)
         attributes = response.body
