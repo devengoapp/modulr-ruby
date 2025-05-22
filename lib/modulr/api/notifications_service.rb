@@ -4,14 +4,16 @@ module Modulr
   module API
     class NotificationsService < Service
       def find(id:, **opts)
-        response = client.get("#{base_notification_url(opts)}/notifications/#{id}")
+        url = File.join(base_notification_url(opts), "notifications", id.to_s)
+        response = client.get(url)
         attributes = response.body
 
         Resources::Notifications::Notification.new(response, attributes)
       end
 
       def list(**opts)
-        response = client.get("#{base_notification_url(opts)}/notifications")
+        url = File.join(base_notification_url!(opts), "notifications")
+        response = client.get(url)
         attributes_collection = response.body
 
         Resources::Notifications::Collection.new(response, attributes_collection)
@@ -24,7 +26,8 @@ module Modulr
           destinations: destinations,
           config: config,
         }
-        response = client.post("#{base_notification_url(opts)}/notifications", payload)
+        url = File.join(base_notification_url!(opts), "notifications")
+        response = client.post(url, payload)
         attributes = response.body
 
         Resources::Notifications::Notification.new(response, attributes)
@@ -36,7 +39,8 @@ module Modulr
           destinations: destinations,
           config: config,
         }
-        response = client.put("#{base_notification_url(opts)}/notifications/#{id}", payload)
+        url = File.join(base_notification_url!(opts), "notifications", id.to_s)
+        response = client.put(url, payload)
         attributes = response.body
 
         Resources::Notifications::Notification.new(response, attributes)
