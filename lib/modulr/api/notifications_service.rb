@@ -12,7 +12,7 @@ module Modulr
       end
 
       def list(**opts)
-        url = File.join(base_notification_url!(opts), "notifications")
+        url = File.join(base_notification_url(opts), "notifications")
         response = client.get(url)
         attributes_collection = response.body
 
@@ -26,7 +26,7 @@ module Modulr
           destinations: destinations,
           config: config,
         }
-        url = File.join(base_notification_url!(opts), "notifications")
+        url = File.join(base_notification_url(opts), "notifications")
         response = client.post(url, payload)
         attributes = response.body
 
@@ -39,7 +39,7 @@ module Modulr
           destinations: destinations,
           config: config,
         }
-        url = File.join(base_notification_url!(opts), "notifications", id.to_s)
+        url = File.join(base_notification_url(opts), "notifications", id.to_s)
         response = client.put(url, payload)
         attributes = response.body
 
