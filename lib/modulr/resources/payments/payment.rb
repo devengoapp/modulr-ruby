@@ -10,6 +10,7 @@ module Modulr
         map :status
         map :reference
         map :externalReference, :external_reference
+        map :permittedScheme, :permitted_scheme
         map :createdDate, :created_at
         map :approvalStatus, :approval_status
         map :message, :message

@@ -31,6 +31,7 @@ module Modulr
 
         payload[:externalReference] = opts[:external_reference] if opts[:external_reference]
         payload[:endToEndReference] = opts[:e2e_reference] if opts[:e2e_reference]
+        payload[:permittedScheme] = opts[:permitted_scheme] if opts[:permitted_scheme]
 
         response = client.post("/payments", payload)
         attributes = response.body
@@ -45,6 +46,7 @@ module Modulr
           external_reference: :externalReference,
           has_external_reference: :hasExternalReference,
           account_id: :sourceAccountId,
+          permitted_scheme: :permittedScheme,
         }
         {}.tap do |params|
           same_name_params.each { |param| params[param] = opts[param] if opts[param] }
