@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    modulr-api (0.0.41)
+    modulr-api (0.0.42)
       faraday (~> 1.0)
       faraday_middleware (~> 1.0)
 
@@ -129,6 +129,7 @@ GEM
 PLATFORMS
   arm64-darwin-20
   arm64-darwin-21
+  arm64-darwin-22
   x86_64-darwin-20
   x86_64-darwin-22
   x86_64-linux
