@@ -16,3 +16,6 @@
 .idea
 *.iml
 out
+
+# Ignore Mac OS metadata files
+.DS_Store
