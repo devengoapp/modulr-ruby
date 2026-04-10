@@ -72,7 +72,7 @@ RSpec.describe Modulr::API::PaymentsService, :unit, type: :client do
             name: "John",
           },
           reference: "Outgoing sepa instant payment",
-          idempotency_key: idempotency_key,
+          idempotency_key: idempotency_key
         )
       end
 
@@ -89,14 +89,16 @@ RSpec.describe Modulr::API::PaymentsService, :unit, type: :client do
               name: "John",
             },
             reference: "Outgoing sepa instant payment",
-          },
+          }
         )
       end
 
       it "does not append idempotency_key to the query string" do
-        expect(WebMock).to have_requested(:post, %r{/payments}).with { |req|
-          modulr_request_query_excludes_idempotency_key?(req)
-        }
+        expect(WebMock).to(
+          have_requested(:post, %r{/payments}).with do |req|
+            modulr_request_query_excludes_idempotency_key?(req)
+          end
+        )
       end
 
       it "returns created payment" do

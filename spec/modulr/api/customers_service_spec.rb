@@ -320,7 +320,7 @@ RSpec.describe Modulr::API::CustomersService, :unit, type: :client do
           tax_profile: {
             taxIdentifier: "string",
           },
-          idempotency_key: idempotency_key,
+          idempotency_key: idempotency_key
         )
       end
 
@@ -403,14 +403,16 @@ RSpec.describe Modulr::API::CustomersService, :unit, type: :client do
             taxProfile: {
               taxIdentifier: "string",
             },
-          },
+          }
         )
       end
 
       it "does not append idempotency_key to the query string" do
-        expect(WebMock).to have_requested(:post, %r{/customers}).with { |req|
-          modulr_request_query_excludes_idempotency_key?(req)
-        }
+        expect(WebMock).to(
+          have_requested(:post, %r{/customers}).with do |req|
+            modulr_request_query_excludes_idempotency_key?(req)
+          end
+        )
       end
 
       it "returns created customer" do

@@ -17,8 +17,11 @@ RSpec.describe Modulr::Client, :unit do
       expect(described_class.idempotency_nonce(idempotency_key)).to eq(expected)
     end
 
-    it "is stable for the same inputs" do
-      expect(described_class.idempotency_nonce("same-key")).to eq(described_class.idempotency_nonce("same-key"))
+    it "is deterministic for the same idempotency_key" do
+      key = "same-key"
+      first_nonce = described_class.idempotency_nonce(key)
+      second_nonce = described_class.idempotency_nonce(key)
+      expect(first_nonce).to eq(second_nonce)
     end
   end
 
@@ -35,16 +38,18 @@ RSpec.describe Modulr::Client, :unit do
         headers: {
           "Authorization" => "api_key",
           "Content-Type" => "application/json",
-        },
+        }
       )
     end
 
     it "does not add a query string when no options are passed" do
       client.get("/test")
 
-      expect(WebMock).to have_requested(:get, %r{/test}).with { |req|
-        req.uri.query.nil?
-      }
+      expect(WebMock).to(
+        have_requested(:get, %r{/test}).with do |req|
+          req.uri.query.nil?
+        end
+      )
     end
 
     it "merges options into the query string" do
@@ -54,24 +59,26 @@ RSpec.describe Modulr::Client, :unit do
           filter: "active",
           page: 0,
           limit: 20,
-        },
+        }
       )
 
       expect(WebMock).to have_requested(:get, %r{/test}).with(
         query: hash_including(
           "filter" => "active",
           "page" => "0",
-          "limit" => "20",
-        ),
+          "limit" => "20"
+        )
       )
     end
 
     it "does not send a body" do
       client.get("/test", { q: "x" })
 
-      expect(WebMock).to have_requested(:get, %r{/test}).with { |req|
-        req.body.nil? || req.body.to_s.empty?
-      }
+      expect(WebMock).to(
+        have_requested(:get, %r{/test}).with do |req|
+          req.body.nil? || req.body.to_s.empty?
+        end
+      )
     end
 
     context "when idempotency_key is provided in options" do
@@ -82,19 +89,24 @@ RSpec.describe Modulr::Client, :unit do
       it "does not send x-mod-nonce or x-mod-retry headers" do
         client.get("/test", { q: "a", idempotency_key: idempotency_key })
 
-        expect(WebMock).to have_requested(:get, %r{/test}).with { |req|
-          keys = (req.headers || {}).keys.map { |k| k.to_s.downcase }
-          keys.none? { |k| k == "x-mod-nonce" || k == "x-mod-retry" }
-        }
+        idempotency_header_names = %w[x-mod-nonce x-mod-retry]
+        expect(WebMock).to(
+          have_requested(:get, %r{/test}).with do |req|
+            keys = (req.headers || {}).keys.map { |k| k.to_s.downcase }
+            keys.none? { |k| idempotency_header_names.include?(k) }
+          end
+        )
       end
 
       it "does not include idempotency_key in the query string" do
         client.get("/test", { filter: "x", idempotency_key: idempotency_key })
 
-        expect(WebMock).to have_requested(:get, %r{/test}).with { |req|
-          q = req.uri.query.to_s
-          !q.include?("idempotency") && q.include?("filter")
-        }
+        expect(WebMock).to(
+          have_requested(:get, %r{/test}).with do |req|
+            q = req.uri.query.to_s
+            !q.include?("idempotency") && q.include?("filter")
+          end
+        )
       end
     end
   end
@@ -105,7 +117,7 @@ RSpec.describe Modulr::Client, :unit do
         stub_request(:post, %r{/test}).to_return(
           status: 200,
           body: "{}",
-          headers: { "Content-Type" => "application/json" },
+          headers: { "Content-Type" => "application/json" }
         )
         stub_modulr_apikey_env_for_idempotency
       end
@@ -129,15 +141,17 @@ RSpec.describe Modulr::Client, :unit do
             resource: "example",
             amount: "1.0",
             nested: { type: "A", code: "x" },
-          },
+          }
         )
       end
 
       it "does not put idempotency_key on the query string" do
         client.post("/test", { foo: "bar" }, idempotency_key: idempotency_key)
-        expect(WebMock).to have_requested(:post, %r{/test}).with { |req|
-          modulr_request_query_excludes_idempotency_key?(req)
-        }
+        expect(WebMock).to(
+          have_requested(:post, %r{/test}).with do |req|
+            modulr_request_query_excludes_idempotency_key?(req)
+          end
+        )
       end
     end
   end
@@ -148,7 +162,7 @@ RSpec.describe Modulr::Client, :unit do
         stub_request(:put, %r{/test}).to_return(
           status: 200,
           body: "{}",
-          headers: { "Content-Type" => "application/json" },
+          headers: { "Content-Type" => "application/json" }
         )
         stub_modulr_apikey_env_for_idempotency
       end
@@ -159,7 +173,7 @@ RSpec.describe Modulr::Client, :unit do
         client.put(
           "/test",
           { state: "paused", tags: [], meta: {} },
-          idempotency_key: idempotency_key,
+          idempotency_key: idempotency_key
         )
 
         expect(WebMock).to have_requested(:put, %r{/test}).with(
@@ -168,7 +182,7 @@ RSpec.describe Modulr::Client, :unit do
             state: "paused",
             tags: [],
             meta: {},
-          },
+          }
         )
       end
     end

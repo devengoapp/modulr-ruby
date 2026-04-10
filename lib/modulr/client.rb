@@ -46,19 +46,15 @@ module Modulr
     end
 
     def get(path, options = {})
-      execute :get, path, nil, options
+      request :get, path, nil, options
     end
 
     def post(path, data = nil, options = {})
-      execute :post, path, data, options
+      request :post, path, data, options
     end
 
     def put(path, data = nil, options = {})
-      execute :put, path, data, options
-    end
-
-    def execute(method, path, data = nil, options = {})
-      request(method, path, data, options)
+      request :put, path, data, options
     end
 
     def self.idempotency_nonce(idempotency_key)
@@ -79,6 +75,8 @@ module Modulr
         handle_request_error(e)
       end
     end
+
+    alias execute request
 
     def request_options(method, _path, data, options)
       default_options.tap do |defaults|
@@ -109,7 +107,7 @@ module Modulr
     def idempotency_headers(options, idempotency_key)
       return unless idempotency_key
 
-      nonce = generate_nonce(idempotency_key)
+      nonce = self.class.idempotency_nonce(idempotency_key)
       options[:"x-mod-nonce"] = nonce
       options[:"x-mod-retry"] = "true" if nonce && !nonce.empty?
     end
@@ -118,11 +116,7 @@ module Modulr
       return unless options
       return unless method == :get
 
-      if options.is_a?(Hash)
-        request.params.update(options.reject { |k, _| k == :idempotency_key })
-      else
-        request.params.update(options)
-      end
+      request.params.update(options.reject { |k, _| k == :idempotency_key })
     end
 
     def handle_request_error(error)
@@ -147,10 +141,6 @@ module Modulr
           content_type: "application/json",
         },
       }
-    end
-
-    private def generate_nonce(idempotency_key)
-      self.class.idempotency_nonce(idempotency_key)
     end
   end
 end

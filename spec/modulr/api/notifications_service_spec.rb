@@ -60,7 +60,7 @@ RSpec.describe Modulr::API::NotificationsService, :unit, type: :client do
           channel: "WEBHOOK",
           destinations: ["https://foo.bar"],
           config: { retry: true, secret: "00000000000000000000000000000000", hmac_algorithm: "" },
-          idempotency_key: idempotency_key,
+          idempotency_key: idempotency_key
         )
       end
 
@@ -72,14 +72,16 @@ RSpec.describe Modulr::API::NotificationsService, :unit, type: :client do
             channel: "WEBHOOK",
             destinations: ["https://foo.bar"],
             config: { retry: true, secret: "00000000000000000000000000000000", hmac_algorithm: "" },
-          },
+          }
         )
       end
 
       it "does not append idempotency_key to the query string" do
-        expect(WebMock).to have_requested(:post, %r{/customers/C2188C26/notifications}).with { |req|
-          modulr_request_query_excludes_idempotency_key?(req)
-        }
+        expect(WebMock).to(
+          have_requested(:post, %r{/customers/C2188C26/notifications}).with do |req|
+            modulr_request_query_excludes_idempotency_key?(req)
+          end
+        )
       end
 
       it "returns the created notification" do

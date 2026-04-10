@@ -56,7 +56,7 @@ RSpec.describe Modulr::API::AccountsService, :unit, type: :client do
           currency: "EUR",
           product_code: "productCode",
           external_reference: "A new account in EUR",
-          idempotency_key: idempotency_key,
+          idempotency_key: idempotency_key
         )
       end
 
@@ -67,14 +67,16 @@ RSpec.describe Modulr::API::AccountsService, :unit, type: :client do
             currency: "EUR",
             productCode: "productCode",
             externalReference: "A new account in EUR",
-          },
+          }
         )
       end
 
       it "does not append idempotency_key to the query string" do
-        expect(WebMock).to have_requested(:post, %r{/customers/C0000001/accounts}).with { |req|
-          modulr_request_query_excludes_idempotency_key?(req)
-        }
+        expect(WebMock).to(
+          have_requested(:post, %r{/customers/C0000001/accounts}).with do |req|
+            modulr_request_query_excludes_idempotency_key?(req)
+          end
+        )
       end
 
       it "returns created account" do
