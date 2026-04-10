@@ -80,9 +80,9 @@ module Modulr
       end
     end
 
-    def request_options(_method, _path, data, options)
+    def request_options(method, _path, data, options)
       default_options.tap do |defaults|
-        idempotency_headers(defaults[:headers], options&.dig(:idempotency_key))
+        idempotency_headers(defaults[:headers], options&.dig(:idempotency_key)) unless method == :get
         add_auth_options!(defaults)
         defaults[:body] = JSON.dump(data) if data
       end
@@ -118,7 +118,11 @@ module Modulr
       return unless options
       return unless method == :get
 
-      request.params.update(options)
+      if options.is_a?(Hash)
+        request.params.update(options.reject { |k, _| k == :idempotency_key })
+      else
+        request.params.update(options)
+      end
     end
 
     def handle_request_error(error)

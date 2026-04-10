@@ -233,6 +233,192 @@ RSpec.describe Modulr::API::CustomersService, :unit, type: :client do
       end
     end
 
+    context "when idempotency_key is provided" do
+      before do
+        stub_request(:post, %r{/customers}).to_return(
+          read_http_response_fixture("customers/create", "success")
+        )
+        stub_modulr_apikey_env_for_idempotency
+      end
+
+      let(:idempotency_key) { "customer-create-idempotency-xyz" }
+
+      let!(:created_customer_with_idempotency) do
+        customers.create(
+          type: "LLC",
+          legal_entity: "GB",
+          external_reference: "My new customer",
+          name: "string",
+          company_reg_number: "2018123987165432",
+          registered_address: {
+            addressLine1: "string",
+            addressLine2: "string",
+            postTown: "string",
+            postCode: "string",
+            country: "GB",
+            countrySubDivision: "string",
+          },
+          trading_address: {
+            addressLine1: "string",
+            addressLine2: "string",
+            postTown: "string",
+            postCode: "string",
+            country: "GB",
+            countrySubDivision: "string",
+          },
+          industry_code: "string",
+          tcs_version: 0,
+          expected_monthly_spend: 0,
+          associates: [
+            {
+              type: "DIRECTOR",
+              firstName: "string",
+              middleName: "string",
+              lastName: "string",
+              dateOfBirth: "string",
+              ownership: 0,
+              homeAddress: {
+                addressLine1: "string",
+                addressLine2: "string",
+                postTown: "string",
+                postCode: "string",
+                country: "GB",
+                countrySubDivision: "string",
+              },
+              applicant: true,
+              email: "string",
+              phone: "string",
+              documentInfo: [
+                {
+                  path: "string",
+                  fileName: "string",
+                  uploadedDate: "2017-01-28T01:01:01+0000",
+                },
+              ],
+              additionalIdentifiers: [
+                {
+                  type: "BSN",
+                  value: "string",
+                },
+              ],
+              complianceData: {
+                relationship: "string",
+              },
+            },
+          ],
+          document_info: [
+            {
+              path: "string",
+              fileName: "string",
+              uploadedDate: "2017-01-28T01:01:01+0000",
+            },
+          ],
+          provisional_customer_id: "string",
+          customer_trust: {
+            trustNature: "BARE_TRUSTS",
+          },
+          tax_profile: {
+            taxIdentifier: "string",
+          },
+          idempotency_key: idempotency_key,
+        )
+      end
+
+      it "builds correct request with idempotency headers" do
+        expect(WebMock).to have_requested(:post, %r{/customers}).with(
+          headers: modulr_idempotency_request_headers(idempotency_key),
+          body: {
+            type: "LLC",
+            legalEntity: "GB",
+            externalReference: "My new customer",
+            name: "string",
+            companyRegNumber: "2018123987165432",
+            registeredAddress: {
+              addressLine1: "string",
+              addressLine2: "string",
+              postTown: "string",
+              postCode: "string",
+              country: "GB",
+              countrySubDivision: "string",
+            },
+            tradingAddress: {
+              addressLine1: "string",
+              addressLine2: "string",
+              postTown: "string",
+              postCode: "string",
+              country: "GB",
+              countrySubDivision: "string",
+            },
+            industryCode: "string",
+            tcsVersion: 0,
+            expectedMonthlySpend: 0,
+            associates: [
+              {
+                type: "DIRECTOR",
+                firstName: "string",
+                middleName: "string",
+                lastName: "string",
+                dateOfBirth: "string",
+                ownership: 0,
+                homeAddress: {
+                  addressLine1: "string",
+                  addressLine2: "string",
+                  postTown: "string",
+                  postCode: "string",
+                  country: "GB",
+                  countrySubDivision: "string",
+                },
+                applicant: true,
+                email: "string",
+                phone: "string",
+                documentInfo: [
+                  {
+                    path: "string",
+                    fileName: "string",
+                    uploadedDate: "2017-01-28T01:01:01+0000",
+                  },
+                ],
+                additionalIdentifiers: [
+                  {
+                    type: "BSN",
+                    value: "string",
+                  },
+                ],
+                complianceData: {
+                  relationship: "string",
+                },
+              },
+            ],
+            documentInfo: [
+              {
+                path: "string",
+                fileName: "string",
+                uploadedDate: "2017-01-28T01:01:01+0000",
+              },
+            ],
+            provisionalCustomerId: "string",
+            customerTrust: {
+              trustNature: "BARE_TRUSTS",
+            },
+            taxProfile: {
+              taxIdentifier: "string",
+            },
+          },
+        )
+      end
+
+      it "does not append idempotency_key to the query string" do
+        expect(WebMock).to have_requested(:post, %r{/customers}).with { |req|
+          modulr_request_query_excludes_idempotency_key?(req)
+        }
+      end
+
+      it "returns created customer" do
+        expect(created_customer_with_idempotency).to be_a Modulr::Resources::Customers::Customer
+        expect(created_customer_with_idempotency.external_reference).to eql("My new customer")
+      end
+    end
+
     context "when the type is invalid" do
       before do
         stub_request(:post, %r{/customers}).to_return(

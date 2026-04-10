@@ -43,6 +43,56 @@ RSpec.describe Modulr::API::NotificationsService, :unit, type: :client do
       end
     end
 
+    context "when idempotency_key is provided" do
+      before do
+        stub_request(:post, %r{/customers/C2188C26/notifications}).to_return(
+          read_http_response_fixture("notifications/create", "success")
+        )
+        stub_modulr_apikey_env_for_idempotency
+      end
+
+      let(:idempotency_key) { "notification-create-idempotency-xyz" }
+
+      let!(:created_notification_with_idempotency) do
+        notifications.create(
+          customer_id: "C2188C26",
+          type: "PAYOUT",
+          channel: "WEBHOOK",
+          destinations: ["https://foo.bar"],
+          config: { retry: true, secret: "00000000000000000000000000000000", hmac_algorithm: "" },
+          idempotency_key: idempotency_key,
+        )
+      end
+
+      it "builds correct request with idempotency headers" do
+        expect(WebMock).to have_requested(:post, %r{/customers/C2188C26/notifications}).with(
+          headers: modulr_idempotency_request_headers(idempotency_key),
+          body: {
+            type: "PAYOUT",
+            channel: "WEBHOOK",
+            destinations: ["https://foo.bar"],
+            config: { retry: true, secret: "00000000000000000000000000000000", hmac_algorithm: "" },
+          },
+        )
+      end
+
+      it "does not append idempotency_key to the query string" do
+        expect(WebMock).to have_requested(:post, %r{/customers/C2188C26/notifications}).with { |req|
+          modulr_request_query_excludes_idempotency_key?(req)
+        }
+      end
+
+      it "returns the created notification" do
+        expect(created_notification_with_idempotency).to be_a Modulr::Resources::Notifications::Notification
+        expect(created_notification_with_idempotency.id).to eql("W21082VJGX")
+        expect(created_notification_with_idempotency.type).to eql("PAYOUT")
+        expect(created_notification_with_idempotency.channel).to eql("WEBHOOK")
+        expect(created_notification_with_idempotency.status).to eql("ACTIVE")
+        expect(created_notification_with_idempotency.destinations).to include("https://eowmy3fgz2o3b8v.m.pipedream.net")
+        expect(created_notification_with_idempotency.config).to be_a Modulr::Resources::Notifications::Config
+      end
+    end
+
     context "when the secret is invalid" do
       before do
         stub_request(:post, %r{/customers/C2188C26/notifications}).to_return(
