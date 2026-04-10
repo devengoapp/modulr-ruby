@@ -27,7 +27,7 @@ module Modulr
         }
         payload[:externalReference] = opts[:external_reference] if opts[:external_reference]
 
-        response = client.post("/customers/#{customer_id}/accounts", payload)
+        response = client.post("/customers/#{customer_id}/accounts", payload, idempotency_headers(opts))
         attributes = response.body
 
         Resources::Accounts::Account.new(response, attributes)

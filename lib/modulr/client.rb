@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require "base64"
+require "openssl"
 require "faraday"
 require "faraday_middleware"
 require "json"
@@ -59,21 +61,28 @@ module Modulr
       request(method, path, data, options)
     end
 
+    def self.idempotency_nonce(idempotency_key)
+      digest = OpenSSL::Digest.new("SHA256")
+      hash = OpenSSL::HMAC.digest(digest, ENV["MODULR_APIKEY"], idempotency_key)
+      Base64.urlsafe_encode64(hash)
+    end
+
     def request(method, path, data = nil, options = {})
       request_options = request_options(method, path, data, options)
       uri = "#{base_url}#{path}"
 
       begin
         connection.run_request(method, uri, request_options[:body], request_options[:headers]) do |request|
-          request.params.update(options) if options
+          merge_query_params(request, method, options)
         end
       rescue StandardError => e
         handle_request_error(e)
       end
     end
 
-    def request_options(_method, _path, data, _options)
+    def request_options(_method, _path, data, options)
       default_options.tap do |defaults|
+        idempotency_headers(defaults[:headers], options&.dig(:idempotency_key))
         add_auth_options!(defaults)
         defaults[:body] = JSON.dump(data) if data
       end
@@ -91,9 +100,25 @@ module Modulr
 
     def auth_options(options)
       signature = Auth::Signature.calculate(apikey: @apikey, apisecret: @apisecret)
+
       options[:headers][:authorization] = signature.authorization
       options[:headers][:date] = signature.timestamp
-      options[:headers][:"x-mod-nonce"] = signature.nonce
+      options[:headers][:"x-mod-nonce"] ||= signature.nonce
+    end
+
+    def idempotency_headers(options, idempotency_key)
+      return unless idempotency_key
+
+      nonce = generate_nonce(idempotency_key)
+      options[:"x-mod-nonce"] = nonce
+      options[:"x-mod-retry"] = "true" if nonce && !nonce.empty?
+    end
+
+    private def merge_query_params(request, method, options)
+      return unless options
+      return unless method == :get
+
+      request.params.update(options)
     end
 
     def handle_request_error(error)
@@ -118,6 +143,10 @@ module Modulr
           content_type: "application/json",
         },
       }
+    end
+
+    private def generate_nonce(idempotency_key)
+      self.class.idempotency_nonce(idempotency_key)
     end
   end
 end
