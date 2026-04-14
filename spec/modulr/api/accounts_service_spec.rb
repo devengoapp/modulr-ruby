@@ -185,23 +185,58 @@ RSpec.describe Modulr::API::AccountsService, :unit, type: :client do
   end
 
   describe "close account" do
-    before do
-      stub_request(:post, %r{/accounts/A121AHGZ/close}).to_return(
-        read_http_response_fixture("accounts/close", "success")
-      )
+    context "when idempotency_key is not provided" do
+      before do
+        stub_request(:post, %r{/accounts/A121AHGZ/close}).to_return(
+          read_http_response_fixture("accounts/close", "success")
+        )
+      end
+
+      let!(:method_response) do
+        accounts.close(account_id: "A121AHGZ")
+      end
+
+      it_behaves_like "builds correct request", {
+        method: :post,
+        path: %r{/accounts/A121AHGZ/close},
+      }
+
+      it "returns nil" do
+        expect(method_response).to be_nil
+      end
     end
 
-    let!(:method_response) do
-      accounts.close(account_id: "A121AHGZ")
-    end
+    context "when idempotency_key is provided" do
+      before do
+        stub_request(:post, %r{/accounts/A121AHGZ/close}).to_return(
+          read_http_response_fixture("accounts/close", "success")
+        )
+        stub_modulr_apikey_env_for_idempotency
+      end
 
-    it_behaves_like "builds correct request", {
-      method: :post,
-      path: %r{/accounts/A121AHGZ/close},
-    }
+      let(:idempotency_key) { "account-close-idempotency-xyz" }
 
-    it "returns nil" do
-      expect(method_response).to be_nil
+      let!(:close_with_idempotency) do
+        accounts.close(account_id: "A121AHGZ", idempotency_key: idempotency_key)
+      end
+
+      it "builds correct request with idempotency headers" do
+        expect(WebMock).to have_requested(:post, %r{/accounts/A121AHGZ/close}).with(
+          headers: modulr_idempotency_request_headers(idempotency_key)
+        )
+      end
+
+      it "does not append idempotency_key to the query string" do
+        expect(WebMock).to(
+          have_requested(:post, %r{/accounts/A121AHGZ/close}).with do |req|
+            modulr_request_query_excludes_idempotency_key?(req)
+          end
+        )
+      end
+
+      it "returns nil" do
+        expect(close_with_idempotency).to be_nil
+      end
     end
   end
 end

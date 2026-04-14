@@ -33,8 +33,8 @@ module Modulr
         Resources::Accounts::Account.new(response, attributes)
       end
 
-      def close(account_id:)
-        client.post("/accounts/#{account_id}/close")
+      def close(account_id:, **opts)
+        client.post("/accounts/#{account_id}/close", nil, idempotency_headers(opts))
 
         nil
       end
