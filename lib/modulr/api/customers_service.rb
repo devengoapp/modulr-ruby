@@ -32,7 +32,7 @@ module Modulr
         payload[:customerTrust] = opts[:customer_trust] if opts[:customer_trust]
         payload[:taxProfile] = opts[:tax_profile] if opts[:tax_profile]
 
-        response = client.post("/customers", payload, idempotency_headers(opts))
+        response = client.post("/customers", payload, opts)
         attributes = response.body
 
         Resources::Customers::Customer.new(response, attributes)

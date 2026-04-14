@@ -80,8 +80,8 @@ module Modulr
 
     def request_options(method, _path, data, options)
       default_options.tap do |defaults|
-        idempotency_headers(defaults[:headers], options&.dig(:idempotency_key)) unless method == :get
         add_auth_options!(defaults)
+        add_idempotency_headers!(defaults[:headers], method, options) if options
         defaults[:body] = JSON.dump(data) if data
       end
     end
@@ -104,12 +104,15 @@ module Modulr
       options[:headers][:"x-mod-nonce"] ||= signature.nonce
     end
 
-    def idempotency_headers(options, idempotency_key)
+    private def add_idempotency_headers!(headers, method, options)
+      return if method == :get
+
+      idempotency_key = options.delete(:idempotency_key)
       return unless idempotency_key
 
       nonce = self.class.idempotency_nonce(idempotency_key)
-      options[:"x-mod-nonce"] = nonce
-      options[:"x-mod-retry"] = "true" if nonce && !nonce.empty?
+      headers[:"x-mod-nonce"] = nonce
+      headers[:"x-mod-retry"] = "true" if nonce && !nonce.empty?
     end
 
     private def merge_query_params(request, method, options)

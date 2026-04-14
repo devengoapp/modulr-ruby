@@ -24,7 +24,7 @@ module Modulr
           destinations: destinations,
           config: config,
         }
-        response = client.post("#{base_notification_url(opts)}/notifications", payload, idempotency_headers(opts))
+        response = client.post("#{base_notification_url(opts)}/notifications", payload, opts)
         attributes = response.body
 
         Resources::Notifications::Notification.new(response, attributes)
@@ -36,7 +36,7 @@ module Modulr
           destinations: destinations,
           config: config,
         }
-        response = client.put("#{base_notification_url(opts)}/notifications/#{id}", payload, idempotency_headers(opts))
+        response = client.put("#{base_notification_url(opts)}/notifications/#{id}", payload, opts)
         attributes = response.body
 
         Resources::Notifications::Notification.new(response, attributes)

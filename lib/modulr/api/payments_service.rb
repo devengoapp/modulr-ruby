@@ -33,7 +33,7 @@ module Modulr
         payload[:endToEndReference] = opts[:e2e_reference] if opts[:e2e_reference]
         payload[:permittedScheme] = opts[:permitted_scheme] if opts[:permitted_scheme]
 
-        response = client.post("/payments", payload, idempotency_headers(opts))
+        response = client.post("/payments", payload, opts)
         attributes = response.body
 
         Resources::Payments::Payment.new(response, attributes, { network_scheme: false })
