@@ -50,6 +50,62 @@ RSpec.describe Modulr::API::PaymentsService, :unit, type: :client do
         expect(created_payment.approval_status).to eql("NOTNEEDED")
       end
     end
+
+    context "when idempotency_key is provided" do
+      before do
+        stub_request(:post, %r{/payments}).to_return(
+          read_http_response_fixture("payments/create", "success")
+        )
+        stub_modulr_apikey_env_for_idempotency
+      end
+
+      let(:idempotency_key) { "payment-idempotency-abc" }
+
+      let!(:created_payment_with_idempotency) do
+        payments.create(
+          account_id: "A21E68ZZ",
+          currency: "EUR",
+          amount: "148.0",
+          destination: {
+            type: "IBAN",
+            iban: "ES3200810106680006714488",
+            name: "John",
+          },
+          reference: "Outgoing sepa instant payment",
+          idempotency_key: idempotency_key
+        )
+      end
+
+      it "builds correct request with idempotency headers (x-mod-nonce from HMAC-SHA256)" do
+        expect(WebMock).to have_requested(:post, %r{/payments}).with(
+          headers: modulr_idempotency_request_headers(idempotency_key),
+          body: {
+            sourceAccountId: "A21E68ZZ",
+            currency: "EUR",
+            amount: "148.0",
+            destination: {
+              type: "IBAN",
+              iban: "ES3200810106680006714488",
+              name: "John",
+            },
+            reference: "Outgoing sepa instant payment",
+          }
+        )
+      end
+
+      it "does not append idempotency_key to the query string" do
+        expect(WebMock).to(
+          have_requested(:post, %r{/payments}).with do |req|
+            modulr_request_query_excludes_idempotency_key?(req)
+          end
+        )
+      end
+
+      it "returns created payment" do
+        expect(created_payment_with_idempotency).to be_a Modulr::Resources::Payments::Payment
+        expect(created_payment_with_idempotency.id).to eql("P210FFRUVT")
+      end
+    end
   end
 
   describe "find payment" do

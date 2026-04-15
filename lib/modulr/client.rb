@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require "base64"
+require "openssl"
 require "faraday"
 require "faraday_middleware"
 require "json"
@@ -44,19 +46,21 @@ module Modulr
     end
 
     def get(path, options = {})
-      execute :get, path, nil, options
+      request :get, path, nil, options
     end
 
     def post(path, data = nil, options = {})
-      execute :post, path, data, options
+      request :post, path, data, options
     end
 
     def put(path, data = nil, options = {})
-      execute :put, path, data, options
+      request :put, path, data, options
     end
 
-    def execute(method, path, data = nil, options = {})
-      request(method, path, data, options)
+    def self.idempotency_nonce(idempotency_key)
+      digest = OpenSSL::Digest.new("SHA256")
+      hash = OpenSSL::HMAC.digest(digest, ENV["MODULR_APIKEY"], idempotency_key)
+      Base64.urlsafe_encode64(hash)
     end
 
     def request(method, path, data = nil, options = {})
@@ -65,16 +69,19 @@ module Modulr
 
       begin
         connection.run_request(method, uri, request_options[:body], request_options[:headers]) do |request|
-          request.params.update(options) if options
+          merge_query_params(request, method, options)
         end
       rescue StandardError => e
         handle_request_error(e)
       end
     end
 
-    def request_options(_method, _path, data, _options)
+    alias execute request
+
+    def request_options(method, _path, data, options)
       default_options.tap do |defaults|
         add_auth_options!(defaults)
+        add_idempotency_headers!(defaults[:headers], method, options) if options
         defaults[:body] = JSON.dump(data) if data
       end
     end
@@ -91,9 +98,28 @@ module Modulr
 
     def auth_options(options)
       signature = Auth::Signature.calculate(apikey: @apikey, apisecret: @apisecret)
+
       options[:headers][:authorization] = signature.authorization
       options[:headers][:date] = signature.timestamp
-      options[:headers][:"x-mod-nonce"] = signature.nonce
+      options[:headers][:"x-mod-nonce"] ||= signature.nonce
+    end
+
+    private def add_idempotency_headers!(headers, method, options)
+      return if method == :get
+
+      idempotency_key = options.delete(:idempotency_key)
+      return unless idempotency_key
+
+      nonce = self.class.idempotency_nonce(idempotency_key)
+      headers[:"x-mod-nonce"] = nonce
+      headers[:"x-mod-retry"] = "true" if nonce && !nonce.empty?
+    end
+
+    private def merge_query_params(request, method, options)
+      return unless options
+      return unless method == :get
+
+      request.params.update(options.reject { |k, _| k == :idempotency_key })
     end
 
     def handle_request_error(error)

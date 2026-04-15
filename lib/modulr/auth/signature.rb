@@ -23,7 +23,8 @@ module Modulr
         ].join(",")
       end
 
-      def self.calculate(apikey:, apisecret:, nonce: SecureRandom.base64(30), timestamp: DateTime.now.httpdate)
+      def self.calculate(apikey:, apisecret:, nonce: nil, timestamp: DateTime.now.httpdate)
+        nonce ||= SecureRandom.base64(30)
         signature_string = "date: #{timestamp}\nx-mod-nonce: #{nonce}"
         digest = OpenSSL::HMAC.digest(
           "SHA512",

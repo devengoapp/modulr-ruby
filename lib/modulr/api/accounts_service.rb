@@ -27,14 +27,14 @@ module Modulr
         }
         payload[:externalReference] = opts[:external_reference] if opts[:external_reference]
 
-        response = client.post("/customers/#{customer_id}/accounts", payload)
+        response = client.post("/customers/#{customer_id}/accounts", payload, opts)
         attributes = response.body
 
         Resources::Accounts::Account.new(response, attributes)
       end
 
-      def close(account_id:)
-        client.post("/accounts/#{account_id}/close")
+      def close(account_id:, **opts)
+        client.post("/accounts/#{account_id}/close", nil, opts)
 
         nil
       end

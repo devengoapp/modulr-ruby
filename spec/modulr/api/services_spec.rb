@@ -7,5 +7,6 @@ RSpec.describe Modulr::API::Services do
     expect(client.accounts).to be_an_instance_of(Modulr::API::AccountsService)
     expect(client.payments).to be_an_instance_of(Modulr::API::PaymentsService)
     expect(client.transactions).to be_an_instance_of(Modulr::API::TransactionsService)
+    expect(client.customers).to be_an_instance_of(Modulr::API::CustomersService)
   end
 end

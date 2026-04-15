@@ -40,6 +40,55 @@ RSpec.describe Modulr::API::AccountsService, :unit, type: :client do
       end
     end
 
+    context "when idempotency_key is provided" do
+      before do
+        stub_request(:post, %r{/customers/C0000001/accounts}).to_return(
+          read_http_response_fixture("accounts/create", "success")
+        )
+        stub_modulr_apikey_env_for_idempotency
+      end
+
+      let(:idempotency_key) { "account-create-idempotency-xyz" }
+
+      let!(:created_account_with_idempotency) do
+        accounts.create(
+          customer_id: "C0000001",
+          currency: "EUR",
+          product_code: "productCode",
+          external_reference: "A new account in EUR",
+          idempotency_key: idempotency_key
+        )
+      end
+
+      it "builds correct request with idempotency headers" do
+        expect(WebMock).to have_requested(:post, %r{/customers/C0000001/accounts}).with(
+          headers: modulr_idempotency_request_headers(idempotency_key),
+          body: {
+            currency: "EUR",
+            productCode: "productCode",
+            externalReference: "A new account in EUR",
+          }
+        )
+      end
+
+      it "does not append idempotency_key to the query string" do
+        expect(WebMock).to(
+          have_requested(:post, %r{/customers/C0000001/accounts}).with do |req|
+            modulr_request_query_excludes_idempotency_key?(req)
+          end
+        )
+      end
+
+      it "returns created account" do
+        expect(created_account_with_idempotency.requested_at).to be_nil
+        expect(created_account_with_idempotency).to be_a Modulr::Resources::Accounts::Account
+        expect(created_account_with_idempotency.customer_id).to eql("C0000001")
+        expect(created_account_with_idempotency.external_reference).to eql("A new account in EUR")
+        expect(created_account_with_idempotency.balance).to eql("0.00")
+        expect(created_account_with_idempotency.available_balance).to be_nil
+      end
+    end
+
     context "when the currency is invalid" do
       before do
         stub_request(:post, %r{/customers/C0000001/accounts}).to_return(
@@ -136,23 +185,58 @@ RSpec.describe Modulr::API::AccountsService, :unit, type: :client do
   end
 
   describe "close account" do
-    before do
-      stub_request(:post, %r{/accounts/A121AHGZ/close}).to_return(
-        read_http_response_fixture("accounts/close", "success")
-      )
+    context "when idempotency_key is not provided" do
+      before do
+        stub_request(:post, %r{/accounts/A121AHGZ/close}).to_return(
+          read_http_response_fixture("accounts/close", "success")
+        )
+      end
+
+      let!(:method_response) do
+        accounts.close(account_id: "A121AHGZ")
+      end
+
+      it_behaves_like "builds correct request", {
+        method: :post,
+        path: %r{/accounts/A121AHGZ/close},
+      }
+
+      it "returns nil" do
+        expect(method_response).to be_nil
+      end
     end
 
-    let!(:method_response) do
-      accounts.close(account_id: "A121AHGZ")
-    end
+    context "when idempotency_key is provided" do
+      before do
+        stub_request(:post, %r{/accounts/A121AHGZ/close}).to_return(
+          read_http_response_fixture("accounts/close", "success")
+        )
+        stub_modulr_apikey_env_for_idempotency
+      end
 
-    it_behaves_like "builds correct request", {
-      method: :post,
-      path: %r{/accounts/A121AHGZ/close},
-    }
+      let(:idempotency_key) { "account-close-idempotency-xyz" }
 
-    it "returns nil" do
-      expect(method_response).to be_nil
+      let!(:close_with_idempotency) do
+        accounts.close(account_id: "A121AHGZ", idempotency_key: idempotency_key)
+      end
+
+      it "builds correct request with idempotency headers" do
+        expect(WebMock).to have_requested(:post, %r{/accounts/A121AHGZ/close}).with(
+          headers: modulr_idempotency_request_headers(idempotency_key)
+        )
+      end
+
+      it "does not append idempotency_key to the query string" do
+        expect(WebMock).to(
+          have_requested(:post, %r{/accounts/A121AHGZ/close}).with do |req|
+            modulr_request_query_excludes_idempotency_key?(req)
+          end
+        )
+      end
+
+      it "returns nil" do
+        expect(close_with_idempotency).to be_nil
+      end
     end
   end
 end
