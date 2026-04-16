@@ -126,6 +126,8 @@ module Modulr
       case error
       when Faraday::ClientError
         raise ClientError, error
+      when Faraday::TimeoutError
+        raise TimeoutError, error
       when Faraday::ServerError
         raise ServerError, error
       else
