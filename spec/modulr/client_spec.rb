@@ -187,4 +187,94 @@ RSpec.describe Modulr::Client, :unit do
       end
     end
   end
+
+  describe "Faraday error mapping" do
+    let(:client) { initialize_client }
+    let(:faraday_connection) { instance_double(Faraday::Connection) }
+
+    before do
+      allow(client).to receive(:connection).and_return(faraday_connection)
+    end
+
+    context "when Faraday raises ClientError" do
+      let(:faraday_error) { Faraday::ClientError.new("the server responded with status 404") }
+
+      before do
+        allow(faraday_connection).to receive(:run_request).and_raise(faraday_error)
+      end
+
+      it "raises Modulr::ClientError" do
+        expect { client.get("/any-path") }.to raise_error(Modulr::ClientError)
+      end
+
+      it "wraps the original Faraday::ClientError" do
+        expect { client.get("/any-path") }.to raise_error(Modulr::ClientError) do |error|
+          expect(error.wrapped_error).to be(faraday_error)
+        end
+      end
+    end
+
+    context "when Faraday raises ServerError" do
+      let(:faraday_error) { Faraday::ServerError.new("the server responded with status 503") }
+
+      before do
+        allow(faraday_connection).to receive(:run_request).and_raise(faraday_error)
+      end
+
+      it "raises Modulr::ServerError" do
+        expect { client.get("/any-path") }.to raise_error(Modulr::ServerError)
+      end
+
+      it "wraps the original Faraday::ServerError" do
+        expect { client.get("/any-path") }.to raise_error(Modulr::ServerError) do |error|
+          expect(error.wrapped_error).to be(faraday_error)
+        end
+      end
+    end
+
+    context "when Faraday raises TimeoutError" do
+      before do
+        allow(faraday_connection).to receive(:run_request).and_raise(
+          Faraday::TimeoutError.new("execution expired")
+        )
+      end
+
+      it "raises Modulr::TimeoutError" do
+        expect { client.get("/any-path") }.to raise_error(Modulr::TimeoutError)
+      end
+
+      it "wraps the original Faraday::TimeoutError" do
+        expect { client.get("/any-path") }.to raise_error(Modulr::TimeoutError) do |error|
+          expect(error.wrapped_error).to be_a(Faraday::TimeoutError)
+          expect(error.wrapped_error.message).to eq("execution expired")
+        end
+      end
+    end
+
+    context "when Faraday raises another StandardError (e.g. connection failure)" do
+      let(:faraday_error) { Faraday::ConnectionFailed.new("Connection refused") }
+
+      before do
+        allow(faraday_connection).to receive(:run_request).and_raise(faraday_error)
+      end
+
+      it "raises Modulr::Error" do
+        expect { client.get("/any-path") }.to raise_error(Modulr::Error)
+      end
+
+      it "does not raise a specialized Modulr client subclass" do
+        expect { client.get("/any-path") }.to raise_error(Modulr::Error) do |error|
+          expect(error).not_to be_a(Modulr::ClientError)
+          expect(error).not_to be_a(Modulr::ServerError)
+          expect(error).not_to be_a(Modulr::TimeoutError)
+        end
+      end
+
+      it "wraps the original exception" do
+        expect { client.get("/any-path") }.to raise_error(Modulr::Error) do |error|
+          expect(error.wrapped_error).to be(faraday_error)
+        end
+      end
+    end
+  end
 end
