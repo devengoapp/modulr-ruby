@@ -80,28 +80,30 @@ module Modulr
 
     def request_options(method, _path, data, options)
       default_options.tap do |defaults|
+        add_idempotency_headers!(defaults[:headers], method, options)
         add_auth_options!(defaults)
-        add_idempotency_headers!(defaults[:headers], method, options) if options
+
         defaults[:body] = JSON.dump(data) if data
       end
     end
 
     def add_auth_options!(options)
-      return sandbox_auth_options(options) if @base_url.eql?(SANDBOX_URL)
+      return sandbox_auth_options(options[:headers]) if @base_url.eql?(SANDBOX_URL)
 
-      auth_options(options)
+      auth_options(options[:headers])
     end
 
     def sandbox_auth_options(options)
-      options[:headers][:authorization] = @apikey
+      options[:authorization] = @apikey
     end
 
     def auth_options(options)
-      signature = Auth::Signature.calculate(apikey: @apikey, apisecret: @apisecret)
+      nonce = options["x-mod-nonce"]
+      signature = Auth::Signature.calculate(apikey: @apikey, apisecret: @apisecret, nonce: nonce)
 
-      options[:headers][:authorization] = signature.authorization
-      options[:headers][:date] = signature.timestamp
-      options[:headers][:"x-mod-nonce"] ||= signature.nonce
+      options[:authorization] = signature.authorization
+      options[:date] = signature.timestamp
+      options["x-mod-nonce"] = signature.nonce
     end
 
     private def add_idempotency_headers!(headers, method, options)
@@ -111,8 +113,8 @@ module Modulr
       return unless idempotency_key
 
       nonce = self.class.idempotency_nonce(idempotency_key)
-      headers[:"x-mod-nonce"] = nonce
-      headers[:"x-mod-retry"] = "true" if nonce && !nonce.empty?
+      headers["x-mod-nonce"] = nonce
+      headers["x-mod-retry"] = "true"
     end
 
     private def merge_query_params(request, method, options)

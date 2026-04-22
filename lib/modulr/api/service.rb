@@ -9,12 +9,6 @@ module Modulr
         @client = client
       end
 
-      def idempotency_headers(options)
-        headers = {}
-        headers[:idempotency_key] = options[:idempotency_key] if options[:idempotency_key]
-        headers
-      end
-
       def format_datetime(datetime)
         datetime.strftime("%Y-%m-%dT%H:%M:%S%z")
       end
