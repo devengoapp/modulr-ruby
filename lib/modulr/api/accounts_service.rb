@@ -20,6 +20,11 @@ module Modulr
         )
       end
 
+      def list(customer_id:)
+        response = client.get("/customers/#{customer_id}/accounts")
+        Resources::Accounts::Collection.new(response, response.body[:content])
+      end
+
       def create(customer_id:, currency:, product_code:, **opts)
         payload = {
           currency: currency,
