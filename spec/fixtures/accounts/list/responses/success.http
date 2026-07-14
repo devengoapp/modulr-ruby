@@ -1,0 +1,19 @@
+HTTP/1.1 200 OK
+content-type: application/json
+transfer-encoding: chunked
+connection: keep-alive
+cache-control: no-cache, no-store, must-revalidate
+content-security-policy: default-src https: data: 'unsafe-inline' 'unsafe-eval'
+expires: 0
+pragma: no-cache
+server: Apache
+strict-transport-security: max-age=31536000
+vary: Origin
+x-content-type-options: nosniff
+x-frame-options: SAMEORIGIN
+x-ratelimit-limit: 4000000
+x-ratelimit-remaining: 3999987
+x-ratelimit-reset: 1674464655
+x-xss-protection: 1; mode=block
+
+{"content":[{"id":"A21BZ2GE","name":"Devengo","balance":"0.63","currency":"EUR","status":"ACTIVE","identifiers":[{"type":"IBAN","iban":"IE62MODR99035502395193","bic":"MODRIE22XXX","providerExtraInfo":{"sortCode":"990355","accountNumber":"02395193"}}],"customerId":"C2188C26","customerName":"Devengo","accessGroups":[],"createdDate":"2022-12-30T12:42:04.273+0000","directDebit":false},{"id":"A21BZ2GX","name":"Devengo","balance":"4.11","currency":"GBP","status":"ACTIVE","identifiers":[{"type":"SCAN","accountNumber":"00191558","sortCode":"040392","providerExtraInfo":{"virtualAccountId":"d100b9f3-c1c6-456a-ae07-42c9eb882c9f"}}],"customerId":"C2188C26","customerName":"Devengo","accessGroups":[],"createdDate":"2022-12-30T12:42:45.104+0000","directDebit":false},{"id":"A21C64X6","name":"Devengo","balance":"0.04","currency":"EUR","status":"ACTIVE","identifiers":[{"type":"IBAN","iban":"IE20MODR99035502290413","bic":"MODRIE22XXX","providerExtraInfo":{"sortCode":"990355","accountNumber":"02290413"}}],"customerId":"C2188C26","customerName":"Devengo","externalReference":"A new account in EUR","accessGroups":[],"createdDate":"2023-01-18T11:20:00.897+0000","directDebit":false},{"id":"A21CJPY2","name":"Devengo","balance":"0.00","currency":"EUR","status":"ACTIVE","identifiers":[{"type":"IBAN","iban":"IE26MODR99035502388081","bic":"MODRIE22XXX","providerExtraInfo":{"sortCode":"990355","accountNumber":"02388081"}}],"customerId":"C2188C26","customerName":"Devengo","externalReference":"acc_4qFJKQTNuSJqeF7Mv5xLJ8","accessGroups":[],"createdDate":"2023-02-16T17:13:36.527+0000","directDebit":false},{"id":"A21CM4HA","name":"Devengo","balance":"0.00","currency":"GBP","status":"ACTIVE","identifiers":[{"type":"SCAN","accountNumber":"00631973","sortCode":"040392","providerExtraInfo":{"virtualAccountId":"32f866f0-598b-4ca9-bef9-30d1d23a073e"}}],"customerId":"C2188C26","customerName":"Devengo","externalReference":"acc_11lEThqzWSOFLBIbjBnJvP","accessGroups":[],"createdDate":"2023-02-20T11:04:54.317+0000","directDebit":false},{"id":"A21CM4HC","name":"Devengo","balance":"0.00","currency":"GBP","status":"ACTIVE","identifiers":[{"type":"SCAN","accountNumber":"00482323","sortCode":"040392","providerExtraInfo":{"virtualAccountId":"7deeb32c-6faf-4c78-abfa-7022b19113ce"}}],"customerId":"C2188C26","customerName":"Devengo","externalReference":"acc_11lEThqzWSOFLBIbjBnJvP","accessGroups":[],"createdDate":"2023-02-20T11:05:05.051+0000","directDebit":false},{"id":"A21CM4HJ","name":"Devengo","balance":"0.00","currency":"GBP","status":"ACTIVE","identifiers":[{"type":"SCAN","accountNumber":"00818429","sortCode":"040392","providerExtraInfo":{"virtualAccountId":"0a9cea11-a205-4702-aee0-fb48e82c26f4"}}],"customerId":"C2188C26","customerName":"Devengo","externalReference":"acc_11lEThqzWSOFLBIbjBnJvP","accessGroups":[],"createdDate":"2023-02-20T11:05:27.121+0000","directDebit":false},{"id":"A21CM4J6","name":"Devengo","balance":"0.00","currency":"GBP","status":"ACTIVE","identifiers":[{"type":"SCAN","accountNumber":"00507261","sortCode":"040392","providerExtraInfo":{"virtualAccountId":"01c7875b-96c3-42a2-988f-f19e610a6968"}}],"customerId":"C2188C26","customerName":"Devengo","externalReference":"acc_11lEThqzWSOFLBIbjBnJvP","accessGroups":[],"createdDate":"2023-02-20T11:06:53.853+0000","directDebit":false}],"size":8,"totalSize":8,"page":0,"totalPages":1}
