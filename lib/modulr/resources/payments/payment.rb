@@ -42,15 +42,27 @@ module Modulr
           return unless doc
 
           doc_type = doc.dig(:header, :type)
-          key = doc_type.downcase.to_sym
+          credit_transfer = customer_credit_transfer(doc, doc_type)
+          end_to_end_id_from(doc_type, credit_transfer)
+        end
+
+        private def customer_credit_transfer(doc, doc_type)
+          return unless doc_type
+
+          document = doc.dig(doc_type.downcase.to_sym, :document)
+          return unless document
+
+          document[:fitoFICstmrCdtTrf] || document[:FIToFICstmrCdtTrf]
+        end
+
+        private def end_to_end_id_from(doc_type, credit_transfer)
+          return unless credit_transfer
 
           case doc_type
           when "IFCCTRNS" # SEPA instant
-            doc.dig(key, :document, :fitoFICstmrCdtTrf, :cdtTrfTxInf, :pmtId, :endToEndId)
+            credit_transfer.dig(:cdtTrfTxInf, :pmtId, :endToEndId)
           when "FFCCTRNS" # SEPA regular
-            doc.dig(key, :document, :fitoFICstmrCdtTrf, :cdtTrfTxInf).first&.dig(:pmtId, :endToEndId)
-          when "PRTRN" # SEPA REVERSAL
-            nil
+            credit_transfer[:cdtTrfTxInf]&.first&.dig(:pmtId, :endToEndId)
           end
         end
 
