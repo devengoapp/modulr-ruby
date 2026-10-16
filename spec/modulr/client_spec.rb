@@ -277,4 +277,56 @@ RSpec.describe Modulr::Client, :unit do
       end
     end
   end
+
+  describe "logger middleware" do
+    let(:client) { described_class.new({ apikey: "api_key" }.merge(options)) }
+    let(:options) { {} }
+    let(:handlers) { client.connection.builder.handlers }
+    let(:logger) { instance_double(Faraday::Logging::Formatter, filter: nil) }
+
+    it "registers Faraday::Response::Logger with the original configuration" do
+      handler = handlers.last
+
+      expect(handlers.map(&:klass)).to eq([
+        Faraday::Response::RaiseError,
+        FaradayMiddleware::ParseJson,
+        Faraday::Response::Logger,
+      ])
+      expect(handler.instance_variable_get(:@args)).to eq([nil, { headers: true, bodies: true }])
+
+      handler.instance_variable_get(:@block).call(logger)
+      expect(logger).to have_received(:filter).with(/("password":)"(\w+)"/, '\1[FILTERED]')
+    end
+
+    context "when a custom middleware is provided" do
+      let(:logger_middleware) { Class.new(Faraday::Middleware) }
+      let(:options) { { logger_middleware: logger_middleware, logger_options: { log_level: :debug } } }
+
+      it "registers that middleware with the extra options and the password filter" do
+        handler = handlers.last
+
+        expect(handlers.map(&:klass)).to eq([
+          Faraday::Response::RaiseError,
+          FaradayMiddleware::ParseJson,
+          logger_middleware,
+        ])
+        expect(handler.instance_variable_get(:@args)).to eq([nil, { headers: true, bodies: true, log_level: :debug }])
+
+        handler.instance_variable_get(:@block).call(logger)
+        expect(logger).to have_received(:filter).with(/("password":)"(\w+)"/, '\1[FILTERED]')
+      end
+    end
+
+    context "when logging is disabled" do
+      let(:logger_middleware) { Class.new(Faraday::Middleware) }
+      let(:options) { { logger_enabled: false, logger_middleware: logger_middleware } }
+
+      it "does not register the middleware" do
+        expect(handlers.map(&:klass)).to eq([
+          Faraday::Response::RaiseError,
+          FaradayMiddleware::ParseJson,
+        ])
+      end
+    end
+  end
 end

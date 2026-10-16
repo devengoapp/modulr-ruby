@@ -26,6 +26,18 @@ gem install modulr-api
 
 Run `bin/console` for an interactive prompt to experiment with the code.
 
+HTTP logging is enabled by default through `Faraday::Response::Logger`. You can replace that middleware and pass extra options to it:
+
+```rb
+client = Modulr::Client.new(
+  apikey: "YOUR_API_KEY",
+  logger_middleware: CustomMiddleware,
+  logger_options: { log_level: :debug }
+)
+```
+
+`logger_options` are merged over `{ headers: true, bodies: true }`. The middleware is initialized as `Middleware.new(app, nil, options)` and receives the existing password filter block. Set `logger_enabled: false` to skip logging.
+
 ### Customers
 
 ```rb

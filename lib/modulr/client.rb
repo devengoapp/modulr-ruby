@@ -16,7 +16,7 @@ module Modulr
     SANDBOX_URL = "https://api-sandbox.modulrfinance.com/api-sandbox-token"
     BASE_URL = SANDBOX_URL
 
-    attr_reader :base_url, :origin, :proxy, :username, :logger_enabled
+    attr_reader :base_url, :origin, :proxy, :username, :logger_enabled, :logger_middleware, :logger_options
 
     def initialize(options = {})
       @base_url = options[:base_url] || BASE_URL
@@ -25,6 +25,8 @@ module Modulr
       @apikey = options[:apikey] || ENV["MODULR_APIKEY"]
       @apisecret = options[:apisecret] || ENV["MODULR_APISECRET"]
       @logger_enabled = options[:logger_enabled].nil? ? true : options[:logger_enabled]
+      @logger_middleware = options.fetch(:logger_middleware, Faraday::Response::Logger)
+      @logger_options = options.fetch(:logger_options, {})
       @services = {}
     end
 
@@ -37,7 +39,7 @@ module Modulr
                          parser_options: { symbolize_names: true }
         builder.proxy = @proxy if proxy
         if @logger_enabled
-          builder.response :logger, nil, { headers: true, bodies: true } do |logger|
+          builder.use @logger_middleware, nil, { headers: true, bodies: true }.merge(@logger_options) do |logger|
             logger.filter(/("password":)"(\w+)"/, '\1[FILTERED]')
           end
         end
