@@ -30,6 +30,11 @@ module Modulr
       @services = {}
     end
 
+    # The default prints every instance variable, the API key and secret and the proxy credentials included.
+    def inspect
+      "#<#{self.class.name}>"
+    end
+
     def connection
       @connection ||= Faraday.new do |builder|
         builder.use Faraday::Response::RaiseError
