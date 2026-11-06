@@ -19,7 +19,7 @@ module Modulr
         map :additionalInfo, :additional_info
 
         def initialize(response, attributes = {})
-          super(response, attributes)
+          super
 
           @balance = attributes[:account][:balance]
           @available_balance = attributes[:account][:availableBalance]

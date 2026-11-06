@@ -166,7 +166,7 @@ module Modulr
 
         private def internal?
           (@attr_details[:sourceAccountId] && @attr_details.key?(:destinationId)) ||
-          (@attributes.key?(:schemeInfo) && @attributes[:schemeInfo].empty?)
+            (@attributes.key?(:schemeInfo) && @attributes[:schemeInfo].empty?)
         end
       end
     end

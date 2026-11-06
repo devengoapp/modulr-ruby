@@ -1,7 +1,7 @@
 ---
 AllCops:
   DisplayCopNames: true
-  TargetRubyVersion: 2.7
+  TargetRubyVersion: 3.2
   SuggestExtensions: false
   NewCops: enable
   Exclude:
@@ -11,8 +11,8 @@ AllCops:
     - node_modules/**/*
     - Procfile
 
-require:
-  - "test_prof/rubocop"
+plugins:
+  - test-prof
   - rubocop-rspec
   - rubocop-performance
   - rubocop-rake

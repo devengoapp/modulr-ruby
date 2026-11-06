@@ -13,7 +13,7 @@ module Modulr
         map :destinations
 
         def initialize(response, attributes = {})
-          super(response, attributes)
+          super
 
           @config = Config.new(nil, attributes[:config])
         end

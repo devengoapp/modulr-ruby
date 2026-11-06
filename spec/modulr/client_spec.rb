@@ -289,7 +289,7 @@ RSpec.describe Modulr::Client, :unit do
 
       expect(handlers.map(&:klass)).to eq([
         Faraday::Response::RaiseError,
-        FaradayMiddleware::ParseJson,
+        Faraday::Response::Json,
         Faraday::Response::Logger,
       ])
       expect(handler.instance_variable_get(:@args)).to eq([nil, { headers: true, bodies: true }])
@@ -307,7 +307,7 @@ RSpec.describe Modulr::Client, :unit do
 
         expect(handlers.map(&:klass)).to eq([
           Faraday::Response::RaiseError,
-          FaradayMiddleware::ParseJson,
+          Faraday::Response::Json,
           logger_middleware,
         ])
         expect(handler.instance_variable_get(:@args)).to eq([nil, { headers: true, bodies: true, log_level: :debug }])
@@ -324,7 +324,7 @@ RSpec.describe Modulr::Client, :unit do
       it "does not register the middleware" do
         expect(handlers.map(&:klass)).to eq([
           Faraday::Response::RaiseError,
-          FaradayMiddleware::ParseJson,
+          Faraday::Response::Json,
         ])
       end
     end

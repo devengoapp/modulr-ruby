@@ -3,7 +3,6 @@
 require "base64"
 require "openssl"
 require "faraday"
-require "faraday_middleware"
 require "json"
 
 require_relative "api/services"
@@ -24,7 +23,7 @@ module Modulr
       @proxy = options[:proxy]
       @apikey = options[:apikey] || ENV["MODULR_APIKEY"]
       @apisecret = options[:apisecret] || ENV["MODULR_APISECRET"]
-      @logger_enabled = options[:logger_enabled].nil? ? true : options[:logger_enabled]
+      @logger_enabled = options[:logger_enabled].nil? || options[:logger_enabled]
       @logger_middleware = options.fetch(:logger_middleware, Faraday::Response::Logger)
       @logger_options = options.fetch(:logger_options, {})
       @services = {}
@@ -123,7 +122,7 @@ module Modulr
       return unless options
       return unless method == :get
 
-      request.params.update(options.reject { |k, _| k == :idempotency_key })
+      request.params.update(options.except(:idempotency_key))
     end
 
     def handle_request_error(error)
