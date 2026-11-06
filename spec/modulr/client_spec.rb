@@ -296,13 +296,34 @@ RSpec.describe Modulr::Client, :unit do
 
       handler.instance_variable_get(:@block).call(logger)
       expect(logger).to have_received(:filter).with(/("password":)"(\w+)"/, '\1[FILTERED]')
+      expect(logger).to have_received(:filter).with(/(Authorization: ).*$/, '\1[FILTERED]')
+    end
+
+    context "with the default logger" do
+      before do
+        stub_request(:get, /test/)
+          .to_return(status: 200, body: "{}", headers: { "Content-Type" => "application/json" })
+      end
+
+      it "keeps the sandbox API key out of the log" do
+        sandbox = described_class.new(apikey: "sandbox-api-key")
+
+        expect { sandbox.get("/test") }.to output(a_string_including("Authorization: [FILTERED]")).to_stdout
+        expect { sandbox.get("/test") }.not_to output(/sandbox-api-key/).to_stdout
+      end
+
+      it "keeps the signature out of the log" do
+        signed = described_class.new(apikey: "key-id", apisecret: "secret", base_url: "https://api.example.test")
+
+        expect { signed.get("/test") }.not_to output(/key-id|signature=/).to_stdout
+      end
     end
 
     context "when a custom middleware is provided" do
       let(:logger_middleware) { Class.new(Faraday::Middleware) }
       let(:options) { { logger_middleware: logger_middleware, logger_options: { log_level: :debug } } }
 
-      it "registers that middleware with the extra options and the password filter" do
+      it "registers that middleware with the extra options and the log filters" do
         handler = handlers.last
 
         expect(handlers.map(&:klass)).to eq([
@@ -314,6 +335,7 @@ RSpec.describe Modulr::Client, :unit do
 
         handler.instance_variable_get(:@block).call(logger)
         expect(logger).to have_received(:filter).with(/("password":)"(\w+)"/, '\1[FILTERED]')
+        expect(logger).to have_received(:filter).with(/(Authorization: ).*$/, '\1[FILTERED]')
       end
     end
 
