@@ -40,6 +40,7 @@ module Modulr
         if @logger_enabled
           builder.use @logger_middleware, nil, { headers: true, bodies: true }.merge(@logger_options) do |logger|
             logger.filter(/("password":)"(\w+)"/, '\1[FILTERED]')
+            logger.filter(/(Authorization: ).*$/, '\1[FILTERED]')
           end
         end
         builder.adapter :net_http
