@@ -7,7 +7,7 @@ RSpec.shared_examples "builds correct request" do |params|
       "Content-Type" => "application/json",
     }
   end
-  let(:method) { params[:method].to_sym || :get }
+  let(:method) { params[:method].to_sym }
   let(:path) { params[:path] || nil }
   let(:headers) { params[:headers] || default_headers }
   let(:query) { params[:query] || nil }

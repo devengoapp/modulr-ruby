@@ -28,7 +28,7 @@ module Modulr
             map :details, :raw_details
 
             def initialize(response, attributes = {})
-              super(response, attributes)
+              super
 
               @payer = Counterparty.new(nil, attributes[:payer])
               @payee = Counterparty.new(nil, attributes[:payee])

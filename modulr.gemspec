@@ -19,7 +19,7 @@ Gem::Specification.new do |spec|
   spec.homepage = "https://github.com/devengoapp/modulr-ruby"
 
   spec.license = "MIT"
-  spec.required_ruby_version = ">= 2.7.0"
+  spec.required_ruby_version = ">= 3.2"
 
   spec.metadata["homepage_uri"] = spec.homepage
   spec.metadata["source_code_uri"] = "https://github.com/devengoapp/modulr-ruby"
@@ -37,17 +37,6 @@ Gem::Specification.new do |spec|
   spec.executables = spec.files.grep(%r{\Aexe/}) { |f| File.basename(f) }
   spec.require_paths = ["lib"]
 
-  spec.add_dependency "faraday", "~> 1.0"
-  spec.add_dependency "faraday_middleware", "~> 1.0"
-  spec.add_development_dependency "byebug", "~> 11.1"
-  spec.add_development_dependency "guard", "~> 2.0"
-  spec.add_development_dependency "guard-rspec", "~> 4.0"
-  spec.add_development_dependency "rake", "~> 12.0"
-  spec.add_development_dependency "rspec", "~> 3.0"
-  spec.add_development_dependency "rubocop", "~> 1.0"
-  spec.add_development_dependency "rubocop-performance", "~> 1.0"
-  spec.add_development_dependency "rubocop-rake", "~> 0.1"
-  spec.add_development_dependency "rubocop-rspec", "~> 2.0"
-  spec.add_development_dependency "test-prof", "~> 1.0"
-  spec.add_development_dependency "webmock", "~> 2.1"
+  spec.add_dependency "base64", "~> 0.2"
+  spec.add_dependency "faraday", ">= 2.0", "< 3"
 end

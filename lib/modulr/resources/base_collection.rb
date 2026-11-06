@@ -12,8 +12,8 @@ module Modulr
         @items = attributes_collection.map { |attributes| item_klass.new(nil, attributes) }
       end
 
-      def each(&block)
-        @items.each(&block)
+      def each(&)
+        @items.each(&)
       end
     end
   end

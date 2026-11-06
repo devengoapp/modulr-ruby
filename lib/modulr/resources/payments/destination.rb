@@ -10,7 +10,7 @@ module Modulr
         map :name
 
         def initialize(response, attributes = {})
-          super(response, attributes)
+          super
 
           @identifier = Accounts::Identifier.new(nil, attributes)
         end
