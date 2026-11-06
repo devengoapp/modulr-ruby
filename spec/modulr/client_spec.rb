@@ -351,4 +351,18 @@ RSpec.describe Modulr::Client, :unit do
       end
     end
   end
+
+  describe "#inspect" do
+    let(:client) do
+      described_class.new(
+        apikey: "the-key", apisecret: "the-secret", proxy: "http://user:proxy-pass@proxy.example", logger_enabled: false
+      )
+    end
+
+    it "leaves the credentials out, pp included" do
+      client.connection
+
+      expect([client.inspect, client.pretty_inspect]).to eq(["#<Modulr::Client>", "#<Modulr::Client>\n"])
+    end
+  end
 end
