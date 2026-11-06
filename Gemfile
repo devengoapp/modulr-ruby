@@ -14,5 +14,6 @@ gem "rubocop", "~> 1.81"
 gem "rubocop-performance", "~> 1.26"
 gem "rubocop-rake", "~> 0.7"
 gem "rubocop-rspec", "~> 3.7"
+gem "simplecov", "~> 1.3", require: false
 gem "test-prof", "~> 1.4"
 gem "webmock", "~> 3.26"

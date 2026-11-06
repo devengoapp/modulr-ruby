@@ -188,6 +188,53 @@ RSpec.describe Modulr::Client, :unit do
     end
   end
 
+  describe "authentication outside the sandbox" do
+    let(:client) do
+      initialize_client(
+        apikey: "api_key", apisecret: "api_secret", base_url: "https://api.example.test", logger_enabled: false
+      )
+    end
+    let(:requests) { [] }
+    let(:sent_headers) { requests.last.headers.transform_keys(&:downcase) }
+    let(:expected_signature) do
+      Modulr::Auth::Signature.calculate(
+        apikey: "api_key", apisecret: "api_secret", nonce: sent_headers["x-mod-nonce"], timestamp: sent_headers["date"]
+      )
+    end
+
+    before do
+      stub_request(:any, %r{api.example.test/test}).to_return do |request|
+        requests << request
+        { status: 200, body: "{}", headers: { "Content-Type" => "application/json" } }
+      end
+    end
+
+    it "signs the request with the API secret instead of sending the bare API key" do
+      client.get("/test")
+
+      expect(sent_headers["authorization"]).to eq(expected_signature.authorization)
+      expect(sent_headers["authorization"]).to start_with('Signature keyId="api_key"')
+    end
+
+    it "sends the date and nonce it signed" do
+      client.get("/test")
+
+      expect(Time.httpdate(sent_headers["date"])).to be_within(5).of(Time.now)
+      expect(sent_headers["x-mod-nonce"]).not_to be_empty
+    end
+
+    context "when idempotency_key is provided" do
+      before { stub_modulr_apikey_env_for_idempotency }
+
+      it "signs with the idempotency nonce" do
+        client.post("/test", { amount: "1.0" }, idempotency_key: "signed-idempotency-key")
+
+        expect(sent_headers["x-mod-nonce"]).to eq(described_class.idempotency_nonce("signed-idempotency-key"))
+        expect(sent_headers["authorization"]).to eq(expected_signature.authorization)
+      end
+    end
+  end
+
   describe "Faraday error mapping" do
     let(:client) { initialize_client }
     let(:faraday_connection) { instance_double(Faraday::Connection) }

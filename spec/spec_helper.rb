@@ -1,5 +1,13 @@
 # frozen_string_literal: true
 
+require "simplecov"
+SimpleCov.start do
+  enable_coverage :branch
+  skip "/spec/"
+  # Only on CI: a partial local run would always be below the minimum.
+  minimum_coverage line: 98, branch: 80 if ENV["CI"]
+end
+
 require "modulr"
 require "yaml"
 
