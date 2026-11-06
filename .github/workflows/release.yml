@@ -10,7 +10,7 @@ permissions: {}
 
 jobs:
   ci:
-    uses: ./.github/workflows/ci.yml
+    uses: $/.github/workflows/ci.yml
     permissions:
       contents: read
 
@@ -35,8 +35,9 @@ jobs:
       - name: Set up Ruby
         # yamllint disable-line rule:line-length
         uses: ruby/setup-ruby@de492cf36cbab201753d720ce4f4e336cd688c94  # v1.336.0
-        with:
-          bundler-cache: true
+      # No bundler cache: a poisoned cache would end up in the published gem.
+      - name: Install dependencies
+        run: bundle install
       - name: Release Gem
         # yamllint disable-line rule:line-length
         uses: rubygems/release-gem@7f9650160c1a4e7989fdc9855807bdbd421d8b6b  # v1.4.1
