@@ -14,6 +14,7 @@ gem "rubocop", "~> 1.81"
 gem "rubocop-performance", "~> 1.26"
 gem "rubocop-rake", "~> 0.7"
 gem "rubocop-rspec", "~> 3.7"
-gem "simplecov", "~> 1.3", require: false
+# 1.3 requires Ruby 3.3; this gem still supports 3.2.
+gem "simplecov", "~> 1.2.0", require: false
 gem "test-prof", "~> 1.4"
 gem "webmock", "~> 3.26"
