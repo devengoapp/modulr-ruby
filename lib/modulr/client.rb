@@ -29,6 +29,11 @@ module Modulr
       @services = {}
     end
 
+    # The default prints every instance variable, the API key and secret and the proxy credentials included.
+    def inspect
+      "#<#{self.class.name}>"
+    end
+
     def connection
       @connection ||= Faraday.new do |builder|
         builder.use Faraday::Response::RaiseError
@@ -40,6 +45,7 @@ module Modulr
         if @logger_enabled
           builder.use @logger_middleware, nil, { headers: true, bodies: true }.merge(@logger_options) do |logger|
             logger.filter(/("password":)"(\w+)"/, '\1[FILTERED]')
+            logger.filter(/(Authorization: ).*$/, '\1[FILTERED]')
           end
         end
         builder.adapter :net_http

@@ -188,6 +188,53 @@ RSpec.describe Modulr::Client, :unit do
     end
   end
 
+  describe "authentication outside the sandbox" do
+    let(:client) do
+      initialize_client(
+        apikey: "api_key", apisecret: "api_secret", base_url: "https://api.example.test", logger_enabled: false
+      )
+    end
+    let(:requests) { [] }
+    let(:sent_headers) { requests.last.headers.transform_keys(&:downcase) }
+    let(:expected_signature) do
+      Modulr::Auth::Signature.calculate(
+        apikey: "api_key", apisecret: "api_secret", nonce: sent_headers["x-mod-nonce"], timestamp: sent_headers["date"]
+      )
+    end
+
+    before do
+      stub_request(:any, %r{api.example.test/test}).to_return do |request|
+        requests << request
+        { status: 200, body: "{}", headers: { "Content-Type" => "application/json" } }
+      end
+    end
+
+    it "signs the request with the API secret instead of sending the bare API key" do
+      client.get("/test")
+
+      expect(sent_headers["authorization"]).to eq(expected_signature.authorization)
+      expect(sent_headers["authorization"]).to start_with('Signature keyId="api_key"')
+    end
+
+    it "sends the date and nonce it signed" do
+      client.get("/test")
+
+      expect(Time.httpdate(sent_headers["date"])).to be_within(5).of(Time.now)
+      expect(sent_headers["x-mod-nonce"]).not_to be_empty
+    end
+
+    context "when idempotency_key is provided" do
+      before { stub_modulr_apikey_env_for_idempotency }
+
+      it "signs with the idempotency nonce" do
+        client.post("/test", { amount: "1.0" }, idempotency_key: "signed-idempotency-key")
+
+        expect(sent_headers["x-mod-nonce"]).to eq(described_class.idempotency_nonce("signed-idempotency-key"))
+        expect(sent_headers["authorization"]).to eq(expected_signature.authorization)
+      end
+    end
+  end
+
   describe "Faraday error mapping" do
     let(:client) { initialize_client }
     let(:faraday_connection) { instance_double(Faraday::Connection) }
@@ -296,13 +343,34 @@ RSpec.describe Modulr::Client, :unit do
 
       handler.instance_variable_get(:@block).call(logger)
       expect(logger).to have_received(:filter).with(/("password":)"(\w+)"/, '\1[FILTERED]')
+      expect(logger).to have_received(:filter).with(/(Authorization: ).*$/, '\1[FILTERED]')
+    end
+
+    context "with the default logger" do
+      before do
+        stub_request(:get, /test/)
+          .to_return(status: 200, body: "{}", headers: { "Content-Type" => "application/json" })
+      end
+
+      it "keeps the sandbox API key out of the log" do
+        sandbox = described_class.new(apikey: "sandbox-api-key")
+
+        expect { sandbox.get("/test") }.to output(a_string_including("Authorization: [FILTERED]")).to_stdout
+        expect { sandbox.get("/test") }.not_to output(/sandbox-api-key/).to_stdout
+      end
+
+      it "keeps the signature out of the log" do
+        signed = described_class.new(apikey: "key-id", apisecret: "secret", base_url: "https://api.example.test")
+
+        expect { signed.get("/test") }.not_to output(/key-id|signature=/).to_stdout
+      end
     end
 
     context "when a custom middleware is provided" do
       let(:logger_middleware) { Class.new(Faraday::Middleware) }
       let(:options) { { logger_middleware: logger_middleware, logger_options: { log_level: :debug } } }
 
-      it "registers that middleware with the extra options and the password filter" do
+      it "registers that middleware with the extra options and the log filters" do
         handler = handlers.last
 
         expect(handlers.map(&:klass)).to eq([
@@ -314,6 +382,7 @@ RSpec.describe Modulr::Client, :unit do
 
         handler.instance_variable_get(:@block).call(logger)
         expect(logger).to have_received(:filter).with(/("password":)"(\w+)"/, '\1[FILTERED]')
+        expect(logger).to have_received(:filter).with(/(Authorization: ).*$/, '\1[FILTERED]')
       end
     end
 
@@ -327,6 +396,20 @@ RSpec.describe Modulr::Client, :unit do
           Faraday::Response::Json,
         ])
       end
+    end
+  end
+
+  describe "#inspect" do
+    let(:client) do
+      described_class.new(
+        apikey: "the-key", apisecret: "the-secret", proxy: "http://user:proxy-pass@proxy.example", logger_enabled: false
+      )
+    end
+
+    it "leaves the credentials out, pp included" do
+      client.connection
+
+      expect([client.inspect, client.pretty_inspect]).to eq(["#<Modulr::Client>", "#<Modulr::Client>\n"])
     end
   end
 end

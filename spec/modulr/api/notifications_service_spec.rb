@@ -195,5 +195,53 @@ RSpec.describe Modulr::API::NotificationsService, :unit, type: :client do
         expect(notifications_list.count).to be(1)
       end
     end
+
+    context "when partner_id is provided" do
+      before do
+        stub_request(:get, %r{/partners/P1234/notifications}).to_return(
+          read_http_response_fixture("notifications/list", "success")
+        )
+      end
+
+      it "requests the partner notifications" do
+        notifications.list(partner_id: "P1234", customer_id: "C2188C26")
+
+        expect(WebMock).to have_requested(:get, %r{/partners/P1234/notifications})
+      end
+    end
+  end
+
+  describe "update notification" do
+    before do
+      stub_request(:put, %r{/customers/C2188C26/notifications/W21082VKSF}).to_return(
+        read_http_response_fixture("notifications/update", "success")
+      )
+    end
+
+    let!(:updated_notification) do
+      notifications.update(
+        id: "W21082VKSF",
+        customer_id: "C2188C26",
+        status: "INACTIVE",
+        destinations: ["https://foo.bar"],
+        config: { retry: false }
+      )
+    end
+
+    it_behaves_like "builds correct request", {
+      method: :put,
+      path: %r{/customers/C2188C26/notifications/W21082VKSF},
+      body: {
+        status: "INACTIVE",
+        destinations: ["https://foo.bar"],
+        config: { retry: false },
+      },
+    }
+
+    it "returns the updated notification" do
+      expect(updated_notification).to be_a Modulr::Resources::Notifications::Notification
+      expect(updated_notification.id).to eql("W21082VKSF")
+      expect(updated_notification.status).to eql("INACTIVE")
+    end
   end
 end
