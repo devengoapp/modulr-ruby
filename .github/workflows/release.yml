@@ -14,15 +14,37 @@ jobs:
     permissions:
       contents: read
 
+  changelog:
+    runs-on: ubuntu-26.04
+    permissions:
+      contents: read
+    steps:
+      - name: Checkout Code
+        # yamllint disable-line rule:line-length
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7.0.1
+        with:
+          persist-credentials: false
+      - name: Check CHANGELOG.md has this version
+        run: |
+          version="${GITHUB_REF_NAME#v}"
+          grep -qF "## [$version] - " CHANGELOG.md || {
+            echo "::error file=CHANGELOG.md::No section for $version"
+            exit 1
+          }
+
   publish:
-    needs: ci
-    runs-on: ubuntu-latest
+    needs: [ci, changelog]
+    runs-on: ubuntu-26.04
     environment:
       name: release
       url: https://rubygems.org/gems/modulr-api
     permissions:
       contents: read
       id-token: write
+    env:
+      # Keeps the bundle's json 3 away from the sigstore signer, which breaks
+      # under it (segiddins/protobug#333).
+      BUNDLE_PATH: vendor/bundle
     steps:
       - name: Checkout Code
         # yamllint disable-line rule:line-length

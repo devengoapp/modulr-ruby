@@ -15,7 +15,7 @@ permissions:
 
 jobs:
   markdownlint-cli:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-26.04
     steps:
       - name: Checkout Code
         # yamllint disable-line rule:line-length
@@ -30,7 +30,7 @@ jobs:
           config_file: ".markdownlint.yaml"
 
   yamllint:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-26.04
     steps:
       - name: Checkout Code
         # yamllint disable-line rule:line-length
@@ -42,7 +42,7 @@ jobs:
         uses: actionshub/yamllint@00f4f7f756a93a38e77ea1af41a46b48fd893dcd  # v1.8.3
 
   zizmor:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-26.04
     steps:
       - name: Checkout Code
         # yamllint disable-line rule:line-length
@@ -57,7 +57,7 @@ jobs:
 
   build:
     needs: [markdownlint-cli, yamllint, zizmor]
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-26.04
     name: Ruby ${{ matrix.ruby-version }}
     strategy:
       matrix:
